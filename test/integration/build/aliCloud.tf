@@ -33,6 +33,8 @@ resource "alicloud_vpc" "inspec_vpc" {
   cidr_block = var.alicloud_vpc_cidr
 }
 
+########### Security Groups #####################
+
 # there is no default security group it seems in alicloud
 # creating two so the security_groups verify tests can count
 # more than 1
@@ -116,8 +118,9 @@ resource "alicloud_ram_role_policy_attachment" "actiontrail-attachment" {
 }
 
 resource "alicloud_oss_bucket" "action-trail-bucket" {
-  count  = var.alicloud_enable_create
-  bucket = var.alicloud_action_trail_bucket_name
+  count         = var.alicloud_enable_create
+  bucket        = var.alicloud_action_trail_bucket_name
+  force_destroy = true
 }
 
 resource "alicloud_actiontrail" "action-trail" {
