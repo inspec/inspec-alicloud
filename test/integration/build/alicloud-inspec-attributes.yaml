@@ -2,3 +2,5 @@
 :alicloud_region: eu-west-1
 :alicloud_vpc_id: vpc-d7oxow5gdtfyqt6q76wec
 :alicloud_security_group_alpha_id: sg-d7ohn1cex9oz1h84m42w
+:alicloud_action_trail_name: test-trail
+:alicloud_action_trail_bucket_id: test-trail-bucket
