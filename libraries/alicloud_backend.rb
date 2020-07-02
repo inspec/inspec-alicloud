@@ -17,17 +17,21 @@ class AliCloudConnection
   end
 
   def alicloud_client(api:, api_version:)
-    endpoint = if api == 'sts'
-                 "https://#{api}.aliyuncs.com"
-               else
-                 "https://#{api}.#{ENV['ALICLOUD_REGION']}.aliyuncs.com"
-               end
+    region = @client_args.fetch(:alicloud_region, nil) || ENV['ALICLOUD_REGION'] if @client_args
+    region ||= ENV['ALICLOUD_REGION']
+
+    endpoint = @client_args.fetch(:alicloud_endpoint, nil) if @client_args
+    endpoint ||= if api == 'sts'
+                   "https://#{api}.aliyuncs.com"
+                 else
+                   "https://#{api}.#{region}.aliyuncs.com"
+                 end
 
     RPCClient.new(
       access_key_id:     ENV['ALICLOUD_ACCESS_KEY'],
       access_key_secret: ENV['ALICLOUD_SECRET_KEY'],
-      endpoint: endpoint,
-      api_version: api_version
+      endpoint:          endpoint,
+      api_version:       api_version
     )
   end
 
