@@ -86,4 +86,58 @@ class AliCloudResourceBase < Inspec.resource(1)
     @failed_resource = true
     nil
   end
+
+  # Prevent undefined method error by returning nil.
+  # This will prevent breaking a test when queried a non-existing method.
+  # @return [NilClass]
+  # @see https://github.com/inspec/inspec-azure/blob/master/libraries/support/azure/response.rb
+  def method_missing(method_name, *args, &block)
+    unless respond_to?(method_name)
+      NullResponse.new
+    else
+      super
+    end
+  end
+
+  # This is to make RuboCop happy.
+  def respond_to_missing?(*several_variants)
+    super
+  end
+end
+
+# Ensure to return nil recursively.
+# @see https://github.com/inspec/inspec-azure/blob/master/libraries/support/azure/response.rb
+#
+class NullResponse
+  def nil?
+    true
+  end
+  alias empty? nil?
+
+  def ==(other)
+    other.nil?
+  end
+  alias === ==
+  alias <=> ==
+
+  def key?(_key)
+    false
+  end
+
+  def method_missing(method_name, *args, &block)
+    unless respond_to?(method_name)
+      self
+    else
+      super
+    end
+  end
+
+  # This is to make RuboCop happy.
+  def respond_to_missing?(*several_variants)
+    super
+  end
+
+  def to_s
+    nil
+  end
 end

@@ -8,3 +8,4 @@ inspec.lock
 .terraform
 vendor
 .bundle
+*inspec-output*

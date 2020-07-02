@@ -11,7 +11,7 @@ class AliCloudRegion < AliCloudResourceBase
       it { should exist }
     end
   "
-  attr_reader :region_name, :region_endpoint, :region_local_name
+  attr_reader :region_name, :endpoint, :region_local_name
 
   def initialize(opts = {})
     opts = { region_name: opts } if opts.is_a?(String)
@@ -22,14 +22,14 @@ class AliCloudRegion < AliCloudResourceBase
     catch_alicloud_errors do
       @regions = @alicloud.ecs_client.request(action: 'DescribeRegions')['Regions']['Region']
       resp = @regions.find { |r| r['RegionId'] == @region_name }
-      return if resp.empty?
-      @region_endpoint = resp['RegionEndpoint']
+      return if resp.nil?
+      @endpoint = resp['RegionEndpoint']
       @region_local_name = resp['LocalName']
     end
   end
 
   def exists?
-    !@region_endpoint.nil?
+    !@endpoint.nil?
   end
 
   def to_s

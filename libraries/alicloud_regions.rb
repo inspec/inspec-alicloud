@@ -16,7 +16,7 @@ class AliCloudRegions < AliCloudResourceBase
 
   FilterTable.create
              .register_column(:region_names,       field: :region_name)
-             .register_column(:endpoints,          field: :region_endpoint)
+             .register_column(:endpoints,          field: :endpoint)
              .register_column(:region_local_names, field: :region_local_name)
              .install_filter_methods_on_resource(self, :table)
 
@@ -33,7 +33,7 @@ class AliCloudRegions < AliCloudResourceBase
     return [] if !@regions || @regions.empty?
     @regions.each do |region|
       region_rows += [{ region_name: region['RegionId'],
-                        region_endpoint: region['RegionEndpoint'],
+                        endpoint: region['RegionEndpoint'],
                         region_local_name: region['LocalName']}]
     end
     @table = region_rows
