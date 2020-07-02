@@ -1,5 +1,7 @@
 alicloud_vpc_id = input(:alicloud_vpc_id, value: '', description: 'AliCloud VPC ID.')
 alicloud_security_group_alpha_id = input(:alicloud_security_group_alpha_id, value: '', description: 'AliCloud Security Group ID.')
+alicloud_security_group_name = input(:alicloud_security_group_name, value: '', description: 'AliCloud Security Group name.')
+alicloud_security_group_description = input(:alicloud_security_group_description, value: '', description: 'AliCloud Security Group name.')
 
 title 'Test single AliCloud Security Groups'
 
@@ -14,8 +16,8 @@ control 'alicloud-security-group-1.0' do
   describe alicloud_security_group(alicloud_security_group_alpha_id) do
     it { should exist }
     its('vpc_id') { should eq alicloud_vpc_id }
-    its('group_name') { should eq 'inspec-sg' }
-    its('description') { should cmp 'Test security group for inspec' }
+    its('group_name') { should eq alicloud_security_group_name }
+    its('description') { should cmp alicloud_security_group_description }
     its('inbound_rules.count') { should be_zero }
     its('outbound_rules.count') { should be_zero }
   end

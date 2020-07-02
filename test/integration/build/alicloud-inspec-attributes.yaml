@@ -1,6 +1,17 @@
 ---
 :alicloud_region: eu-west-1
-:alicloud_vpc_id: vpc-d7oxow5gdtfyqt6q76wec
-:alicloud_security_group_alpha_id: sg-d7ohn1cex9oz1h84m42w
-:alicloud_action_trail_name: test-trail
-:alicloud_action_trail_bucket_id: test-trail-bucket
+:alicloud_vpc_name: vpc-htlajtinqmqccllkqjrgxdjry
+:alicloud_vpc_cidr: 10.0.1.0/24
+:alicloud_security_group_name: sg-lxffdnweqnnfwzwrtxomlfynu
+:alicloud_security_group_description: Test security group for inspec
+:alicloud_action_trail_ram_role_name: atrr-avhnzzlskyqoijhvrozuqbcez
+:alicloud_action_trail_ram_role_description: ActionTrail ram role
+:alicloud_action_trail_ram_policy_name: atrp-lneedhlqrjtkexubccvpfmngx
+:alicloud_action_trail_ram_policy_description: ActionTrail ram policy
+:alicloud_action_trail_name: at-dvfaaidwvckvdqueokhiknalj
+:alicloud_action_trail_bucket_name: atb-getlxzdanjqrppfsrngfwwkmp
+:alicloud_enable_create: 1
+:alicloud_vpc_id: vpc-d7obnd3v6480iji2dtud4
+:alicloud_security_group_id: sg-d7o8mka0cylz0xaldycl
+:alicloud_security_group_alpha_id: sg-d7o8mka0cylz0xaldycm
+:alicloud_action_trail_bucket_id: atb-getlxzdanjqrppfsrngfwwkmp
