@@ -1,4 +1,4 @@
-# AWS Terraform Templates for InSpec Testing
+# AliCloud Terraform Templates for InSpec Testing
 
 terraform {
   required_version = ">= 0.12"

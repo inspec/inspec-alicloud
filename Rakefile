@@ -57,8 +57,6 @@ namespace :test do
     cmd = 'bundle exec inspec exec %s --input-file %s --reporter cli json:%s.json html:%s.html --chef-license=accept-silent'
     cmd += ENV['INSPEC_TRAP_NON_ZERO_EXIT'] ? ' || true' : '; rc=$?; if [ $rc -eq 0 ] || [ $rc -eq 101 ]; then exit 0; else exit 1; fi'
     cmd = format(cmd, target, File.join(TERRAFORM_DIR.to_s, PROFILE_ATTRIBUTES), reporter_name, reporter_name)
-    puts "Current DIR #{File.join(File.dirname(__FILE__))}"
-    sh('pwd')
     sh(cmd)
   end
 

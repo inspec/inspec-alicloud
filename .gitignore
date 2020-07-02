@@ -6,6 +6,8 @@ inspec.lock
 *.plan
 *.tfstate*
 .terraform
+*inspec-*.tfvars
+*-inspec-attributes.yaml
 vendor
 .bundle
 *inspec-output*
