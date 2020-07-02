@@ -34,7 +34,7 @@ class AliCloudRegions < AliCloudResourceBase
     @regions.each do |region|
       region_rows += [{ region_name: region['RegionId'],
                         endpoint: region['RegionEndpoint'],
-                        region_local_name: region['LocalName']}]
+                        region_local_name: region['LocalName'] }]
     end
     @table = region_rows
   end

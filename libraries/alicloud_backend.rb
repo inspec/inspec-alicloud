@@ -92,10 +92,10 @@ class AliCloudResourceBase < Inspec.resource(1)
   # @return [NilClass]
   # @see https://github.com/inspec/inspec-azure/blob/master/libraries/support/azure/response.rb
   def method_missing(method_name, *args, &block)
-    unless respond_to?(method_name)
-      NullResponse.new
-    else
+    if respond_to?(method_name)
       super
+    else
+      NullResponse.new
     end
   end
 
@@ -125,10 +125,10 @@ class NullResponse
   end
 
   def method_missing(method_name, *args, &block)
-    unless respond_to?(method_name)
-      self
-    else
+    if respond_to?(method_name)
       super
+    else
+      self
     end
   end
 

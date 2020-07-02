@@ -1,5 +1,5 @@
 require_relative 'libraries/alicloud_backend'
-client_args = { }
+client_args = {}
 @alicloud = AliCloudConnection.new(client_args)
 
 sts_client = @alicloud.sts_client

@@ -10,4 +10,4 @@ control 'alicloud-regions-1.0' do
     its('region_names') { should include 'eu-west-1' }
     its('endpoints') { should include 'ecs.eu-west-1.aliyuncs.com' }
   end
-end  
+end
