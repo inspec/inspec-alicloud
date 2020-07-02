@@ -1,0 +1,10 @@
+.envrc
+.ruby-version
+.direnv
+Gemfile.lock
+inspec.lock
+*.plan
+*.tfstate*
+.terraform
+vendor
+.bundle
