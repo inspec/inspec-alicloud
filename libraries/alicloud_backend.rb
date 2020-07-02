@@ -42,6 +42,10 @@ class AliCloudConnection
     alicloud_client(api: 'actiontrail', api_version: '2017-12-04')
   end
 
+  def ecs_client
+    alicloud_client(api: 'ecs', api_version: '2014-05-26')
+  end
+
   def sts_client
     alicloud_client(api: 'sts', api_version: '2015-04-01')
   end
