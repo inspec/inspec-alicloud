@@ -22,6 +22,7 @@ class AliCloudRegions < AliCloudResourceBase
 
   def initialize(opts = {})
     super(opts)
+    validate_parameters
     @table = fetch_data
   end
 

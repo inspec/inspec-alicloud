@@ -15,7 +15,7 @@ class AliCloudStsCallerIdentity < AliCloudResourceBase
 
   def initialize(opts = {})
     super(opts)
-    # validate_parameters
+    validate_parameters
 
     catch_alicloud_errors do
       @arn = @alicloud.sts_client.request(action: 'GetCallerIdentity')['Arn']
