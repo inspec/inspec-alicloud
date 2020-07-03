@@ -54,7 +54,8 @@ class AliCloudCloudTrailTrail < AliCloudResourceBase
       )
       # LatestDeliveryTime is unix time with milliseconds
       # Subtract two datetime objects for difference in days
-      (DateTime.now - DateTime.strptime(trail_status['LatestDeliveryTime'].to_s, '%Q')).to_i
+      # May not exist if no logs have been delivered yet
+      (DateTime.now - DateTime.strptime(trail_status['LatestDeliveryTime'].to_s, '%Q')).to_i if trail_status['LatestDeliveryTime']
     end
   end
 
