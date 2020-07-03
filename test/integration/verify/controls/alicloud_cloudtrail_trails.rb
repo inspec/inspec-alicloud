@@ -4,7 +4,7 @@ alicloud_action_trail_name = input(:alicloud_action_trail_name, value: '', descr
 
 control 'alicloud-actiontrails-1.0' do
   impact 1.0
-  title 'Ensure AWS Cloud Trail plural resource has the correct properties.'
+  title 'Ensure AlicCloud Action Trail plural resource has the correct properties.'
 
   describe alicloud_actiontrail_trails do
     it { should exist }

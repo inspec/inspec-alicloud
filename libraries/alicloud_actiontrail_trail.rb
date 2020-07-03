@@ -52,7 +52,9 @@ class AliCloudCloudTrailTrail < AliCloudResourceBase
           "Name": @trail_name,
         }
       )
-      ((Time.now - trail_status['LatestDeliveryTime']) / (24 * 60 * 60)).to_i
+      # LatestDeliveryTime is unix time with milliseconds
+      # Subtract two datetime objects for difference in days
+      (DateTime.now - DateTime.strptime(trail_status['LatestDeliveryTime'].to_s, '%Q')).to_i
     end
   end
 
