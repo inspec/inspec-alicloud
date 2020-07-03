@@ -53,8 +53,7 @@ namespace :test do
     target = ENV['INSPEC_PROFILE_TARGET'] ? ENV['INSPEC_PROFILE_TARGET'] : CONTROLS_DIR
     reporter_name = ENV['INSPEC_REPORT_NAME'] ? ENV['INSPEC_REPORT_NAME'] : 'inspec-output'
     # Since the default behaviour is to skip tests, the below absorbs an inspec "101 run okay + skipped only" exit code as successful
-    # cmd = 'bundle exec inspec exec %s -t aliyun:// --input-file %s --reporter cli json:%s.json html:%s.html --chef-license=accept-silent'
-    cmd = 'bundle exec inspec exec %s --input-file %s --reporter cli json:%s.json html:%s.html --chef-license=accept-silent'
+    cmd = 'bundle exec inspec exec %s -t alicloud:// --input-file %s --reporter cli json:%s.json html:%s.html --chef-license=accept-silent'
     cmd += ENV['INSPEC_TRAP_NON_ZERO_EXIT'] ? ' || true' : '; rc=$?; if [ $rc -eq 0 ] || [ $rc -eq 101 ]; then exit 0; else exit 1; fi'
     cmd = format(cmd, target, File.join(TERRAFORM_DIR.to_s, PROFILE_ATTRIBUTES), reporter_name, reporter_name)
     sh(cmd)
@@ -71,15 +70,14 @@ namespace :test do
 end
 
 namespace :tf do
+  task :tf_dir do
+    Dir.chdir(TERRAFORM_DIR)
+  end
 
- task :tf_dir do
-   Dir.chdir(TERRAFORM_DIR)
- end
-
- task init_workspace: [:tf_dir] do
-   puts '----> Initializing Terraform'
-   cmd = format('terraform init')
-   sh(cmd)
+  task init_workspace: [:tf_dir] do
+    puts '----> Initializing Terraform'
+    cmd = format('terraform init')
+    sh(cmd)
   end
 
   task plan_integration_tests: [:tf_dir, :init_workspace] do
@@ -112,5 +110,4 @@ namespace :tf do
     cmd = format(cmd, TF_VAR_FILE_NAME)
     sh(cmd)
   end
-
 end
