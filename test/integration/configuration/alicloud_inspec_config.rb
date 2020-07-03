@@ -31,6 +31,11 @@ module AliCloudInspecConfig
       alicloud_action_trail_ram_policy_description: 'ActionTrail ram policy',
       alicloud_action_trail_name: "at-#{add_random_string}",
       alicloud_action_trail_bucket_name: "atb-#{add_random_string}",
+      alicloud_disk_name: "d-#{add_random_string}",
+      alicloud_disk_size: '20',
+      alicloud_disk_desc: "Test disk for inspec",
+      alicloud_disk_encrypted: false, # need to set up kms before setting to true
+      alicloud_disk_category: 'cloud_efficiency',
       # Simple flag to disable creation of resources (useful when prototyping new ones in isolation)
       alicloud_enable_create: 1
   }
