@@ -227,3 +227,14 @@ resource "alicloud_slb_listener" "https" {
   tls_cipher_policy     = var.alicloud_https_listener_tls_cipher_policy
   server_certificate_id = alicloud_slb_server_certificate.slb-cert.id
 }
+
+########### RAM Password Policy ##################
+
+variable "alicloud_ram_account_password_policy_password_reuse_prevention" {}
+variable "alicloud_ram_account_password_policy_max_password_age" {}
+
+resource "alicloud_ram_account_password_policy" "test" {
+  password_reuse_prevention = var.alicloud_ram_account_password_policy_password_reuse_prevention
+  max_password_age          = var.alicloud_ram_account_password_policy_max_password_age
+}
+

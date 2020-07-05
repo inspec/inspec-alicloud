@@ -52,6 +52,8 @@ module AliCloudInspecConfig
       alicloud_https_listener_bandwidth: 1,
       alicloud_https_listener_tls_cipher_policy: 'tls_cipher_policy_1_2',
       alicloud_tags: { 'test' => 'tag' },
+      alicloud_ram_account_password_policy_password_reuse_prevention: 5,
+      alicloud_ram_account_password_policy_max_password_age: 180,
       # Simple flag to disable creation of resources (useful when prototyping new ones in isolation)
       alicloud_enable_create: 1
   }
