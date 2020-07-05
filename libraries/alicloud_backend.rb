@@ -46,6 +46,10 @@ class AliCloudConnection
     alicloud_client(api: 'actiontrail', api_version: '2017-12-04')
   end
 
+  def slb_client
+    alicloud_client(api: 'slb', api_version: '2014-05-15')
+  end
+
   def ecs_client
     alicloud_client(api: 'ecs', api_version: '2014-05-26')
   end
@@ -56,7 +60,6 @@ class AliCloudConnection
 end
 
 # Base class for AliCloud resources
-#
 class AliCloudResourceBase < Inspec.resource(1)
   attr_reader :opts, :alicloud
 

@@ -12,3 +12,4 @@ inspec.lock
 vendor
 .bundle
 *inspec-output*
+tags
