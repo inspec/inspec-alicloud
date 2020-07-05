@@ -138,19 +138,19 @@ resource "alicloud_actiontrail" "action-trail" {
 ########### Disk ################################
 
 data "alicloud_zones" "zones_ds" {
-￼  available_resource_creation = "Disk"
+  available_resource_creation = "Disk"
 }
 
 resource "alicloud_disk" "alpha" {
-￼ count             = var.alicloud_enable_create
-￼ availability_zone = data.alicloud_zones.zones_ds.zones.0.id
-￼ name              = var.alicloud_disk_name
-￼ description       = var.alicloud_disk_desc
-￼ category          = var.alicloud_disk_category
-￼ size              = var.alicloud_disk_size
+  count             = var.alicloud_enable_create
+  availability_zone = data.alicloud_zones.zones_ds.zones.0.id
+  name              = var.alicloud_disk_name
+  description       = var.alicloud_disk_desc
+  category          = var.alicloud_disk_category
+  size              = var.alicloud_disk_size
   encrypted         = var.alicloud_disk_encrypted
 }
-￼
+
 resource "alicloud_disk" "beta" {
   count             = var.alicloud_enable_create
   availability_zone = data.alicloud_zones.zones_ds.zones.0.id
@@ -183,7 +183,7 @@ data "alicloud_zones" "zones_slb" {
   available_resource_creation = "Slb"
 }
 
-resource "alicloud_slb" "slb_http_test" {
+resource "alicloud_slb" "slb-http-test" {
   count          = var.alicloud_enable_create
   master_zone_id = data.alicloud_zones.zones_slb.zones.0.id
   name           = var.alicloud_slb_http_name
@@ -191,7 +191,7 @@ resource "alicloud_slb" "slb_http_test" {
   tags           = var.alicloud_tags
 }
 
-resource "alicloud_slb" "slb_https_test" {
+resource "alicloud_slb" "slb-https-test" {
   count          = var.alicloud_enable_create
   master_zone_id = data.alicloud_zones.zones_slb.zones.0.id
   name           = var.alicloud_slb_https_name
@@ -202,7 +202,7 @@ resource "alicloud_slb" "slb_https_test" {
 
 ############# SLB server certificate #############
 
-resource "alicloud_slb_server_certificate" "slb_cert" {
+resource "alicloud_slb_server_certificate" "slb-cert" {
   name               = var.alicloud_slb_server_certificate_name
   server_certificate = file("${path.module}/fixtures/certs/test.crt")
   private_key        = file("${path.module}/fixtures/certs/test.key")
@@ -211,7 +211,7 @@ resource "alicloud_slb_server_certificate" "slb_cert" {
 ############# SLB Listeners ######################
 
 resource "alicloud_slb_listener" "http" {
-  load_balancer_id = alicloud_slb.slb_http_test.0.id
+  load_balancer_id = alicloud_slb.slb-http-test.0.id
   frontend_port    = var.alicloud_http_listener_fe_port
   backend_port     = var.alicloud_http_listener_be_port
   protocol         = var.alicloud_http_listener_protocol
@@ -219,11 +219,11 @@ resource "alicloud_slb_listener" "http" {
 }
 
 resource "alicloud_slb_listener" "https" {
-  load_balancer_id      = alicloud_slb.slb_https_test.0.id
+  load_balancer_id      = alicloud_slb.slb-https-test.0.id
   frontend_port         = var.alicloud_https_listener_fe_port
   backend_port          = var.alicloud_https_listener_be_port
   protocol              = var.alicloud_https_listener_protocol
   bandwidth             = var.alicloud_https_listener_bandwidth
   tls_cipher_policy     = var.alicloud_https_listener_tls_cipher_policy
-  server_certificate_id = alicloud_slb_server_certificate.slb_cert.id
+  server_certificate_id = alicloud_slb_server_certificate.slb-cert.id
 }

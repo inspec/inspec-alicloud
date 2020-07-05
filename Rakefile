@@ -65,7 +65,7 @@ namespace :test do
   task integration: ['tf:setup_integration_tests'] do
     Dir.chdir(File.join(File.dirname(__FILE__)))
     Rake::Task['test:run_integration_tests'].execute
-    Rake::Task['tf:destroy'].execute
+    #Rake::Task['tf:cleanup_integration_tests'].execute
   end
 end
 

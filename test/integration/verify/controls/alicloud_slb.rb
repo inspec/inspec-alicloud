@@ -23,7 +23,7 @@ control 'alicloud-slb-1.0' do
     its('https_only?') { should eq true }
   end
 
-  describe alicloud_security_group(slb_id: alicloud_slb_https_id, region: 'us-west-1') do
+  describe alicloud_slb(slb_id: alicloud_slb_https_id, region: 'us-west-1') do
     it { should_not exist }
   end
 

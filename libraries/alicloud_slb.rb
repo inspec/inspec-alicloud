@@ -20,9 +20,10 @@ class AliCloudSlb < AliCloudResourceBase
     opts = { slb_id: opts } if opts.is_a?(String)
     opts[:slb_id] = opts.delete(:id) if opts.key?(:id)
 
+    puts "options #{opts.inspect}"
     super(opts)
     validate_parameters(required: %i(slb_id))
-
+    puts "opts[:slb_id] #{opts[:slb_id]} and opts[:region] #{opts[:region]}" if opts[:slb_id] && opts[:region]
     catch_alicloud_errors do
       @resp = @alicloud.slb_client.request(
         action: 'DescribeLoadBalancerAttribute',
