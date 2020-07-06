@@ -16,6 +16,11 @@ variable "alicloud_action_trail_ram_role_name" {}
 variable "alicloud_action_trail_ram_role_description" {}
 variable "alicloud_action_trail_ram_policy_name" {}
 variable "alicloud_action_trail_ram_policy_description" {}
+variable "alicloud_disk_name" {}
+variable "alicloud_disk_size" {}
+variable "alicloud_disk_desc" {}
+variable "alicloud_disk_encrypted" {}
+variable "alicloud_disk_category" {}
 variable "alicloud_enable_create" {}
 
 provider "alicloud" {
@@ -127,4 +132,30 @@ resource "alicloud_actiontrail" "action-trail" {
   name            = var.alicloud_action_trail_name
   oss_bucket_name = alicloud_oss_bucket.action-trail-bucket.0.id
   role_name       = alicloud_ram_role_policy_attachment.actiontrail-attachment.0.role_name
+}
+
+
+########### Disk ################################
+
+data "alicloud_zones" "zones_ds" {
+  available_resource_creation = "Disk"
+}
+
+resource "alicloud_disk" "alpha" {
+  count             = var.alicloud_enable_create
+  availability_zone = data.alicloud_zones.zones_ds.zones.0.id
+  name              = var.alicloud_disk_name
+  description       = var.alicloud_disk_desc
+  category          = var.alicloud_disk_category
+  size              = var.alicloud_disk_size
+  encrypted         = var.alicloud_disk_encrypted
+}
+
+resource "alicloud_disk" "beta" {
+  count             = var.alicloud_enable_create
+  availability_zone = data.alicloud_zones.zones_ds.zones.0.id
+  name              = "second-disk"
+  description       = "second test disk"
+  category          = var.alicloud_disk_category
+  size              = var.alicloud_disk_size
 }
