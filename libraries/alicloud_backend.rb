@@ -11,7 +11,15 @@ class AliCloudConnection
   def initialize(params)
     params = {} if params.nil?
     if params.is_a?(Hash)
-      @client_args = params.fetch(:client_args, nil)
+
+      # TODO look into this a bit more below is the original code from AWS
+      # it does not look like we implement client_args at this point
+      # this was stopping us from passing a region parameter as params.fetch(:client_args, nil)
+      # always returns nill
+      #@client_args = params.fetch(:client_args, nil)
+
+      # replacement for now
+      @client_args = params
     end
     @cache = {}
   end
@@ -26,7 +34,6 @@ class AliCloudConnection
                  else
                    "https://#{api}.#{region}.aliyuncs.com"
                  end
-
     RPCClient.new(
       access_key_id:     ENV['ALICLOUD_ACCESS_KEY'],
       access_key_secret: ENV['ALICLOUD_SECRET_KEY'],
@@ -46,6 +53,10 @@ class AliCloudConnection
     alicloud_client(api: 'actiontrail', api_version: '2017-12-04')
   end
 
+  def slb_client
+    alicloud_client(api: 'slb', api_version: '2014-05-15')
+  end
+
   def ecs_client
     alicloud_client(api: 'ecs', api_version: '2014-05-26')
   end
@@ -56,7 +67,6 @@ class AliCloudConnection
 end
 
 # Base class for AliCloud resources
-#
 class AliCloudResourceBase < Inspec.resource(1)
   attr_reader :opts, :alicloud
 

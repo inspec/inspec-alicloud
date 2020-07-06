@@ -36,6 +36,22 @@ module AliCloudInspecConfig
       alicloud_disk_desc: "Test disk for inspec",
       alicloud_disk_encrypted: false, # need to set up kms before setting to true
       alicloud_disk_category: 'cloud_efficiency',
+      alicloud_slb_http_name: "slb-http-#{add_random_string}",
+      alicloud_slb_http_address_type: 'internet',
+      alicloud_slb_https_name: "slb-https-#{add_random_string}",
+      alicloud_slb_https_address_type: 'internet',
+      alicloud_slb_https_specification: 'slb.s1.small',
+      alicloud_slb_server_certificate_name: "slb-cert-#{add_random_string}",
+      alicloud_http_listener_fe_port: 80,
+      alicloud_http_listener_be_port: 80,
+      alicloud_http_listener_protocol: 'http',
+      alicloud_http_listener_bandwidth: 1,
+      alicloud_https_listener_fe_port: 443,
+      alicloud_https_listener_be_port: 443,
+      alicloud_https_listener_protocol: 'https',
+      alicloud_https_listener_bandwidth: 1,
+      alicloud_https_listener_tls_cipher_policy: 'tls_cipher_policy_1_2',
+      alicloud_tags: { 'test' => 'tag' },
       # Simple flag to disable creation of resources (useful when prototyping new ones in isolation)
       alicloud_enable_create: 1
   }
