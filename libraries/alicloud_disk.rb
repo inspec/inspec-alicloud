@@ -6,7 +6,7 @@ class AliCloudDisk < AliCloudResourceBase
   name 'alicloud_disk'
   desc 'Verifies properties for an individual AliCloud disk'
   example "
-  describe alicloud_diks('disk-12345678') do
+  describe alicloud_disks('disk-12345678') do
     it { should exist }
     its('encrypted') { should eq true }
     its('size')      { should cmp 100 }
@@ -28,9 +28,9 @@ class AliCloudDisk < AliCloudResourceBase
           'DiskIds': [opts[:disk_id]],
         },
        opts: {
-         method: 'POST'
+          method: 'POST'
        }
-     )['Disks']['Disk'].select { |d| d['DiskId'] == opts[:disk_id] }.first
+      )['Disks']['Disk'].select { |d| d['DiskId'] == opts[:disk_id] }.first
     end
 
     if @resp.nil?
