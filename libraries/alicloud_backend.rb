@@ -61,6 +61,10 @@ class AliCloudConnection
     alicloud_client(api: 'ecs', api_version: '2014-05-26')
   end
 
+  def oss_client
+    alicloud_client(api: 'oss', api_version: '2018-01-01')
+  end
+
   def sts_client
     alicloud_client(api: 'sts', api_version: '2015-04-01')
   end
