@@ -4,7 +4,7 @@ require 'alicloud_backend'
 
 class AliCloudRam < AliCloudResourceBase
   name 'alicloud_ram_password_policy'
-  desc 'Verifies properties for an individual AliCloud Application Load Balancer'
+  desc 'Verifies properties for an individual AliCloud RAM Password Policy'
   example "
   describe alicloud_ram_password_policy do
     it { should exist }
@@ -27,8 +27,7 @@ class AliCloudRam < AliCloudResourceBase
       @resp = @alicloud.ram_client.request(
         action: 'GetPasswordPolicy',
         params: {
-          'RegionId': opts[:region],
-          'enpoint': 'ram.aliyuncs.com'
+          'RegionId': opts[:region]
         },
         opts: {
           method: 'POST'
