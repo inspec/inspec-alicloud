@@ -31,9 +31,9 @@ class AliCloudOssBucket < AliCloudResourceBase
     # need to check some property of the bucket and rescue the Bucket doesn't exist error
     begin
       @bucket.acl
-      return true
-    rescue Aliyun::OSS::ServerError => e
-      return false
+      true
+    rescue Aliyun::OSS::ServerError
+      false
     end
   end
 
