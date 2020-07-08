@@ -27,7 +27,7 @@ class AliCloudDisks < AliCloudResourceBase
              .register_column(:encypted_disks, field: :encypted)
              .register_column(:categorys, field: :category)
              .register_column(:kms_key_ids, field: :kms_key_id)
-             .register_column(:sizes, field: :sizes)
+             .register_column(:sizes, field: :size)
              .install_filter_methods_on_resource(self, :table)
 
   def initialize(opts = {})
