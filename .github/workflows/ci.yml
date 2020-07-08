@@ -1,0 +1,49 @@
+---
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      
+jobs:
+  yamllint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@master
+      - name: Run yaml Lint
+        uses: actionshub/yamllint@master
+
+  mdl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@master
+      - name: Run Markdown Lint
+        uses: actionshub/markdownlint@master
+
+  tfl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@master
+      - name: Lint Terraform
+        uses: actionshub/terraform-lint@master
+
+  rake:
+    needs: [mdl, yamllint, tfl]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@master
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@master
+        with:
+          ruby-version: 2.6
+      - name: Build and test with Rake
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3 --without integration
+          bundle exec rake
