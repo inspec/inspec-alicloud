@@ -48,6 +48,11 @@ class AliCloudSlbHttpsListener < AliCloudResourceBase
     super
   end
 
+  # This is to make RuboCop happy.
+  def respond_to_missing?(*several_variants)
+    super
+  end
+
   def to_s
     buf = ''
     buf += "Load balancer id: #{@load_balancer_id} " if @load_balancer_id
