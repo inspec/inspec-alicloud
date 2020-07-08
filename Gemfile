@@ -7,6 +7,7 @@ gem 'bundle'
 # Use Latest Inspec
 gem 'inspec-bin'
 gem 'aliyunsdkcore'
+gem 'aliyun-sdk'
 gem 'train-alicloud', git: 'git@github.com:chef-customers/train-alicloud.git'
 
 gem 'rubocop', require: false

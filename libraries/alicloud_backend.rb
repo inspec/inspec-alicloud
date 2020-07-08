@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'aliyunsdkcore'
+require 'aliyun/oss'
 require 'rspec/expectations'
 
 # AliCloud Inspec Backend Classes
@@ -42,6 +43,18 @@ class AliCloudConnection
     )
   end
 
+  def aliyun_oss_client
+    region = @client_args.fetch(:region, nil) || ENV['ALICLOUD_REGION'] if @client_args
+    region ||= ENV['ALICLOUD_REGION']
+
+    endpoint = "https://oss-#{region}.aliyuncs.com"
+    Aliyun::OSS::Client.new(
+      endpoint: endpoint,
+      access_key_id: ENV['ALICLOUD_ACCESS_KEY'],
+      access_key_secret: ENV['ALICLOUD_SECRET_KEY'],
+    )
+  end
+
   def unique_identifier
     # use alicloud account id
     caller_identity = sts_client.request(action: 'GetCallerIdentity')
@@ -62,7 +75,7 @@ class AliCloudConnection
   end
 
   def oss_client
-    alicloud_client(api: 'oss', api_version: '2018-01-01')
+    aliyun_oss_client
   end
 
   def sts_client
