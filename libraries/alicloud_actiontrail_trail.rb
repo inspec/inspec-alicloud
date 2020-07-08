@@ -2,7 +2,7 @@
 
 require 'alicloud_backend'
 
-class AliCloudCloudTrailTrail < AliCloudResourceBase
+class AliCloudActionTrailTrail < AliCloudResourceBase
   name 'alicloud_actiontrail_trail'
   desc 'Verifies settings for an individual AliCloud ActionTrail'
 
@@ -78,6 +78,6 @@ class AliCloudCloudTrailTrail < AliCloudResourceBase
   end
 
   def to_s
-    "CloudTrail #{@trail_name}"
+    "ActionTrail #{@trail_name}"
   end
 end
