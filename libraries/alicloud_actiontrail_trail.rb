@@ -2,7 +2,7 @@
 
 require 'alicloud_backend'
 
-class AliCloudCloudTrailTrail < AliCloudResourceBase
+class AliCloudActionTrailTrail < AliCloudResourceBase
   name 'alicloud_actiontrail_trail'
   desc 'Verifies settings for an individual AliCloud ActionTrail'
 
@@ -25,7 +25,7 @@ class AliCloudCloudTrailTrail < AliCloudResourceBase
         params: {
           "RegionId": opts[:region],
           "NameList": @trail_name,
-        }
+        },
       )['TrailList']
 
       if resp.empty?
@@ -50,7 +50,7 @@ class AliCloudCloudTrailTrail < AliCloudResourceBase
         params: {
           "RegionId": opts[:region],
           "Name": @trail_name,
-        }
+        },
       )
       # LatestDeliveryTime is unix time with milliseconds
       # Subtract two datetime objects for difference in days
@@ -67,7 +67,7 @@ class AliCloudCloudTrailTrail < AliCloudResourceBase
         params: {
           "RegionId": opts[:region],
           "Name": @trail_name,
-        }
+        },
       )
       trail_status['IsLogging']
     end
@@ -78,6 +78,6 @@ class AliCloudCloudTrailTrail < AliCloudResourceBase
   end
 
   def to_s
-    "CloudTrail #{@trail_name}"
+    "ActionTrail #{@trail_name}"
   end
 end

@@ -24,7 +24,7 @@ class AliCloudSecurityGroups < AliCloudResourceBase
              .register_column(:group_ids, field: :group_id)
              .register_column(:group_descriptions, field: :group_description)
              .register_column(:vpc_ids, field: :vpc_id)
-             .register_column(:tags, field: :tag)
+             .register_column(:tags, field: :tags)
              .install_filter_methods_on_resource(self, :table)
 
   def initialize(opts = {})
@@ -35,14 +35,13 @@ class AliCloudSecurityGroups < AliCloudResourceBase
 
   def fetch_data
     security_group_rows = []
-    pagination_options = {}
 
     catch_alicloud_errors do
       @security_groups = @alicloud.ecs_client.request(
         action: 'DescribeSecurityGroups',
         params: {
           "RegionId": opts[:region],
-        }
+        },
       )['SecurityGroups']['SecurityGroup']
     end
 

@@ -12,11 +12,11 @@ class AliCloudConnection
     params = {} if params.nil?
     if params.is_a?(Hash)
 
-      # TODO look into this a bit more below is the original code from AWS
+      # TODO: look into this a bit more below is the original code from AWS
       # it does not look like we implement client_args at this point
       # this was stopping us from passing a region parameter as params.fetch(:client_args, nil)
       # always returns nill
-      #@client_args = params.fetch(:client_args, nil)
+      # @client_args = params.fetch(:client_args, nil)
 
       # replacement for now
       @client_args = params
@@ -29,7 +29,7 @@ class AliCloudConnection
     region ||= ENV['ALICLOUD_REGION']
 
     endpoint = @client_args.fetch(:endpoint, nil) if @client_args
-    endpoint ||= if api == 'sts' || api == 'ram'
+    endpoint ||= if %w{sts ram}.include?(api)
                    "https://#{api}.aliyuncs.com"
                  else
                    "https://#{api}.#{region}.aliyuncs.com"
@@ -38,7 +38,7 @@ class AliCloudConnection
       access_key_id:     ENV['ALICLOUD_ACCESS_KEY'],
       access_key_secret: ENV['ALICLOUD_SECRET_KEY'],
       endpoint:          endpoint,
-      api_version:       api_version
+      api_version:       api_version,
     )
   end
 
