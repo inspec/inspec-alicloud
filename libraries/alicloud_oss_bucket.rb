@@ -64,6 +64,11 @@ class AliCloudOssBucket < AliCloudResourceBase
   #   @bucket.versioning.enable == true
   # end
 
+  def has_website_enabled?
+    return false unless exists?
+    @bucket.website.enable == true
+  end
+
   def bucket_lifecycle_rules
     return false unless exists?
     @bucket.lifecycle
