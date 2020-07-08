@@ -116,6 +116,6 @@ class AliCloudSlb < AliCloudResourceBase
     slb = ''
     slb += "ID: #{@load_balancer_id} " if @load_balancer_id
     slb += "Name: #{@load_balancer_name} " if @load_balancer_name
-    opts.key?(:region) ? "Server Load Balacner: #{slb} in #{opts[:region]}" : "Server Load Balancer: #{slb}"
+    opts.key?(:region) ? "Server Load Balancer: #{slb} in #{opts[:region]}" : "Server Load Balancer: #{slb}"
   end
 end
