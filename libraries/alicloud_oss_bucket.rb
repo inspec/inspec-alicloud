@@ -59,6 +59,11 @@ class AliCloudOssBucket < AliCloudResourceBase
   #   end
   # end
 
+  # def has_versioning_enabled?
+  #   return false unless exists?
+  #   @bucket.versioning.enable == true
+  # end
+
   def bucket_lifecycle_rules
     return false unless exists?
     @bucket.lifecycle
