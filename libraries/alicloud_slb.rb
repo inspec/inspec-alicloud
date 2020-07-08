@@ -28,8 +28,8 @@ class AliCloudSlb < AliCloudResourceBase
         params: {
           'RegionId': opts[:region],
           'LoadBalancerId': opts[:slb_id],
-        }
-     )
+        },
+      )
     end
 
     if @resp.nil?
@@ -73,19 +73,19 @@ class AliCloudSlb < AliCloudResourceBase
   end
 
   def https_listeners?
-    @listener_ports_and_protocol.select { |lpp| lpp['ListenerProtocol'] == 'https' }.length > 0
+    !@listener_ports_and_protocol.select { |lpp| lpp['ListenerProtocol'] == 'https' }.empty?
   end
 
   def http_listeners?
-    @listener_ports_and_protocol.select { |lpp| lpp['ListenerProtocol'] == 'http' }.length > 0
+    !@listener_ports_and_protocol.select { |lpp| lpp['ListenerProtocol'] == 'http' }.empty?
   end
 
   def udp_listeners?
-    @listener_ports_and_protocol.select { |lpp| lpp['ListenerProtocol'] == 'udp' }.length > 0
+    !@listener_ports_and_protocol.select { |lpp| lpp['ListenerProtocol'] == 'udp' }.empty?
   end
 
   def tcp_listeners?
-    @listener_ports_and_protocol.select { |lpp| lpp['ListenerProtocol'] == 'tcp' }.length > 0
+    !@listener_ports_and_protocol.select { |lpp| lpp['ListenerProtocol'] == 'tcp' }.empty?
   end
 
   def listening_ports
@@ -93,19 +93,19 @@ class AliCloudSlb < AliCloudResourceBase
   end
 
   def https_ports
-    @listener_ports_and_protocol.map { |lpp| lpp['ListenerPort'] if lpp['ListenerProtocol'] == 'https'}.compact
+    @listener_ports_and_protocol.map { |lpp| lpp['ListenerPort'] if lpp['ListenerProtocol'] == 'https' }.compact
   end
 
   def http_ports
-    @listener_ports_and_protocol.map { |lpp| lpp['ListenerPort'] if lpp['ListenerProtocol'] == 'http'}.compact
+    @listener_ports_and_protocol.map { |lpp| lpp['ListenerPort'] if lpp['ListenerProtocol'] == 'http' }.compact
   end
 
   def udp_ports
-    @listener_ports_and_protocol.map { |lpp| lpp['ListenerPort'] if lpp['ListenerProtocol'] == 'udp'}.compact
+    @listener_ports_and_protocol.map { |lpp| lpp['ListenerPort'] if lpp['ListenerProtocol'] == 'udp' }.compact
   end
 
   def tcp_ports
-    @listener_ports_and_protocol.map { |lpp| lpp['ListenerPort'] if lpp['ListenerProtocol'] == 'tcp'}.compact
+    @listener_ports_and_protocol.map { |lpp| lpp['ListenerPort'] if lpp['ListenerProtocol'] == 'tcp' }.compact
   end
 
   def https_only?

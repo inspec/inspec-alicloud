@@ -36,7 +36,7 @@ class AliCloudActionTrailTrails < AliCloudResourceBase
         action: 'DescribeTrails',
         params: {
           "RegionId": opts[:region],
-        }
+        },
       )['TrailList']
     end
     return [] if !@actiontrails || @actiontrails.empty?
@@ -46,8 +46,7 @@ class AliCloudActionTrailTrails < AliCloudResourceBase
                              oss_key_prefix: actiontrail['OssKeyPrefix'],
                              role_name: actiontrail['RoleName'],
                              sls_project_arn: actiontrail['SlsProjectArn'],
-                             sls_write_role_arn: actiontrail['SlsWriteRoleArn'],
-                          }]
+                             sls_write_role_arn: actiontrail['SlsWriteRoleArn'] }]
     end
     @table = actiontrail_rows
   end

@@ -54,7 +54,7 @@ class AliCloudSlbs < AliCloudResourceBase
         action: 'DescribeLoadBalancers',
         params: {
           'RegionId': opts[:region],
-        }
+        },
       )['LoadBalancers']['LoadBalancer']
     end
 
@@ -77,12 +77,13 @@ class AliCloudSlbs < AliCloudResourceBase
         region_id:            load_balancer['RegionId'],
         address_type:         load_balancer['AddressType'],
         pay_type:             load_balancer['PayType'],
-        load_balancer_status: load_balancer['LoadBalancerStatus']
+        load_balancer_status: load_balancer['LoadBalancerStatus'],
       }]
     end
 
     @table = load_balancer_rows
   end
+
   def to_s
     'AliCloud SLBs'
   end

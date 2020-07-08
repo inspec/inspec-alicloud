@@ -42,7 +42,7 @@ class AliCloudSecurityGroups < AliCloudResourceBase
         action: 'DescribeSecurityGroups',
         params: {
           "RegionId": opts[:region],
-        }
+        },
       )['SecurityGroups']['SecurityGroup']
     end
 

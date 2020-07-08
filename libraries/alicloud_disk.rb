@@ -28,8 +28,8 @@ class AliCloudDisk < AliCloudResourceBase
           'DiskIds': [opts[:disk_id]],
         },
        opts: {
-          method: 'POST'
-       }
+         method: 'POST',
+       },
       )['Disks']['Disk'].select { |d| d['DiskId'] == opts[:disk_id] }.first
     end
 

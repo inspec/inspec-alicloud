@@ -25,7 +25,7 @@ class AliCloudActionTrailTrail < AliCloudResourceBase
         params: {
           "RegionId": opts[:region],
           "NameList": @trail_name,
-        }
+        },
       )['TrailList']
 
       if resp.empty?
@@ -50,7 +50,7 @@ class AliCloudActionTrailTrail < AliCloudResourceBase
         params: {
           "RegionId": opts[:region],
           "Name": @trail_name,
-        }
+        },
       )
       # LatestDeliveryTime is unix time with milliseconds
       # Subtract two datetime objects for difference in days
@@ -67,7 +67,7 @@ class AliCloudActionTrailTrail < AliCloudResourceBase
         params: {
           "RegionId": opts[:region],
           "Name": @trail_name,
-        }
+        },
       )
       trail_status['IsLogging']
     end

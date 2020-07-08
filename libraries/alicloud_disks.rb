@@ -43,7 +43,7 @@ class AliCloudDisks < AliCloudResourceBase
         action: 'DescribeDisks',
         params: {
           'RegionId': opts[:region],
-        }
+        },
       )['Disks']['Disk']
     end
 
@@ -56,7 +56,7 @@ class AliCloudDisks < AliCloudResourceBase
         encrypted: disk['Encrypted'],
         category: disk['Category'],
         kms_key_id: disk['KMSKeyId'],
-        size: disk['Size']
+        size: disk['Size'],
       }]
     end
 

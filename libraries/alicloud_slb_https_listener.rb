@@ -23,8 +23,8 @@ class AliCloudSlbHttpsListener < AliCloudResourceBase
           'RegionId': opts[:region],
           'LoadBalancerId': opts[:slb_id],
           'ListenerPort': opts[:listener_port],
-        }
-     )
+        },
+      )
     end
 
     if @resp.nil?
@@ -42,11 +42,10 @@ class AliCloudSlbHttpsListener < AliCloudResourceBase
     !@listener_info.nil?
   end
 
-
   # SB: mvp for q3 - this catch-all should allow some flexibility
   def method_missing(name)
     @listener_info[name.to_s]
-  end 
+  end
 
   def to_s
     buf = ''

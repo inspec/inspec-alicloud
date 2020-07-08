@@ -25,7 +25,7 @@ class AliCloudSecurityGroup < AliCloudResourceBase
         params: {
           "RegionId": opts[:region],
           "SecurityGroupId": opts[:group_id],
-        }
+        },
       )
     end
 
