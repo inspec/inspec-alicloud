@@ -47,7 +47,6 @@ class AliCloudSlbs < AliCloudResourceBase
 
   def fetch_data
     load_balancer_rows = []
-    pagination_options = {}
 
     catch_alicloud_errors do
       @load_balancers = @alicloud.slb_client.request(

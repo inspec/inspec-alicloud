@@ -35,7 +35,6 @@ class AliCloudSecurityGroups < AliCloudResourceBase
 
   def fetch_data
     security_group_rows = []
-    pagination_options = {}
 
     catch_alicloud_errors do
       @security_groups = @alicloud.ecs_client.request(

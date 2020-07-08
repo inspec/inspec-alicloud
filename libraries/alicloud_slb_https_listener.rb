@@ -45,6 +45,7 @@ class AliCloudSlbHttpsListener < AliCloudResourceBase
   # SB: mvp for q3 - this catch-all should allow some flexibility
   def method_missing(name)
     @listener_info[name.to_s]
+    super
   end
 
   def to_s

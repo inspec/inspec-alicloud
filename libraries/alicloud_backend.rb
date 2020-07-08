@@ -29,7 +29,7 @@ class AliCloudConnection
     region ||= ENV['ALICLOUD_REGION']
 
     endpoint = @client_args.fetch(:endpoint, nil) if @client_args
-    endpoint ||= if api == 'sts' || api == 'ram'
+    endpoint ||= if %w{sts ram}.include?(api)
                    "https://#{api}.aliyuncs.com"
                  else
                    "https://#{api}.#{region}.aliyuncs.com"

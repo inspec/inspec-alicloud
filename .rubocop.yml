@@ -51,7 +51,7 @@ Lint/StructNewOverride:
 Metrics/ClassLength:
   Max: 300
 Metrics/MethodLength:
-  Max: 45
+  Max: 50
 Metrics/BlockLength:
   Max: 100
 Metrics/AbcSize:
