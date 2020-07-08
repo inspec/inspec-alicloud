@@ -3,7 +3,7 @@
 require 'alicloud_backend'
 require 'pry-byebug'
 
-class AliCloudOSSBucket < AliCloudResourceBase
+class AliCloudOssBucket < AliCloudResourceBase
   name 'alicloud_oss_bucket'
   desc 'Verifies settings for an AliCloud OSS Bucket'
   example "
