@@ -47,22 +47,20 @@ class AliCloudOssBucket < AliCloudResourceBase
     @bucket.logging.enable == true
   end
 
-  # def has_default_encryption_enabled?
-  #   return false unless exists?
-  #   catch_alicloud_errors do
-  #     @has_default_encryption_enabled ||= !@alicloud.oss_client.request(
-  #       action: 'GetBucketInfo',
-  #       params: {
-  #         "BucketName": opts[:bucket_name],
-  #       }
-  #     )['ServerSideEncryptionRule']['ApplyServerSideEncryptionByDefault'].nil?
-  #   end
-  # end
+  def has_default_encryption_enabled?
+    return false unless exists?
 
-  # def has_versioning_enabled?
-  #   return false unless exists?
-  #   @bucket.versioning.enable == true
-  # end
+    begin
+      !@bucket.encryption.sse_algorithm.empty?
+    rescue Aliyun::OSS::ServerError
+      false
+    end
+  end
+
+  def has_versioning_enabled?
+    return false unless exists?
+    @bucket.versioning.enable == true
+  end
 
   def has_website_enabled?
     return false unless exists?
