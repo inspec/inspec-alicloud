@@ -71,6 +71,7 @@ resource "alicloud_oss_bucket" "bucket-acl" {
   count         = var.alicloud_enable_create
   bucket        = var.alicloud_bucket_acl_name
   acl    = "private"
+  force_destroy = true
 }
 
 resource "alicloud_oss_bucket" "bucket-website" {
@@ -81,12 +82,14 @@ resource "alicloud_oss_bucket" "bucket-website" {
     index_document = "index.html"
     error_document = "error.html"
   }
+  force_destroy = true
 }
 
 resource "alicloud_oss_bucket" "bucket-target" {
   count         = var.alicloud_enable_create
   bucket        = var.alicloud_bucket_logging_target_name
   acl    = "private"
+  force_destroy = true
 }
 
 resource "alicloud_oss_bucket" "bucket-logging" {
@@ -97,6 +100,7 @@ resource "alicloud_oss_bucket" "bucket-logging" {
     target_bucket = alicloud_oss_bucket.bucket-target.0.id
     target_prefix = "log/"
   }
+  force_destroy = true
 }
 
 resource "alicloud_oss_bucket" "bucket-lifecycle" {
@@ -121,6 +125,7 @@ resource "alicloud_oss_bucket" "bucket-lifecycle" {
       date = "2018-01-12"
     }
   }
+  force_destroy = true
 }
 
 resource "alicloud_oss_bucket" "bucket-sse" {
@@ -130,6 +135,7 @@ resource "alicloud_oss_bucket" "bucket-sse" {
   server_side_encryption_rule {
     sse_algorithm = "AES256"
   }
+  force_destroy = true
 }
 
 resource "alicloud_oss_bucket" "bucket-tags" {
@@ -140,6 +146,7 @@ resource "alicloud_oss_bucket" "bucket-tags" {
     key1 = "value1"
     key2 = "value2"
   }
+  force_destroy = true
 }
 
 resource "alicloud_oss_bucket" "bucket-versioning" {
@@ -150,6 +157,7 @@ resource "alicloud_oss_bucket" "bucket-versioning" {
   versioning {
     status = "Enabled"
   }
+  force_destroy = true
 }
 
 ########### ActionTrail #########################
