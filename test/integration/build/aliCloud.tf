@@ -10,6 +10,14 @@ variable "alicloud_vpc_name" {}
 variable "alicloud_vpc_cidr" {}
 variable "alicloud_security_group_name" {}
 variable "alicloud_security_group_description" {}
+variable "alicloud_bucket_acl_name" {}
+variable "alicloud_bucket_website_name" {}
+variable "alicloud_bucket_logging_target_name" {}
+variable "alicloud_bucket_logging_name" {}
+variable "alicloud_bucket_lifecycle_name" {}
+variable "alicloud_bucket_encrypted_name" {}
+variable "alicloud_bucket_tags_name" {}
+variable "alicloud_bucket_versioning_name" {}
 variable "alicloud_action_trail_name" {}
 variable "alicloud_action_trail_bucket_name" {}
 variable "alicloud_action_trail_ram_role_name" {}
@@ -57,6 +65,92 @@ resource "alicloud_security_group" "alpha" {
   vpc_id      = alicloud_vpc.inspec_vpc.0.id
 }
 
+########### OSS Buckets #########################
+
+resource "alicloud_oss_bucket" "bucket-acl" {
+  count         = var.alicloud_enable_create
+  bucket        = var.alicloud_bucket_acl_name
+  acl    = "private"
+}
+
+resource "alicloud_oss_bucket" "bucket-website" {
+  count         = var.alicloud_enable_create
+  bucket        = var.alicloud_bucket_website_name
+
+  website {
+    index_document = "index.html"
+    error_document = "error.html"
+  }
+}
+
+resource "alicloud_oss_bucket" "bucket-target" {
+  count         = var.alicloud_enable_create
+  bucket        = var.alicloud_bucket_logging_target_name
+  acl    = "private"
+}
+
+resource "alicloud_oss_bucket" "bucket-logging" {
+  count         = var.alicloud_enable_create
+  bucket        = var.alicloud_bucket_logging_name
+  acl    = "public-read"
+  logging {
+    target_bucket = alicloud_oss_bucket.bucket-target.0.id
+    target_prefix = "log/"
+  }
+}
+
+resource "alicloud_oss_bucket" "bucket-lifecycle" {
+  count         = var.alicloud_enable_create
+  bucket        = var.alicloud_bucket_lifecycle_name
+
+  lifecycle_rule {
+    id      = "rule-days"
+    prefix  = "path1/"
+    enabled = true
+
+    expiration {
+      days = 365
+    }
+  }
+  lifecycle_rule {
+    id      = "rule-date"
+    prefix  = "path2/"
+    enabled = true
+
+    expiration {
+      date = "2018-01-12"
+    }
+  }
+}
+
+resource "alicloud_oss_bucket" "bucket-sse" {
+  count         = var.alicloud_enable_create
+  bucket        = var.alicloud_bucket_encrypted_name
+
+  server_side_encryption_rule {
+    sse_algorithm = "AES256"
+  }
+}
+
+resource "alicloud_oss_bucket" "bucket-tags" {
+  count         = var.alicloud_enable_create
+  bucket        = var.alicloud_bucket_tags_name
+
+  tags = {
+    key1 = "value1"
+    key2 = "value2"
+  }
+}
+
+resource "alicloud_oss_bucket" "bucket-versioning" {
+  count         = var.alicloud_enable_create
+  bucket        = var.alicloud_bucket_versioning_name
+  acl    = "private"
+
+  versioning {
+    status = "Enabled"
+  }
+}
 
 ########### ActionTrail #########################
 
@@ -237,4 +331,3 @@ resource "alicloud_ram_account_password_policy" "test" {
   password_reuse_prevention = var.alicloud_ram_account_password_policy_password_reuse_prevention
   max_password_age          = var.alicloud_ram_account_password_policy_max_password_age
 }
-
