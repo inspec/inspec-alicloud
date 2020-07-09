@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'alicloud_backend'
-require 'pry-byebug'
 
 class AliCloudOssBucket < AliCloudResourceBase
   name 'alicloud_oss_bucket'
@@ -39,37 +38,51 @@ class AliCloudOssBucket < AliCloudResourceBase
 
   def public?
     return false unless exists?
-    @bucket.acl != 'private'
+    catch_alicloud_errors do
+      @bucket_policy_status_public ||= @bucket.acl != 'private'
+    end
   end
 
   def has_access_logging_enabled?
     return false unless exists?
-    @bucket.logging.enable == true
+    catch_alicloud_errors do
+      @has_access_logging_enabled ||= @bucket.logging.enable == true
+    end
   end
 
   def has_default_encryption_enabled?
     return false unless exists?
 
-    begin
-      !@bucket.encryption.sse_algorithm.empty?
-    rescue Aliyun::OSS::ServerError
-      false
+    @has_default_encryption_enabled ||= catch_alicloud_errors do
+      begin
+        @has_default_encryption_enabled = !@bucket.encryption.sse_algorithm.nil?
+      rescue Aliyun::OSS::ServerError
+        false
+      rescue StandardError => e
+        fail_resource("Unexpected error thrown: #{e}")
+      end
     end
   end
 
   def has_versioning_enabled?
     return false unless exists?
-    @bucket.versioning.enable == true
+    catch_alicloud_errors do
+      @has_versioning_enabled ||= @bucket.versioning.enable == true
+    end
   end
 
   def has_website_enabled?
     return false unless exists?
-    @bucket.website.enable == true
+    catch_alicloud_errors do
+      @has_website_enabled ||= @bucket.website.enable == true
+    end
   end
 
   def bucket_lifecycle_rules
     return false unless exists?
-    @bucket.lifecycle
+    catch_alicloud_errors do
+      @bucket_lifecycle_rules ||= @bucket.lifecycle
+    end
   end
 
   def to_s
