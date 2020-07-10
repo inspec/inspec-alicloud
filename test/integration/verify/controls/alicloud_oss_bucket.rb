@@ -30,12 +30,13 @@ control 'alicloud-ossbucket-1.0' do
   
   describe alicloud_oss_bucket(bucket_name: alicloud_bucket_encrypted_name) do
     it { should exist }
-    # it { should have_default_encryption_enabled }
+    it { should have_default_encryption_enabled }
     its('bucket_lifecycle_rules') { should be_empty }
   end
   
   describe alicloud_oss_bucket(bucket_name: alicloud_bucket_lifecycle_name) do
     it { should exist }
+    it { should_not have_default_encryption_enabled }
     its('bucket_lifecycle_rules') { should_not be_empty }
   end
   
@@ -57,12 +58,12 @@ control 'alicloud-ossbucket-1.0' do
   
   describe alicloud_oss_bucket(bucket_name: alicloud_bucket_versioning_name) do
     it { should exist }
-    # it { should have_versioning_enabled }
+    it { should have_versioning_enabled }
   end
 
   describe alicloud_oss_bucket(bucket_name: alicloud_bucket_website_name) do
     it { should exist }
-    # it { should_not have_versioning_enabled }
+    it { should_not have_versioning_enabled }
     it { should have_website_enabled }
   end
 end

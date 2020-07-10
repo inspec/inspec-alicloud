@@ -111,3 +111,19 @@ namespace :tf do
     sh(cmd)
   end
 end
+
+namespace :docs do
+  desc 'Prints markdown links for resource doc files to update the README'
+  task :resource_links do
+    puts "\n"
+    # Until we have documentation, just generate list from the resources directly
+    # Dir.entries('docs/resources').sort
+    #  .collect { |file| "- [#{file.split('.')[0]}](docs/resources/#{file})" }
+
+    Dir.entries('libraries').sort
+       .reject { |file| File.directory?(file) }
+       .collect { |file| "- [#{file.split('.')[0]}](libraries/#{file})" }
+       .map { |link| puts link }
+    puts "\n"
+  end
+end
