@@ -75,14 +75,14 @@ resource "alicloud_oss_bucket" "bucket-acl" {
 }
 
 resource "alicloud_oss_bucket" "bucket-website" {
-  count  = var.alicloud_enable_create
-  bucket = var.alicloud_bucket_website_name
+  count         = var.alicloud_enable_create
+  bucket        = var.alicloud_bucket_website_name
+  force_destroy = true
 
   website {
     index_document = "index.html"
     error_document = "error.html"
   }
-  force_destroy = true
 }
 
 resource "alicloud_oss_bucket" "bucket-target" {
@@ -93,19 +93,21 @@ resource "alicloud_oss_bucket" "bucket-target" {
 }
 
 resource "alicloud_oss_bucket" "bucket-logging" {
-  count  = var.alicloud_enable_create
-  bucket = var.alicloud_bucket_logging_name
-  acl    = "public-read"
+  count         = var.alicloud_enable_create
+  bucket        = var.alicloud_bucket_logging_name
+  acl           = "public-read"
+  force_destroy = true
+
   logging {
     target_bucket = alicloud_oss_bucket.bucket-target.0.id
     target_prefix = "log/"
   }
-  force_destroy = true
 }
 
 resource "alicloud_oss_bucket" "bucket-lifecycle" {
-  count  = var.alicloud_enable_create
-  bucket = var.alicloud_bucket_lifecycle_name
+  count         = var.alicloud_enable_create
+  bucket        = var.alicloud_bucket_lifecycle_name
+  force_destroy = true
 
   lifecycle_rule {
     id      = "rule-days"
@@ -125,39 +127,38 @@ resource "alicloud_oss_bucket" "bucket-lifecycle" {
       date = "2018-01-12"
     }
   }
-  force_destroy = true
 }
 
 resource "alicloud_oss_bucket" "bucket-sse" {
-  count  = var.alicloud_enable_create
-  bucket = var.alicloud_bucket_encrypted_name
+  count         = var.alicloud_enable_create
+  bucket        = var.alicloud_bucket_encrypted_name
+  force_destroy = true
 
   server_side_encryption_rule {
     sse_algorithm = "AES256"
   }
-  force_destroy = true
 }
 
 resource "alicloud_oss_bucket" "bucket-tags" {
-  count  = var.alicloud_enable_create
-  bucket = var.alicloud_bucket_tags_name
+  count         = var.alicloud_enable_create
+  bucket        = var.alicloud_bucket_tags_name
+  force_destroy = true
 
   tags = {
     key1 = "value1"
     key2 = "value2"
   }
-  force_destroy = true
 }
 
 resource "alicloud_oss_bucket" "bucket-versioning" {
-  count  = var.alicloud_enable_create
-  bucket = var.alicloud_bucket_versioning_name
-  acl    = "private"
+  count         = var.alicloud_enable_create
+  bucket        = var.alicloud_bucket_versioning_name
+  acl           = "private"
+  force_destroy = true
 
   versioning {
     status = "Enabled"
   }
-  force_destroy = true
 }
 
 ########### ActionTrail #########################
