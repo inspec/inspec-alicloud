@@ -1,6 +1,3 @@
-
-
-
 # Contributing to the InSpec AliCloud Resource Pack
 
 We are glad you want to contribute to InSpec AliCloud! This document will help answer common questions you may have during your first contribution.
