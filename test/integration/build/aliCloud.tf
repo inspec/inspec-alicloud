@@ -70,13 +70,13 @@ resource "alicloud_security_group" "alpha" {
 resource "alicloud_oss_bucket" "bucket-acl" {
   count         = var.alicloud_enable_create
   bucket        = var.alicloud_bucket_acl_name
-  acl    = "private"
+  acl           = "private"
   force_destroy = true
 }
 
 resource "alicloud_oss_bucket" "bucket-website" {
-  count         = var.alicloud_enable_create
-  bucket        = var.alicloud_bucket_website_name
+  count  = var.alicloud_enable_create
+  bucket = var.alicloud_bucket_website_name
 
   website {
     index_document = "index.html"
@@ -88,13 +88,13 @@ resource "alicloud_oss_bucket" "bucket-website" {
 resource "alicloud_oss_bucket" "bucket-target" {
   count         = var.alicloud_enable_create
   bucket        = var.alicloud_bucket_logging_target_name
-  acl    = "private"
+  acl           = "private"
   force_destroy = true
 }
 
 resource "alicloud_oss_bucket" "bucket-logging" {
-  count         = var.alicloud_enable_create
-  bucket        = var.alicloud_bucket_logging_name
+  count  = var.alicloud_enable_create
+  bucket = var.alicloud_bucket_logging_name
   acl    = "public-read"
   logging {
     target_bucket = alicloud_oss_bucket.bucket-target.0.id
@@ -104,8 +104,8 @@ resource "alicloud_oss_bucket" "bucket-logging" {
 }
 
 resource "alicloud_oss_bucket" "bucket-lifecycle" {
-  count         = var.alicloud_enable_create
-  bucket        = var.alicloud_bucket_lifecycle_name
+  count  = var.alicloud_enable_create
+  bucket = var.alicloud_bucket_lifecycle_name
 
   lifecycle_rule {
     id      = "rule-days"
@@ -129,8 +129,8 @@ resource "alicloud_oss_bucket" "bucket-lifecycle" {
 }
 
 resource "alicloud_oss_bucket" "bucket-sse" {
-  count         = var.alicloud_enable_create
-  bucket        = var.alicloud_bucket_encrypted_name
+  count  = var.alicloud_enable_create
+  bucket = var.alicloud_bucket_encrypted_name
 
   server_side_encryption_rule {
     sse_algorithm = "AES256"
@@ -139,8 +139,8 @@ resource "alicloud_oss_bucket" "bucket-sse" {
 }
 
 resource "alicloud_oss_bucket" "bucket-tags" {
-  count         = var.alicloud_enable_create
-  bucket        = var.alicloud_bucket_tags_name
+  count  = var.alicloud_enable_create
+  bucket = var.alicloud_bucket_tags_name
 
   tags = {
     key1 = "value1"
@@ -150,8 +150,8 @@ resource "alicloud_oss_bucket" "bucket-tags" {
 }
 
 resource "alicloud_oss_bucket" "bucket-versioning" {
-  count         = var.alicloud_enable_create
-  bucket        = var.alicloud_bucket_versioning_name
+  count  = var.alicloud_enable_create
+  bucket = var.alicloud_bucket_versioning_name
   acl    = "private"
 
   versioning {
