@@ -30,7 +30,7 @@ class AliCloudConnection
     region ||= ENV['ALICLOUD_REGION']
 
     endpoint = @client_args.fetch(:endpoint, nil) if @client_args
-    endpoint ||= if %w{sts ram}.include?(api)
+    endpoint ||= if %w{sts ram resourcemanager}.include?(api)
                    "https://#{api}.aliyuncs.com"
                  else
                    "https://#{api}.#{region}.aliyuncs.com"
@@ -84,6 +84,10 @@ class AliCloudConnection
 
   def ram_client
     alicloud_client(api: 'ram', api_version: '2015-05-01')
+  end
+
+  def rm_client
+    alicloud_client(api: 'resourcemanager', api_version: '2020-03-31')
   end
 end
 
