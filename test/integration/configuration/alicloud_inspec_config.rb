@@ -22,7 +22,8 @@ module AliCloudInspecConfig
       # Generic AliCloud resource parameters
       alicloud_region: @alicloud_region,
       alicloud_vpc_name: "vpc-#{add_random_string}",
-      alicloud_vpc_cidr: '10.0.1.0/24',
+      alicloud_vpc_cidr: '10.0.0.0/16',
+      alicloud_vpc_vswitch_cidr: '10.0.1.0/24',  # must be lower than alicloud_vpc_cidr
       alicloud_security_group_name: "sg-#{add_random_string}",
       alicloud_security_group_description: 'Test security group for inspec',
       alicloud_bucket_acl_name: "ossbkt-#{add_random_string}",
@@ -63,7 +64,15 @@ module AliCloudInspecConfig
       alicloud_ram_account_password_policy_password_reuse_prevention: 5,
       alicloud_ram_account_password_policy_max_password_age: 180,
       # Simple flag to disable creation of resources (useful when prototyping new ones in isolation)
-      alicloud_enable_create: 1
+      alicloud_rds_vswitch_name: "vswitch-rds-#{add_random_string}",
+      alicloud_enable_create: 1,
+      alicloud_db_engine: "MySQL",
+      alicloud_db_engine_version: "8.0",
+      alicloud_db_instance_type: "mysql.n1.micro.1",
+      alicloud_db_instance_storage: "20",
+      alicloud_db_instance_charge_type: "Postpaid",
+      alicloud_db_instance_name: "rds-mysql-instance-#{add_random_string}",
+      alicloud_db_monitoring_period: "60"
   }
 
   def self.config

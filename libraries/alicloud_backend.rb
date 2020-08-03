@@ -85,6 +85,10 @@ class AliCloudConnection
   def ram_client
     alicloud_client(api: 'ram', api_version: '2015-05-01')
   end
+
+  def rds_client
+    alicloud_client(api: 'rds', api_version: '2014-08-15')
+  end
 end
 
 # Base class for AliCloud resources
