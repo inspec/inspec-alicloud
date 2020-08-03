@@ -8,6 +8,7 @@ terraform {
 variable "alicloud_region" {}
 variable "alicloud_vpc_name" {}
 variable "alicloud_vpc_cidr" {}
+variable "alicloud_vpc_vswitch_cidr" {}
 variable "alicloud_security_group_name" {}
 variable "alicloud_security_group_description" {}
 variable "alicloud_bucket_acl_name" {}
@@ -30,6 +31,14 @@ variable "alicloud_disk_desc" {}
 variable "alicloud_disk_encrypted" {}
 variable "alicloud_disk_category" {}
 variable "alicloud_enable_create" {}
+variable "alicloud_rds_vswitch_name" {}
+variable "alicloud_db_engine" {}
+variable "alicloud_db_engine_version" {}
+variable "alicloud_db_instance_type" {}
+variable "alicloud_db_instance_storage" {}
+variable "alicloud_db_instance_charge_type" {}
+variable "alicloud_db_instance_name" {}
+variable "alicloud_db_monitoring_period" {}
 
 provider "alicloud" {
   version = "1.88"
@@ -339,4 +348,28 @@ variable "alicloud_ram_account_password_policy_max_password_age" {}
 resource "alicloud_ram_account_password_policy" "test" {
   password_reuse_prevention = var.alicloud_ram_account_password_policy_password_reuse_prevention
   max_password_age          = var.alicloud_ram_account_password_policy_max_password_age
+}
+
+########### ApsaraDB for RDS ##################
+
+data "alicloud_zones" "zones_rds" {
+  available_resource_creation = "Rds"
+}
+
+resource "alicloud_vswitch" "inspec_rds_vswitch" {
+  vpc_id            = alicloud_vpc.inspec_vpc.0.id
+  cidr_block        = var.alicloud_vpc_vswitch_cidr
+  availability_zone = data.alicloud_zones.zones_rds.zones.0.id
+  name              = var.alicloud_rds_vswitch_name
+}
+
+resource "alicloud_db_instance" "default" {
+  engine               = var.alicloud_db_engine
+  engine_version       = var.alicloud_db_engine_version
+  instance_type        = var.alicloud_db_instance_type
+  instance_storage     = var.alicloud_db_instance_storage
+  instance_charge_type = var.alicloud_db_instance_charge_type
+  instance_name        = var.alicloud_db_instance_name
+  vswitch_id           = alicloud_vswitch.inspec_rds_vswitch.id
+  monitoring_period    = var.alicloud_db_monitoring_period
 }

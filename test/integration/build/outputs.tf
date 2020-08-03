@@ -47,3 +47,9 @@ output "alicloud_bucket_tags_name" {
 output "alicloud_bucket_versioning_name" {
   value = alicloud_oss_bucket.bucket-versioning.0.id
 }
+output "alicloud_db_instance_region" {
+  value = alicloud_vswitch.inspec_rds_vswitch.availability_zone
+}
+output "alicoud_db_instance_id" {
+  value = alicloud_db_instance.default.id
+}
