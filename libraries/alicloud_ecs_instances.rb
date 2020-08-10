@@ -119,4 +119,13 @@ class AliCloudECSInstances < AliCloudResourceBase
 
         @table = instance_rows
     end
+
+    def exists?
+        !@table.nil? && !@table.empty?
+    end
+  
+    def to_s
+        "ECS Instances #{table}"
+    end
+
 end

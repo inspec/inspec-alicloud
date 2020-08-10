@@ -14,62 +14,69 @@ class AliCloudECSInstance < AliCloudResourceBase
                 :region_id, :credit_specification, :instance_id
 
     def initialize(opts = {})
-    opts = { instance_id: opts } if opts.is_a?(String)
-    opts[:instance_id] = opts.delete(:id) if opts.key?(:id) # id is an alias for group_id
-    super(opts)
-    validate_parameters(required: %i(instance_id))
+      opts = { instance_id: opts } if opts.is_a?(String)
+      opts[:instance_id] = opts.delete(:id) if opts.key?(:id) # id is an alias for group_id
+      super(opts)
+      validate_parameters(required: %i(instance_id))
+      catch_alicloud_errors do
+        @resp = @alicloud.ecs_client.request(
+          action: 'DescribeInstanceAttribute',
+          params: {
+            'RegionId': opts[:region],
+            'InstanceId': opts[:instance_id],
+          },
+          opts: {
+            method: 'POST',
+          }
+        )
 
-    catch_alicloud_errors do
-      @resp = @alicloud.ecs_client.request(
-        action: 'DescribeInstanceAttribute',
-        params: {
-          'RegionId': opts[:region],
-          'InstanceId': [opts[:instance_id]],
-        },
-       opts: {
-         method: 'POST',
-       },
-      )
+        if @resp.nil?
+          @instance_id = 'empty response'
+          return
+        end
 
-    if @resp.nil?
-      @instance_id = 'empty response'
-      return
+        @instance                 = @resp
+        @description              = @instance['Description']
+        @memory                   = @instance['Memory']
+        @instance_charge_type     = @instance['InstanceChargeType']
+        @cpu                      = @instance['Cpu']
+        @instance_network_type    = @instance['InstanceNetworkType']
+        @public_ip_address        = @instance['PublicIpAddress']['IpAddress']
+        @inner_ip_address         = @instance['InnerIpAddress']['IpAddress']
+        @expired_time             = @instance['ExpiredTime']
+        @image_id                 = @instance['ImageId']
+        @eip_address              = @instance['EipAddress']
+        @instance_type            = @instance['InstanceType']
+        @host_name                = @instance['HostName']
+        @vlan_id                  = @instance['VlanId']
+        @status                   = @instance['Status']
+        @io_optimized             = @instance['IoOptimized']
+        @request_id               = @instance['RequestId']
+        @zone_id                  = @instance['ZoneId']
+        @instance_id              = @instance['InstanceId']
+        @cluster_id               = @instance['ClusterId']
+        @stopped_mode             = @instance['StoppedMode']
+        @dedicated_host_attribute = @instance['DedicatedHostAttribute']
+        @security_group_ids       = @instance['SecurityGroupIds']
+        @vpc_attributes           = @instance['VpcAttributes']
+        @operation_locks          = @instance['OperationLocks']
+        @internet_charge_type     = @instance['InternetChargeType']
+        @instance_name            = @instance['InstanceName']
+        @internet_max_bandwidth_out = @instance['InternetMaxBandwidthOut']
+        @internet_max_bandwidth_in  = @instance['InternetMaxBandwidthIn']
+        @serial_number            = @instance['SerialNumber']
+        @creation_time            = @instance['CreationTime']
+        @region_id                = @instance['RegionId']
+        @credit_specification     = @instance['CreditSpecification']
     end
 
-    @instance_description     = @resp
-    @description              = @resp['Description']
-    @memory                   = @resp['Memory']
-    @instance_charge_type     = @resp['InstanceChargeType']
-    @cpu                      = @resp['Cpu']
-    @instance_network_type    = @resp['InstanceNetworkType']
-    @public_ip_address        = @resp['PublicIpAddress']['IpAddress']
-    @inner_ip_address         = @resp['InnerIpAddress']['IpAddress']
-    @expired_time             = @resp['ExpiredTime']
-    @image_id                 = @resp['ImageId']
-    @eip_address              = @resp['EipAddress']
-    @instance_type            = @resp['InstanceType']
-    @host_name                = @resp['HostName']
-    @vlan_id                  = @resp['VlanId']
-    @status                   = @resp['Status']
-    @io_optimized             = @resp['IoOptimized']
-    @request_id               = @resp['RequestId']
-    @zone_id                  = @resp['ZoneId']
-    @instance_id              = @resp['InstanceId']
-    @cluster_id               = @resp['ClusterId']
-    @stopped_mode             = @resp['StoppedMode']
-    @dedicated_host_attribute = @resp['DedicatedHostAttribute']
-    @security_group_ids       = @resp['SecurityGroupIds']
-    @vpc_attributes           = @resp['VpcAttributes']
-    @operation_locks          = @resp['OperationLocks']
-    @internet_charge_type     = @resp['InternetChargeType']
-    @instance_name            = @resp['InstanceName']
-    @internet_max_bandwidth_out = @resp['InternetMaxBandwidthOut']
-    @internet_max_bandwidth_in  = @resp['InternetMaxBandwidthIn']
-    @serial_number            = @resp['SerialNumber']
-    @creation_time            = @resp['CreationTime']
-    @region_id                = @resp['RegionId']
-    @credit_specification     = @resp['CreditSpecification']
-
+    def exists?
+      !@instance.nil? && !@instance.empty?
     end
+
+    def to_s
+      "ECS Instance #{instance_id}"
+    end
+
   end
 end
