@@ -30,6 +30,10 @@ variable "alicloud_disk_desc" {}
 variable "alicloud_disk_encrypted" {}
 variable "alicloud_disk_category" {}
 variable "alicloud_enable_create" {}
+variable "alicloud_ram_user_name" {}
+variable "alicloud_ram_user_display_name" {}
+variable "alicloud_ram_user_mobile" {}
+variable "alicloud_ram_user_email" {}
 
 provider "alicloud" {
   version = "1.88"
@@ -339,4 +343,13 @@ variable "alicloud_ram_account_password_policy_max_password_age" {}
 resource "alicloud_ram_account_password_policy" "test" {
   password_reuse_prevention = var.alicloud_ram_account_password_policy_password_reuse_prevention
   max_password_age          = var.alicloud_ram_account_password_policy_max_password_age
+}
+
+########### RAM User ##################
+
+resource "alicloud_ram_user" "user" {
+  name         = var.alicloud_ram_user_name
+  display_name = var.alicloud_ram_user_display_name
+  mobile       = var.alicloud_ram_user_mobile
+  email        = var.alicloud_ram_user_email
 }
