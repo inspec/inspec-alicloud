@@ -5,6 +5,12 @@ require 'alicloud_backend'
 class AliCloudAccessKey < AliCloudResourceBase
   name 'alicloud_access_key'
   desc 'Verifies properties of an AliCloud access key'
+  example '
+  # check key is active
+  describe alicloud_access_key(<access key id>) do
+    its("status") { should eq "Active" }
+  end
+  '
 
   attr_reader :access_key_id, :status, :create_date
 
