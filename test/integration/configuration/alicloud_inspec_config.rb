@@ -22,7 +22,9 @@ module AliCloudInspecConfig
       # Generic AliCloud resource parameters
       alicloud_region: @alicloud_region,
       alicloud_vpc_name: "vpc-#{add_random_string}",
-      alicloud_vpc_cidr: '10.0.1.0/24',
+      alicloud_vpc_cidr: '10.0.0.0/16',
+      alicloud_vpc_vswitch_name: "vswitch-#{add_random_string}",
+      alicloud_vpc_vswitch_cidr: '10.0.1.0/24',
       alicloud_security_group_name: "sg-#{add_random_string}",
       alicloud_security_group_description: 'Test security group for inspec',
       alicloud_bucket_acl_name: "ossbkt-#{add_random_string}",
@@ -62,6 +64,15 @@ module AliCloudInspecConfig
       alicloud_tags: { 'test' => 'tag' },
       alicloud_ram_account_password_policy_password_reuse_prevention: 5,
       alicloud_ram_account_password_policy_max_password_age: 180,
+      alicloud_ecs_instance_type: "ecs.g6.large",
+      alicloud_ecs_instance_system_disk_category: "cloud_efficiency",
+      alicloud_ecs_instance_image_id: "ubuntu_18_04_64_20G_alibase_20190624.vhd",
+      alicloud_ecs_instance_name: "instance-#{add_random_string}",
+      alicloud_ecs_instance_internet_max_bandwidth_out: 10,
+      alicloud_ecs_instance_disk_name: "disk-#{add_random_string}",
+      alicloud_ecs_instance_disk_size: 20,
+      alicloud_ecs_instance_disk_category: "cloud_efficiency",
+      alicloud_ecs_instance_disk_encrypted: "true",
       # Simple flag to disable creation of resources (useful when prototyping new ones in isolation)
       alicloud_enable_create: 1
   }
