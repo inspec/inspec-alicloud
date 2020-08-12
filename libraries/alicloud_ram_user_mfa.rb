@@ -8,7 +8,7 @@ class AliCloudRamUserMFA < AliCloudResourceBase
 
   example '
   # make sure MFA exists
-  describe alicloud_ram_user_mfa(<user name>>) do
+  describe alicloud_ram_user_mfa(<user name>) do
     it { should exist }
   end
   '
