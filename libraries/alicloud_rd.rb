@@ -7,7 +7,7 @@ class AliCloudResourceDirectory < AliCloudResourceBase
   desc 'Verifies settings for AliCloud resource management'
   example "
   describe alicloud_resource_directory do
-    it { should exist}    
+    it { should exist}
     its( 'resource_directory_id' ) {should eq 'rd_id'}
     its( 'master_account_name' ) {should eq 'master_acct_name'}
   end
@@ -44,5 +44,4 @@ class AliCloudResourceDirectory < AliCloudResourceBase
   def to_s
     "Resource Directory: #{@resource_directory_id}, Master Account: #{@master_account_name}(#{@master_account_id})"
   end
-
 end
