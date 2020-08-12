@@ -6,6 +6,13 @@ class AliCloudRamUserMFA < AliCloudResourceBase
   name 'alicloud_ram_user_mfa'
   desc 'Verifies settings for users\' MFA'
 
+  example '
+  # make sure MFA exists
+  describe alicloud_ram_user_mfa(<user name>>) do
+    it { should exist }
+  end
+  '
+
   attr_reader :serial_number
 
   def initialize(opts = {})
@@ -18,7 +25,7 @@ class AliCloudRamUserMFA < AliCloudResourceBase
         action: 'GetUserMFAInfo',
         params: {
           'RegionId': opts[:region],
-          "UserName": opts[:user_name],
+          'UserName': opts[:user_name],
         },
         opts: {
           method: 'POST',
@@ -36,10 +43,10 @@ class AliCloudRamUserMFA < AliCloudResourceBase
   end
 
   def exists?
-    !@serial_number.nil?
+    !@mfa.nil?
   end
 
   def to_s
-    "MFA for #{user_name}"
+    "MFA for #{serial_number}"
   end
 end

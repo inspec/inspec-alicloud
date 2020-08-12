@@ -26,7 +26,7 @@ class AliCloudRamUser < AliCloudResourceBase
         action: 'GetUser',
         params: {
           'RegionId': opts[:region],
-          "UserName": opts[:user_name],
+          'UserName': opts[:user_name],
         },
         opts: {
           method: 'POST',
@@ -39,7 +39,7 @@ class AliCloudRamUser < AliCloudResourceBase
       return
     end
 
-    @user = @resp
+    @user               = @resp
     @update_date        = @resp['UpdateDate']
     @user_name          = @resp['UserName']
     @email              = @resp['Email']
