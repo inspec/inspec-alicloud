@@ -11,7 +11,7 @@ class AliCloudActionTrailTrail < AliCloudResourceBase
       it { should exist }
     end
   "
-  attr_reader :trail_name, :oss_bucket_name, :oss_key_prefix, :role_name, :sls_project_arn, :sls_write_role_arn
+  attr_reader :trail_name, :oss_bucket_name, :oss_key_prefix, :role_name, :sls_project_arn, :sls_write_role_arn, :status, :trail_region
 
   def initialize(opts = {})
     opts = { trail_name: opts } if opts.is_a?(String)
@@ -39,6 +39,8 @@ class AliCloudActionTrailTrail < AliCloudResourceBase
       @role_name = @trail['RoleName']
       @sls_project_arn = @trail['SlsProjectArn']
       @sls_write_role_arn = @trail['SlsWriteRoleArn']
+      @status = @trail['Status']
+      @trail_region = @trail['TrailRegion']
     end
   end
 

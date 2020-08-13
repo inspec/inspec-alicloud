@@ -8,6 +8,8 @@ terraform {
 variable "alicloud_region" {}
 variable "alicloud_vpc_name" {}
 variable "alicloud_vpc_cidr" {}
+variable "alicloud_vpc_vswitch_name" {}
+variable "alicloud_vpc_vswitch_cidr" {}
 variable "alicloud_security_group_name" {}
 variable "alicloud_security_group_description" {}
 variable "alicloud_bucket_acl_name" {}
@@ -34,6 +36,15 @@ variable "alicloud_ram_user_name" {}
 variable "alicloud_ram_user_display_name" {}
 variable "alicloud_ram_user_mobile" {}
 variable "alicloud_ram_user_email" {}
+variable "alicloud_ecs_instance_type" {}
+variable "alicloud_ecs_instance_system_disk_category" {}
+variable "alicloud_ecs_instance_image_id" {}
+variable "alicloud_ecs_instance_name" {}
+variable "alicloud_ecs_instance_internet_max_bandwidth_out" {}
+variable "alicloud_ecs_instance_disk_name" {}
+variable "alicloud_ecs_instance_disk_size" {}
+variable "alicloud_ecs_instance_disk_category" {}
+variable "alicloud_ecs_instance_disk_encrypted" {}
 
 provider "alicloud" {
   version = "1.88"
@@ -48,6 +59,13 @@ resource "alicloud_vpc" "inspec_vpc" {
   count      = var.alicloud_enable_create
   name       = var.alicloud_vpc_name
   cidr_block = var.alicloud_vpc_cidr
+}
+
+resource "alicloud_vswitch" "inspec_vswitch" {
+  vpc_id            = alicloud_vpc.inspec_vpc.0.id
+  cidr_block        = var.alicloud_vpc_vswitch_cidr
+  availability_zone = data.alicloud_zones.zones_ds.zones.0.id
+  name              = var.alicloud_vpc_vswitch_name
 }
 
 ########### Security Groups #####################
@@ -352,4 +370,32 @@ resource "alicloud_ram_user" "user" {
   display_name = var.alicloud_ram_user_display_name
   mobile       = var.alicloud_ram_user_mobile
   email        = var.alicloud_ram_user_email
+}
+
+########### ECS Instances ##################
+
+resource "alicloud_kms_key" "ecs" {
+        description             = "ecs test instance disk key"
+        pending_window_in_days  = "7"
+        key_state               = "Enabled"
+}
+
+resource "alicloud_instance" "instance" {
+  availability_zone = data.alicloud_zones.zones_ds.zones.0.id
+  security_groups   = [alicloud_security_group.default.0.id]
+
+  # series III
+  instance_type              = var.alicloud_ecs_instance_type
+  system_disk_category       = var.alicloud_ecs_instance_system_disk_category
+  image_id                   = var.alicloud_ecs_instance_image_id
+  instance_name              = var.alicloud_ecs_instance_name
+  vswitch_id                 = alicloud_vswitch.inspec_vswitch.id
+  internet_max_bandwidth_out = var.alicloud_ecs_instance_internet_max_bandwidth_out
+  data_disks {
+     name         = var.alicloud_ecs_instance_disk_name
+     size         = var.alicloud_ecs_instance_disk_size
+     category     = var.alicloud_ecs_instance_disk_category
+     description  = "Disk for ecs test instance"
+     encrypted    = var.alicloud_ecs_instance_disk_encrypted
+    }
 }

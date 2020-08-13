@@ -43,7 +43,7 @@ This resouce pack allows the testing of the following AliCloud resources. If a r
 
 #### Train and InSpec Dependencies
 
-InSpec AWS depends on version 0 of the AliCloud SDK that is provided via [Train AliCloud](https://github.com/chef-customers/train-alicloud). InSpec does not ship with Train AliCloud so this is explicitly listed in the Gemfile here.
+InSpec AliCloud depends on version 0 of the AliCloud SDK that is provided via [Train AliCloud](https://github.com/chef-customers/train-alicloud). InSpec does not ship with Train AliCloud so this is explicitly listed in the Gemfile here.
 
 ### Running the unit and integration tests
 
