@@ -370,6 +370,7 @@ resource "alicloud_ram_user" "user" {
   display_name = var.alicloud_ram_user_display_name
   mobile       = var.alicloud_ram_user_mobile
   email        = var.alicloud_ram_user_email
+}
 
 ########### ECS Instances ##################
 
