@@ -74,7 +74,11 @@ module AliCloudInspecConfig
       alicloud_ecs_instance_disk_category: "cloud_efficiency",
       alicloud_ecs_instance_disk_encrypted: "true",
       # Simple flag to disable creation of resources (useful when prototyping new ones in isolation)
-      alicloud_enable_create: 1
+      alicloud_enable_create: 1,
+      alicloud_ram_user_name: "inspec-integraion-test-#{add_random_string}",
+      alicloud_ram_user_display_name: 'inspec-user',
+      alicloud_ram_user_mobile: "86-18688888888",
+      alicloud_ram_user_email: "user@inspec.com",
   }
 
   def self.config
