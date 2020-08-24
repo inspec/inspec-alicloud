@@ -392,7 +392,7 @@ resource "alicloud_instance" "instance" {
   system_disk_category       = var.alicloud_ecs_instance_system_disk_category
   image_id                   = var.alicloud_ecs_instance_image_id
   instance_name              = var.alicloud_ecs_instance_name
-  vswitch_id                 = alicloud_vswitch.inspec_vswitch.id
+  vswitch_id                 = alicloud_vswitch.inspec_vswitch.0.id
   internet_max_bandwidth_out = var.alicloud_ecs_instance_internet_max_bandwidth_out
   data_disks {
      name         = var.alicloud_ecs_instance_disk_name
