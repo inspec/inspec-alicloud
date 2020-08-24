@@ -2,6 +2,14 @@ output "alicloud_vpc_id" {
   value = alicloud_vpc.inspec_vpc.0.id
 }
 
+output "alicloud_vswitch_id" {
+  value = alicloud_vswitch.inspec_vswitch.0.id
+}
+
+output "alicloud_vrouter_id" {
+  value = alicloud_vpc.inspec_vpc.0.router_id
+}
+
 output "alicloud_security_group_id" {
   value = alicloud_security_group.default.0.id
 }

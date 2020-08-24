@@ -22,6 +22,7 @@ module AliCloudInspecConfig
       # Generic AliCloud resource parameters
       alicloud_region: @alicloud_region,
       alicloud_vpc_name: "vpc-#{add_random_string}",
+      alicloud_vpc_description: "Test VPC for inspec",
       alicloud_vpc_cidr: '10.0.0.0/16',
       alicloud_vpc_vswitch_name: "vswitch-#{add_random_string}",
       alicloud_vpc_vswitch_cidr: '10.0.1.0/24',
