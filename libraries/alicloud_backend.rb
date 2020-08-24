@@ -89,6 +89,10 @@ class AliCloudConnection
   def rm_client
     alicloud_client(api: 'resourcemanager', api_version: '2020-03-31')
   end
+
+  def vpc_client
+    alicloud_client(api: 'vpc', api_version: '2016-04-28')
+  end
 end
 
 # Base class for AliCloud resources

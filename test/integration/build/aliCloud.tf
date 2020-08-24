@@ -7,6 +7,7 @@ terraform {
 # Configure variables
 variable "alicloud_region" {}
 variable "alicloud_vpc_name" {}
+variable "alicloud_vpc_description" {}
 variable "alicloud_vpc_cidr" {}
 variable "alicloud_vpc_vswitch_name" {}
 variable "alicloud_vpc_vswitch_cidr" {}
@@ -56,12 +57,14 @@ data "alicloud_caller_identity" "creds" {}
 data "alicloud_regions" "current" {}
 
 resource "alicloud_vpc" "inspec_vpc" {
-  count      = var.alicloud_enable_create
-  name       = var.alicloud_vpc_name
-  cidr_block = var.alicloud_vpc_cidr
+  count       = var.alicloud_enable_create
+  name        = var.alicloud_vpc_name
+  description = var.alicloud_vpc_description
+  cidr_block  = var.alicloud_vpc_cidr
 }
 
 resource "alicloud_vswitch" "inspec_vswitch" {
+  count             = var.alicloud_enable_create
   vpc_id            = alicloud_vpc.inspec_vpc.0.id
   cidr_block        = var.alicloud_vpc_vswitch_cidr
   availability_zone = data.alicloud_zones.zones_ds.zones.0.id
@@ -389,7 +392,7 @@ resource "alicloud_instance" "instance" {
   system_disk_category       = var.alicloud_ecs_instance_system_disk_category
   image_id                   = var.alicloud_ecs_instance_image_id
   instance_name              = var.alicloud_ecs_instance_name
-  vswitch_id                 = alicloud_vswitch.inspec_vswitch.id
+  vswitch_id                 = alicloud_vswitch.inspec_vswitch.0.id
   internet_max_bandwidth_out = var.alicloud_ecs_instance_internet_max_bandwidth_out
   data_disks {
      name         = var.alicloud_ecs_instance_disk_name
