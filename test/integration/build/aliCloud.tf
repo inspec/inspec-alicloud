@@ -13,6 +13,8 @@ variable "alicloud_vpc_vswitch_name" {}
 variable "alicloud_vpc_vswitch_cidr" {}
 variable "alicloud_security_group_name" {}
 variable "alicloud_security_group_description" {}
+variable "alicloud_security_group_rule_port_range" {}
+variable "alicloud_security_group_rule_cidr" {}
 variable "alicloud_bucket_acl_name" {}
 variable "alicloud_bucket_website_name" {}
 variable "alicloud_bucket_logging_target_name" {}
@@ -88,6 +90,17 @@ resource "alicloud_security_group" "alpha" {
   name        = var.alicloud_security_group_name
   description = var.alicloud_security_group_description
   vpc_id      = alicloud_vpc.inspec_vpc.0.id
+}
+
+resource "alicloud_security_group_rule" "sg-test" {
+  type              = "ingress"
+  ip_protocol       = "tcp"
+  nic_type          = "intranet"
+  policy            = "accept"
+  port_range        = var.alicloud_security_group_rule_port_range
+  priority          = 1
+  security_group_id = alicloud_security_group.alpha.0.id
+  cidr_ip           = var.alicloud_security_group_rule_cidr
 }
 
 ########### OSS Buckets #########################
