@@ -13,6 +13,8 @@ variable "alicloud_vpc_vswitch_name" {}
 variable "alicloud_vpc_vswitch_cidr" {}
 variable "alicloud_security_group_name" {}
 variable "alicloud_security_group_description" {}
+variable "alicloud_security_group_rule_port_range" {}
+variable "alicloud_security_group_rule_cidr" {}
 variable "alicloud_bucket_acl_name" {}
 variable "alicloud_bucket_website_name" {}
 variable "alicloud_bucket_logging_target_name" {}

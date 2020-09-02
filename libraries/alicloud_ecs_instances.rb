@@ -133,6 +133,6 @@ class AliCloudECSInstances < AliCloudResourceBase
   end
 
   def to_s
-    "ECS Instances #{table}"
+    'AliCloud ECS Instances (All)'
   end
 end
