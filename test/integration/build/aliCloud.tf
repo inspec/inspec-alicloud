@@ -90,6 +90,14 @@ resource "alicloud_security_group" "alpha" {
   vpc_id      = alicloud_vpc.inspec_vpc.0.id
 }
 
+# Create 20 additional security groups to test the AliCloudCommonClient pagination code
+resource "alicloud_security_group" "bulk" {
+  count       = 20
+  name        = "${var.alicloud_security_group_name}-bulk-${count.index}"
+  description = "${var.alicloud_security_group_description}-bulk"
+  vpc_id      = alicloud_vpc.inspec_vpc.0.id
+}
+
 ########### OSS Buckets #########################
 
 resource "alicloud_oss_bucket" "bucket-acl" {
