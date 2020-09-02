@@ -90,6 +90,17 @@ resource "alicloud_security_group" "alpha" {
   vpc_id      = alicloud_vpc.inspec_vpc.0.id
 }
 
+resource "alicloud_security_group_rule" "sg-test" {
+  type              = "ingress"
+  ip_protocol       = "tcp"
+  nic_type          = "intranet"
+  policy            = "accept"
+  port_range        = var.alicloud_security_group_rule_port_range
+  priority          = 1
+  security_group_id = alicloud_security_group.alpha.0.id
+  cidr_ip           = var.alicloud_security_group_rule_cidr
+}
+
 # Create 20 additional security groups to test the AliCloudCommonClient pagination code
 resource "alicloud_security_group" "bulk" {
   count       = 20
