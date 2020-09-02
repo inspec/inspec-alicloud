@@ -35,12 +35,13 @@ class AliCloudConnection
                  else
                    "https://#{api}.#{region}.aliyuncs.com"
                  end
-    RPCClient.new(
+    client = RPCClient.new(
       access_key_id:     ENV['ALICLOUD_ACCESS_KEY'],
       access_key_secret: ENV['ALICLOUD_SECRET_KEY'],
       endpoint:          endpoint,
       api_version:       api_version,
     )
+    AliCloudCommonClient.new(client)
   end
 
   def aliyun_oss_client
@@ -92,6 +93,49 @@ class AliCloudConnection
 
   def vpc_client
     alicloud_client(api: 'vpc', api_version: '2016-04-28')
+  end
+end
+
+# an AliCloud RPCClient Wrapper to handle pagination response
+class AliCloudCommonClient
+  def initialize(client)
+    @client = client
+  end
+
+  # same method signature as RPCClient.request
+  def request(action:, params: {}, opts: {})
+    page_number = 1
+    response_total = nil
+    loop do
+      # add PageNumber only for paginated request when PageNumber > 1
+      params[:PageNumber] = page_number if page_number > 1
+      response = @client.request(
+        action: action,
+        params: params,
+        opts: opts,
+      )
+      if response_total.nil?
+        response_total = response
+      else
+        # merge response
+        response.each_key do |key|
+          if response[key].instance_of? Hash
+            response[key].each_key do |key_next|
+              next unless response[key][key_next].instance_of? Array
+              # combine the data
+              response_total[key][key_next] += response[key][key_next]
+            end
+          else
+            # overwrite other values
+            response_total[key] = response[key]
+          end
+        end
+      end
+      # stop looping if the response is not paginated or has reached the last page
+      break if response['PageNumber'].nil? or page_number * response['PageSize'] >= response['TotalCount']
+      page_number += 1
+    end
+    response_total
   end
 end
 
