@@ -13,12 +13,13 @@ class AliCloudRamUserMFA < AliCloudResourceBase
   end
   '
 
-  attr_reader :serial_number
+  attr_reader :serial_number, :user_name
 
   def initialize(opts = {})
     opts = { user_name: opts } if opts.is_a?(String)
     super(opts)
     validate_parameters(required: %i(user_name))
+    @user_name = opts[:user_name]
 
     catch_alicloud_errors do
       @resp = @alicloud.ram_client.request(
@@ -47,6 +48,6 @@ class AliCloudRamUserMFA < AliCloudResourceBase
   end
 
   def to_s
-    "MFA for #{serial_number}"
+    "MFA #{@serial_number} for #{@user_name}"
   end
 end

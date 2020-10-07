@@ -17,14 +17,14 @@ class AliCloudAccessKey < AliCloudResourceBase
   def initialize(opts = {})
     opts = { access_key_id: opts } if opts.is_a?(String)
     super(opts)
-    validate_parameters(required: %i(access_key_id))
+    validate_parameters(required: %i(access_key_id), allow: %i(user_name))
 
     catch_alicloud_errors do
+      params = { "RegionId": opts[:region] }
+      params[:UserName] = opts[:user_name] if opts.key?(:user_name)
       @keys = @alicloud.ram_client.request(
         action: 'ListAccessKeys',
-            params: {
-              "RegionId": opts[:region],
-            },
+            params: params,
             opts: {
               method: 'POST',
             },
