@@ -58,3 +58,6 @@ output "alicloud_bucket_versioning_name" {
 output "alicloud_instance_id" {
   value = alicloud_instance.instance.id
 }
+output "alicloud_ram_access_key_id" {
+  value = alicloud_ram_access_key.ak.id
+}

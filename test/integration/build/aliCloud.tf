@@ -396,6 +396,10 @@ resource "alicloud_ram_user" "user" {
   email        = var.alicloud_ram_user_email
 }
 
+resource "alicloud_ram_access_key" "ak" {
+  user_name = alicloud_ram_user.user.name
+}
+
 ########### ECS Instances ##################
 
 resource "alicloud_kms_key" "ecs" {
