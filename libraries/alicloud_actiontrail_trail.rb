@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'alicloud_backend'
+require "alicloud_backend"
 
 class AliCloudActionTrailTrail < AliCloudResourceBase
-  name 'alicloud_actiontrail_trail'
-  desc 'Verifies settings for an individual AliCloud ActionTrail'
+  name "alicloud_actiontrail_trail"
+  desc "Verifies settings for an individual AliCloud ActionTrail"
 
   example "
     describe alicloud_actiontrail_trail('trail-name') do
@@ -21,26 +21,26 @@ class AliCloudActionTrailTrail < AliCloudResourceBase
     @trail_name = opts[:trail_name]
     catch_alicloud_errors do
       resp = @alicloud.actiontrail_client.request(
-        action: 'DescribeTrails',
+        action: "DescribeTrails",
         params: {
           "RegionId": opts[:region],
           "NameList": @trail_name,
         },
-      )['TrailList']
+      )["TrailList"]
 
       if resp.empty?
-        @trail_name = 'empty response'
+        @trail_name = "empty response"
         return
       end
 
       @trail = resp.first
-      @oss_bucket_name = @trail['OssBucketName']
-      @oss_key_prefix = @trail['OssKeyPrefix']
-      @role_name = @trail['RoleName']
-      @sls_project_arn = @trail['SlsProjectArn']
-      @sls_write_role_arn = @trail['SlsWriteRoleArn']
-      @status = @trail['Status']
-      @trail_region = @trail['TrailRegion']
+      @oss_bucket_name = @trail["OssBucketName"]
+      @oss_key_prefix = @trail["OssKeyPrefix"]
+      @role_name = @trail["RoleName"]
+      @sls_project_arn = @trail["SlsProjectArn"]
+      @sls_write_role_arn = @trail["SlsWriteRoleArn"]
+      @status = @trail["Status"]
+      @trail_region = @trail["TrailRegion"]
     end
   end
 
@@ -48,7 +48,7 @@ class AliCloudActionTrailTrail < AliCloudResourceBase
     return nil unless exists?
     catch_alicloud_errors do
       trail_status = @alicloud.actiontrail_client.request(
-        action: 'GetTrailStatus',
+        action: "GetTrailStatus",
         params: {
           "RegionId": opts[:region],
           "Name": @trail_name,
@@ -57,7 +57,7 @@ class AliCloudActionTrailTrail < AliCloudResourceBase
       # LatestDeliveryTime is unix time with milliseconds
       # Subtract two datetime objects for difference in days
       # May not exist if no logs have been delivered yet
-      (DateTime.now - DateTime.strptime(trail_status['LatestDeliveryTime'].to_s, '%Q')).to_i if trail_status['LatestDeliveryTime']
+      (DateTime.now - DateTime.strptime(trail_status["LatestDeliveryTime"].to_s, "%Q")).to_i if trail_status["LatestDeliveryTime"]
     end
   end
 
@@ -65,13 +65,13 @@ class AliCloudActionTrailTrail < AliCloudResourceBase
     return nil unless exists?
     catch_alicloud_errors do
       trail_status = @alicloud.actiontrail_client.request(
-        action: 'GetTrailStatus',
+        action: "GetTrailStatus",
         params: {
           "RegionId": opts[:region],
           "Name": @trail_name,
         },
       )
-      trail_status['IsLogging']
+      trail_status["IsLogging"]
     end
   end
 

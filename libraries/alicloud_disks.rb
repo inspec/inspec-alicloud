@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'alicloud_backend'
+require "alicloud_backend"
 
 class AliCloudDisks < AliCloudResourceBase
-  name 'alicloud_disks'
-  desc 'Verifies settings for AliClou disss in bulk'
+  name "alicloud_disks"
+  desc "Verifies settings for AliClou disss in bulk"
   example "
     # Verify that you have disks defined
     describe alicloud_disks do
@@ -21,14 +21,14 @@ class AliCloudDisks < AliCloudResourceBase
 
   # FilterTable setup
   FilterTable.create
-             .register_column(:ids, field: :id)
-             .register_column(:descriptions, field: :description)
-             .register_column(:names, field: :name)
-             .register_column(:encypted_disks, field: :encypted)
-             .register_column(:categorys, field: :category)
-             .register_column(:kms_key_ids, field: :kms_key_id)
-             .register_column(:sizes, field: :size)
-             .install_filter_methods_on_resource(self, :table)
+    .register_column(:ids, field: :id)
+    .register_column(:descriptions, field: :description)
+    .register_column(:names, field: :name)
+    .register_column(:encypted_disks, field: :encypted)
+    .register_column(:categorys, field: :category)
+    .register_column(:kms_key_ids, field: :kms_key_id)
+    .register_column(:sizes, field: :size)
+    .install_filter_methods_on_resource(self, :table)
 
   def initialize(opts = {})
     super(opts)
@@ -40,23 +40,23 @@ class AliCloudDisks < AliCloudResourceBase
     disk_rows = []
     catch_alicloud_errors do
       @disks = @alicloud.ecs_client.request(
-        action: 'DescribeDisks',
+        action: "DescribeDisks",
         params: {
           'RegionId': opts[:region],
         },
-      )['Disks']['Disk']
+      )["Disks"]["Disk"]
     end
 
     return [] if !@disks || @disks.empty?
     @disks.map do |disk|
       disk_rows += [{
-        id: disk['DiskId'],
-        description: disk['Description'],
-        name: disk['DiskName'],
-        encrypted: disk['Encrypted'],
-        category: disk['Category'],
-        kms_key_id: disk['KMSKeyId'],
-        size: disk['Size'],
+        id: disk["DiskId"],
+        description: disk["Description"],
+        name: disk["DiskName"],
+        encrypted: disk["Encrypted"],
+        category: disk["Category"],
+        kms_key_id: disk["KMSKeyId"],
+        size: disk["Size"],
       }]
     end
 
