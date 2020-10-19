@@ -46,6 +46,8 @@ This resouce pack allows the testing of the following AliCloud resources. If a r
 - [alicloud_slb_https_listener](libraries/alicloud_slb_https_listener.rb)
 - [alicloud_slbs](libraries/alicloud_slbs.rb)
 - [alicloud_sts_caller_identity](libraries/alicloud_sts_caller_identity.rb)
+- [alicloud_vpc](libraries/alicloud_vpc.rb)
+- [alicloud_vpcs](libraries/alicloud_vpcs.rb)
 
 ## Environment and Setup Notes
 
