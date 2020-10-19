@@ -18,7 +18,7 @@ class AliCloudSecurityGroup < AliCloudResourceBase
     opts[:group_id] = opts.delete(:id) if opts.key?(:id) # id is an alias for group_id
 
     super(opts)
-    validate_parameters(required: %i(group_id))
+    validate_parameters(required: %i{group_id})
 
     catch_alicloud_errors do
       @resp = @alicloud.ecs_client.request(
@@ -26,7 +26,7 @@ class AliCloudSecurityGroup < AliCloudResourceBase
         params: {
           "RegionId": opts[:region],
           "SecurityGroupId": opts[:group_id],
-        },
+        }
       )
     end
 
@@ -50,16 +50,19 @@ class AliCloudSecurityGroup < AliCloudResourceBase
   end
 
   def allow_in?(criteria = {})
-    return false unless @inbound_rules.count > 0 and criteria.key?(:port) and criteria.key?(:ipv4_range)
+    return false unless (@inbound_rules.count > 0) && criteria.key?(:port) && criteria.key?(:ipv4_range)
+
     port = criteria[:port]
     ipv4_range = criteria[:ipv4_range]
     @inbound_rules.each do |rule|
       policy = rule["Policy"]
       next unless policy == "Accept"
+
       cidr = IPAddr.new(rule["SourceCidrIp"])
       next unless cidr.include?(IPAddr.new(ipv4_range))
+
       port_start, port_end = rule["PortRange"].split("/").map(&:to_i)
-      return true if port >= port_start and port <= port_end
+      return true if (port >= port_start) && (port <= port_end)
     end
     false
   end

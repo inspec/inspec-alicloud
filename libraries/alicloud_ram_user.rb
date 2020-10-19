@@ -19,7 +19,7 @@ class AliCloudRamUser < AliCloudResourceBase
   def initialize(opts = {})
     opts = { user_name: opts } if opts.is_a?(String)
     super(opts)
-    validate_parameters(required: %i(user_name))
+    validate_parameters(required: %i{user_name})
 
     catch_alicloud_errors do
       @resp = @alicloud.ram_client.request(
@@ -30,7 +30,7 @@ class AliCloudRamUser < AliCloudResourceBase
         },
         opts: {
           method: "POST",
-        },
+        }
       )["User"]
     end
 

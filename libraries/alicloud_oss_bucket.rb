@@ -28,16 +28,16 @@ class AliCloudOssBucket < AliCloudResourceBase
   def exists?
     # @bucket object itself will not be nil if the bucket doesn't exist
     # need to check some property of the bucket and rescue the Bucket doesn't exist error
-    begin
-      @bucket.acl
-      true
-    rescue Aliyun::OSS::ServerError
-      false
-    end
+
+    @bucket.acl
+    true
+  rescue Aliyun::OSS::ServerError
+    false
   end
 
   def public?
     return false unless exists?
+
     catch_alicloud_errors do
       @bucket_policy_status_public ||= @bucket.acl != "private"
     end
@@ -45,6 +45,7 @@ class AliCloudOssBucket < AliCloudResourceBase
 
   def has_access_logging_enabled?
     return false unless exists?
+
     catch_alicloud_errors do
       @has_access_logging_enabled ||= @bucket.logging.enable == true
     end
@@ -66,6 +67,7 @@ class AliCloudOssBucket < AliCloudResourceBase
 
   def has_versioning_enabled?
     return false unless exists?
+
     catch_alicloud_errors do
       @has_versioning_enabled ||= @bucket.versioning.enable == true
     end
@@ -73,6 +75,7 @@ class AliCloudOssBucket < AliCloudResourceBase
 
   def has_website_enabled?
     return false unless exists?
+
     catch_alicloud_errors do
       @has_website_enabled ||= @bucket.website.enable == true
     end
@@ -80,6 +83,7 @@ class AliCloudOssBucket < AliCloudResourceBase
 
   def bucket_lifecycle_rules
     return false unless exists?
+
     catch_alicloud_errors do
       @bucket_lifecycle_rules ||= @bucket.lifecycle
     end

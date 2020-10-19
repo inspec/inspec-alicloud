@@ -18,7 +18,7 @@ class AliCloudDisk < AliCloudResourceBase
     opts = { disk_id: opts } if opts.is_a?(String)
     opts[:disk_id] = opts.delete(:id) if opts.key?(:id) # id is an alias for group_id
     super(opts)
-    validate_parameters(required: %i(disk_id))
+    validate_parameters(required: %i{disk_id})
 
     catch_alicloud_errors do
       @resp = @alicloud.ecs_client.request(
@@ -29,7 +29,7 @@ class AliCloudDisk < AliCloudResourceBase
         },
        opts: {
          method: "POST",
-       },
+       }
       )["Disks"]["Disk"].select { |d| d["DiskId"] == opts[:disk_id] }.first
     end
 

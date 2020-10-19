@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-gem 'bundle'
+gem "bundle"
 
 # Use Latest Inspec
-gem 'inspec-bin'
-gem 'aliyunsdkcore'
-gem 'aliyun-sdk', git: 'git@github.com:gsreynolds/aliyun-oss-ruby-sdk.git', branch: 'bucket_encryption_versioning'
-gem 'train-alicloud', git: 'git@github.com:chef-customers/train-alicloud.git'
+gem "inspec-bin"
+gem "aliyunsdkcore"
+gem "aliyun-sdk", git: "git@github.com:gsreynolds/aliyun-oss-ruby-sdk.git", branch: "bucket_encryption_versioning"
+gem "train-alicloud", git: "git@github.com:chef-customers/train-alicloud.git"
 
 group :development do
   gem "pry"

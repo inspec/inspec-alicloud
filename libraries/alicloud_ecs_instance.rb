@@ -25,7 +25,7 @@ class AliCloudECSInstance < AliCloudResourceBase
     opts = { instance_id: opts } if opts.is_a?(String)
     opts[:instance_id] = opts.delete(:id) if opts.key?(:id) # id is an alias for group_id
     super(opts)
-    validate_parameters(required: %i(instance_id))
+    validate_parameters(required: %i{instance_id})
     catch_alicloud_errors do
       @resp = @alicloud.ecs_client.request(
         action: "DescribeInstanceAttribute",
@@ -35,7 +35,7 @@ class AliCloudECSInstance < AliCloudResourceBase
         },
         opts: {
           method: "POST",
-        },
+        }
       )
       if @resp.nil?
         @instance_id = "empty response"
