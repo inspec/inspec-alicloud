@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'alicloud_backend'
+require "alicloud_backend"
 
 class AliCloudRamUserMFA < AliCloudResourceBase
-  name 'alicloud_ram_user_mfa'
-  desc 'Verifies settings for users\' MFA'
+  name "alicloud_ram_user_mfa"
+  desc "Verifies settings for users' MFA"
 
   example '
   # make sure MFA exists
@@ -23,24 +23,24 @@ class AliCloudRamUserMFA < AliCloudResourceBase
 
     catch_alicloud_errors do
       @resp = @alicloud.ram_client.request(
-        action: 'GetUserMFAInfo',
+        action: "GetUserMFAInfo",
         params: {
           'RegionId': opts[:region],
           'UserName': opts[:user_name],
         },
         opts: {
-          method: 'POST',
+          method: "POST",
         },
-      )['MFADevice']
+      )["MFADevice"]
     end
 
     if @resp.nil?
-      @serial_number = 'empty response'
+      @serial_number = "empty response"
       return
     end
 
     @mfa                = @resp
-    @serial_number      = @mfa['SerialNumber']
+    @serial_number      = @mfa["SerialNumber"]
   end
 
   def exists?

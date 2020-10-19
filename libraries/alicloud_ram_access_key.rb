@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'alicloud_backend'
+require "alicloud_backend"
 
 class AliCloudAccessKey < AliCloudResourceBase
-  name 'alicloud_access_key'
-  desc 'Verifies properties of an AliCloud access key'
+  name "alicloud_access_key"
+  desc "Verifies properties of an AliCloud access key"
   example '
   # check key is active
   describe alicloud_access_key(<access key id>) do
@@ -23,19 +23,19 @@ class AliCloudAccessKey < AliCloudResourceBase
       params = { "RegionId": opts[:region] }
       params[:UserName] = opts[:user_name] if opts.key?(:user_name)
       @keys = @alicloud.ram_client.request(
-        action: 'ListAccessKeys',
+        action: "ListAccessKeys",
             params: params,
             opts: {
-              method: 'POST',
+              method: "POST",
             },
-      )['AccessKeys']['AccessKey']
+      )["AccessKeys"]["AccessKey"]
 
       @keys.map do |key|
         # rubocop:disable Style/Next
-        if key['AccessKeyId'] == opts[:access_key_id]
-          @access_key_id = key['AccessKeyId']
-          @status         = key['Status']
-          @create_date    = key['CreateDate']
+        if key["AccessKeyId"] == opts[:access_key_id]
+          @access_key_id = key["AccessKeyId"]
+          @status         = key["Status"]
+          @create_date    = key["CreateDate"]
           break
         end
         # rubocop:enable Style/Next

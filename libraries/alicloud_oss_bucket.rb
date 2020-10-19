@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'alicloud_backend'
+require "alicloud_backend"
 
 class AliCloudOssBucket < AliCloudResourceBase
-  name 'alicloud_oss_bucket'
-  desc 'Verifies settings for an AliCloud OSS Bucket'
+  name "alicloud_oss_bucket"
+  desc "Verifies settings for an AliCloud OSS Bucket"
   example "
     describe alicloud_oss_bucket(bucket_name: 'test_bucket') do
       it { should exist }
@@ -39,7 +39,7 @@ class AliCloudOssBucket < AliCloudResourceBase
   def public?
     return false unless exists?
     catch_alicloud_errors do
-      @bucket_policy_status_public ||= @bucket.acl != 'private'
+      @bucket_policy_status_public ||= @bucket.acl != "private"
     end
   end
 

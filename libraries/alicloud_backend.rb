@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'aliyunsdkcore'
-require 'aliyun/oss'
-require 'rspec/expectations'
+require "aliyunsdkcore"
+require "aliyun/oss"
+require "rspec/expectations"
 
 # AliCloud Inspec Backend Classes
 #
@@ -26,8 +26,8 @@ class AliCloudConnection
   end
 
   def alicloud_client(api:, api_version:)
-    region = @client_args.fetch(:region, nil) || ENV['ALICLOUD_REGION'] if @client_args
-    region ||= ENV['ALICLOUD_REGION']
+    region = @client_args.fetch(:region, nil) || ENV["ALICLOUD_REGION"] if @client_args
+    region ||= ENV["ALICLOUD_REGION"]
 
     endpoint = @client_args.fetch(:endpoint, nil) if @client_args
     endpoint ||= if %w{sts ram resourcemanager}.include?(api)
@@ -36,8 +36,8 @@ class AliCloudConnection
                    "https://#{api}.#{region}.aliyuncs.com"
                  end
     client = RPCClient.new(
-      access_key_id:     ENV['ALICLOUD_ACCESS_KEY'],
-      access_key_secret: ENV['ALICLOUD_SECRET_KEY'],
+      access_key_id:     ENV["ALICLOUD_ACCESS_KEY"],
+      access_key_secret: ENV["ALICLOUD_SECRET_KEY"],
       endpoint:          endpoint,
       api_version:       api_version,
     )
@@ -45,34 +45,34 @@ class AliCloudConnection
   end
 
   def aliyun_oss_client
-    region = @client_args.fetch(:region, nil) || ENV['ALICLOUD_REGION'] if @client_args
-    region ||= ENV['ALICLOUD_REGION']
+    region = @client_args.fetch(:region, nil) || ENV["ALICLOUD_REGION"] if @client_args
+    region ||= ENV["ALICLOUD_REGION"]
 
     endpoint = "https://oss-#{region}.aliyuncs.com"
     Aliyun::OSS::Client.new(
       endpoint: endpoint,
-      access_key_id: ENV['ALICLOUD_ACCESS_KEY'],
-      access_key_secret: ENV['ALICLOUD_SECRET_KEY'],
+      access_key_id: ENV["ALICLOUD_ACCESS_KEY"],
+      access_key_secret: ENV["ALICLOUD_SECRET_KEY"],
     )
   end
 
   def unique_identifier
     # use alicloud account id
-    caller_identity = sts_client.request(action: 'GetCallerIdentity')
-    caller_identity['AccountId']
+    caller_identity = sts_client.request(action: "GetCallerIdentity")
+    caller_identity["AccountId"]
   end
 
   # Client convenience methods
   def actiontrail_client
-    alicloud_client(api: 'actiontrail', api_version: '2017-12-04')
+    alicloud_client(api: "actiontrail", api_version: "2017-12-04")
   end
 
   def slb_client
-    alicloud_client(api: 'slb', api_version: '2014-05-15')
+    alicloud_client(api: "slb", api_version: "2014-05-15")
   end
 
   def ecs_client
-    alicloud_client(api: 'ecs', api_version: '2014-05-26')
+    alicloud_client(api: "ecs", api_version: "2014-05-26")
   end
 
   def oss_client
@@ -80,19 +80,19 @@ class AliCloudConnection
   end
 
   def sts_client
-    alicloud_client(api: 'sts', api_version: '2015-04-01')
+    alicloud_client(api: "sts", api_version: "2015-04-01")
   end
 
   def ram_client
-    alicloud_client(api: 'ram', api_version: '2015-05-01')
+    alicloud_client(api: "ram", api_version: "2015-05-01")
   end
 
   def rm_client
-    alicloud_client(api: 'resourcemanager', api_version: '2020-03-31')
+    alicloud_client(api: "resourcemanager", api_version: "2020-03-31")
   end
 
   def vpc_client
-    alicloud_client(api: 'vpc', api_version: '2016-04-28')
+    alicloud_client(api: "vpc", api_version: "2016-04-28")
   end
 end
 
@@ -132,7 +132,7 @@ class AliCloudCommonClient
         end
       end
       # stop looping if the response is not paginated or has reached the last page
-      break if response['PageNumber'].nil? or page_number * response['PageSize'] >= response['TotalCount']
+      break if response["PageNumber"].nil? or page_number * response["PageSize"] >= response["TotalCount"]
       page_number += 1
     end
     response_total
@@ -154,7 +154,7 @@ class AliCloudResourceBase < Inspec.resource(1)
       client_args[:endpoint] = opts[:endpoint] if opts[:endpoint]
     end
     # Default region to ALICLOUD_REGION env var - needed in the resource requests for most resources
-    @opts[:region] ||= ENV['ALICLOUD_REGION']
+    @opts[:region] ||= ENV["ALICLOUD_REGION"]
     @alicloud = AliCloudConnection.new(client_args)
   end
 
@@ -165,20 +165,20 @@ class AliCloudResourceBase < Inspec.resource(1)
   def validate_parameters(allow: [], required: nil, require_any_of: nil)
     if required
       raise ArgumentError, "Expected required parameters as Array of Symbols, got #{required}" unless required.is_a?(Array) && required.all? { |r| r.is_a?(Symbol) }
-      raise ArgumentError, "#{@__resource_name__}: `#{required}` must be provided" unless @opts.is_a?(Hash) && required.all? { |req| @opts.key?(req) && !@opts[req].nil? && @opts[req] != '' }
+      raise ArgumentError, "#{@__resource_name__}: `#{required}` must be provided" unless @opts.is_a?(Hash) && required.all? { |req| @opts.key?(req) && !@opts[req].nil? && @opts[req] != "" }
       allow += required
     end
 
     if require_any_of
       raise ArgumentError, "Expected required parameters as Array of Symbols, got #{require_any_of}" unless require_any_of.is_a?(Array) && require_any_of.all? { |r| r.is_a?(Symbol) }
-      raise ArgumentError, "#{@__resource_name__}: One of `#{require_any_of}` must be provided." unless @opts.is_a?(Hash) && require_any_of.any? { |req| @opts.key?(req) && !@opts[req].nil? && @opts[req] != '' }
+      raise ArgumentError, "#{@__resource_name__}: One of `#{require_any_of}` must be provided." unless @opts.is_a?(Hash) && require_any_of.any? { |req| @opts.key?(req) && !@opts[req].nil? && @opts[req] != "" }
       allow += require_any_of
     end
 
     allow += %i(region endpoint)
-    raise ArgumentError, 'Scalar arguments not supported' unless defined?(@opts.keys)
-    raise ArgumentError, 'Unexpected arguments found' unless @opts.keys.all? { |a| allow.include?(a) }
-    raise ArgumentError, 'Provided parameter should not be empty' unless @opts.values.all? do |a|
+    raise ArgumentError, "Scalar arguments not supported" unless defined?(@opts.keys)
+    raise ArgumentError, "Unexpected arguments found" unless @opts.keys.all? { |a| allow.include?(a) }
+    raise ArgumentError, "Provided parameter should not be empty" unless @opts.values.all? do |a|
       return true if a.class == Integer
       !a.empty?
     end
@@ -193,12 +193,12 @@ class AliCloudResourceBase < Inspec.resource(1)
   def catch_alicloud_errors
     yield # Catch and create custom messages as needed
   rescue ArgumentError
-    Inspec::Log.error 'It appears that you have not set your AliCloud credentials.'
-    fail_resource('No AliCloud credentials available')
+    Inspec::Log.error "It appears that you have not set your AliCloud credentials."
+    fail_resource("No AliCloud credentials available")
   rescue StandardError => e
     Inspec::Log.warn "AliCloud Service Error encountered running a control with Resource #{@__resource_name__}. " \
                       "Error message: #{e.message}. You should address this error to ensure your controls are " \
-                      'behaving as expected.'
+                      "behaving as expected."
     @failed_resource = true
     nil
   end

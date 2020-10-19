@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'alicloud_backend'
+require "alicloud_backend"
 
 class AliCloudRamUser < AliCloudResourceBase
-  name 'alicloud_ram_user'
-  desc 'Verifies settings for AliCloud ram users'
+  name "alicloud_ram_user"
+  desc "Verifies settings for AliCloud ram users"
 
   example "
   # ensure a user exists
@@ -23,32 +23,32 @@ class AliCloudRamUser < AliCloudResourceBase
 
     catch_alicloud_errors do
       @resp = @alicloud.ram_client.request(
-        action: 'GetUser',
+        action: "GetUser",
         params: {
           'RegionId': opts[:region],
           'UserName': opts[:user_name],
         },
         opts: {
-          method: 'POST',
+          method: "POST",
         },
-      )['User']
+      )["User"]
     end
 
     if @resp.nil?
-      @user_id = 'empty response'
+      @user_id = "empty response"
       return
     end
 
     @user               = @resp
-    @update_date        = @resp['UpdateDate']
-    @user_name          = @resp['UserName']
-    @email              = @resp['Email']
-    @user_id            = @resp['UserId']
-    @comments           = @resp['Comments']
-    @display_name       = @resp['DisplayName']
-    @last_login_date    = @resp['LastLoginDate']
-    @create_date        = @resp['CreateDate']
-    @mobile_phone       = @resp['MobilePhone']
+    @update_date        = @resp["UpdateDate"]
+    @user_name          = @resp["UserName"]
+    @email              = @resp["Email"]
+    @user_id            = @resp["UserId"]
+    @comments           = @resp["Comments"]
+    @display_name       = @resp["DisplayName"]
+    @last_login_date    = @resp["LastLoginDate"]
+    @create_date        = @resp["CreateDate"]
+    @mobile_phone       = @resp["MobilePhone"]
   end
 
   def exists?

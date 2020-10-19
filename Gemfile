@@ -10,10 +10,13 @@ gem 'aliyunsdkcore'
 gem 'aliyun-sdk', git: 'git@github.com:gsreynolds/aliyun-oss-ruby-sdk.git', branch: 'bucket_encryption_versioning'
 gem 'train-alicloud', git: 'git@github.com:chef-customers/train-alicloud.git'
 
-gem 'rubocop', require: false
-
 group :development do
-  gem 'rake'
-  gem 'minitest'
-  gem 'pry-byebug'
+  gem "pry"
+  gem "bundler"
+  gem "byebug"
+  gem "minitest"
+  gem "mocha"
+  gem "m"
+  gem "rake"
+  gem "chefstyle"
 end

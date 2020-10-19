@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'alicloud_backend'
+require "alicloud_backend"
 
 class AliCloudOssBuckets < AliCloudResourceBase
-  name 'alicloud_oss_buckets'
-  desc 'Verifies settings for AliCloud OSS Buckets in bulk'
+  name "alicloud_oss_buckets"
+  desc "Verifies settings for AliCloud OSS Buckets in bulk"
   example "
     describe alicloud_oss_buckets do
       its('bucket_names') { should eq ['my_bucket'] }
@@ -14,8 +14,8 @@ class AliCloudOssBuckets < AliCloudResourceBase
   attr_reader :table
 
   FilterTable.create
-             .register_column(:bucket_names, field: :bucket_name)
-             .install_filter_methods_on_resource(self, :table)
+    .register_column(:bucket_names, field: :bucket_name)
+    .install_filter_methods_on_resource(self, :table)
 
   def initialize(opts = {})
     super(opts)

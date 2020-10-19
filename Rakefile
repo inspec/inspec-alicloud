@@ -2,7 +2,8 @@
 # frozen_string_literal: true
 
 require 'rake/testtask'
-require 'rubocop/rake_task'
+require "chefstyle"
+require "rubocop/rake_task"
 require_relative 'test/integration/configuration/alicloud_inspec_config'
 
 INTEGRATION_DIR = File.join('test', 'integration')
@@ -15,8 +16,9 @@ PROFILE_ATTRIBUTES = 'alicloud-inspec-attributes.yaml'
 
 # Rubocop
 desc 'Run Rubocop lint checks'
-task :rubocop do
-  RuboCop::RakeTask.new
+
+RuboCop::RakeTask.new(:lint) do |task|
+  task.options << "--display-cop-names"
 end
 
 # Minitest
@@ -27,10 +29,6 @@ Rake::TestTask.new do |t|
   t.verbose = true
   t.pattern = File.join('test', 'unit', '**', '*_test.rb')
 end
-
-# lint the project
-desc 'Run robocop linter'
-task lint: [:rubocop]
 
 # run tests
 #  Disabling inspec check on profile with path dependency due to https://github.com/inspec/inspec/issues/3571 - 'test:check'
