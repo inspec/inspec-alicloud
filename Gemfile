@@ -7,7 +7,7 @@ gem "bundle"
 # Use Latest Inspec
 gem "inspec-bin"
 gem "aliyunsdkcore"
-gem "aliyun-sdk", git: "git@github.com:gsreynolds/aliyun-oss-ruby-sdk.git", branch: "bucket_encryption_versioning"
+gem "aliyun-sdk", "~> 0.8.0"
 gem "train-alicloud", git: "git@github.com:chef-customers/train-alicloud.git"
 
 group :development do
