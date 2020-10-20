@@ -18,7 +18,7 @@ class AliCloudRamUserMFA < AliCloudResourceBase
   def initialize(opts = {})
     opts = { user_name: opts } if opts.is_a?(String)
     super(opts)
-    validate_parameters(required: %i(user_name))
+    validate_parameters(required: %i{user_name})
     @user_name = opts[:user_name]
 
     catch_alicloud_errors do
@@ -30,7 +30,7 @@ class AliCloudRamUserMFA < AliCloudResourceBase
         },
         opts: {
           method: "POST",
-        },
+        }
       )["MFADevice"]
     end
 

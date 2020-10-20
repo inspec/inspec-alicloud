@@ -39,7 +39,7 @@ class AliCloudConnection
       access_key_id:     ENV["ALICLOUD_ACCESS_KEY"],
       access_key_secret: ENV["ALICLOUD_SECRET_KEY"],
       endpoint:          endpoint,
-      api_version:       api_version,
+      api_version:       api_version
     )
     AliCloudCommonClient.new(client)
   end
@@ -52,7 +52,7 @@ class AliCloudConnection
     Aliyun::OSS::Client.new(
       endpoint: endpoint,
       access_key_id: ENV["ALICLOUD_ACCESS_KEY"],
-      access_key_secret: ENV["ALICLOUD_SECRET_KEY"],
+      access_key_secret: ENV["ALICLOUD_SECRET_KEY"]
     )
   end
 
@@ -112,7 +112,7 @@ class AliCloudCommonClient
       response = @client.request(
         action: action,
         params: params,
-        opts: opts,
+        opts: opts
       )
       if response_total.nil?
         response_total = response
@@ -122,6 +122,7 @@ class AliCloudCommonClient
           if response[key].instance_of? Hash
             response[key].each_key do |key_next|
               next unless response[key][key_next].instance_of? Array
+
               # combine the data
               response_total[key][key_next] += response[key][key_next]
             end
@@ -132,7 +133,8 @@ class AliCloudCommonClient
         end
       end
       # stop looping if the response is not paginated or has reached the last page
-      break if response["PageNumber"].nil? or page_number * response["PageSize"] >= response["TotalCount"]
+      break if response["PageNumber"].nil? || (page_number * response["PageSize"] >= response["TotalCount"])
+
       page_number += 1
     end
     response_total
@@ -166,22 +168,26 @@ class AliCloudResourceBase < Inspec.resource(1)
     if required
       raise ArgumentError, "Expected required parameters as Array of Symbols, got #{required}" unless required.is_a?(Array) && required.all? { |r| r.is_a?(Symbol) }
       raise ArgumentError, "#{@__resource_name__}: `#{required}` must be provided" unless @opts.is_a?(Hash) && required.all? { |req| @opts.key?(req) && !@opts[req].nil? && @opts[req] != "" }
+
       allow += required
     end
 
     if require_any_of
       raise ArgumentError, "Expected required parameters as Array of Symbols, got #{require_any_of}" unless require_any_of.is_a?(Array) && require_any_of.all? { |r| r.is_a?(Symbol) }
       raise ArgumentError, "#{@__resource_name__}: One of `#{require_any_of}` must be provided." unless @opts.is_a?(Hash) && require_any_of.any? { |req| @opts.key?(req) && !@opts[req].nil? && @opts[req] != "" }
+
       allow += require_any_of
     end
 
-    allow += %i(region endpoint)
+    allow += %i{region endpoint}
     raise ArgumentError, "Scalar arguments not supported" unless defined?(@opts.keys)
     raise ArgumentError, "Unexpected arguments found" unless @opts.keys.all? { |a| allow.include?(a) }
     raise ArgumentError, "Provided parameter should not be empty" unless @opts.values.all? do |a|
       return true if a.class == Integer
+
       !a.empty?
     end
+
     true
   end
 

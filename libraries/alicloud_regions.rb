@@ -32,6 +32,7 @@ class AliCloudRegions < AliCloudResourceBase
       @regions = @alicloud.ecs_client.request(action: "DescribeRegions")["Regions"]["Region"]
     end
     return [] if !@regions || @regions.empty?
+
     @regions.each do |region|
       region_rows += [{ region_name: region["RegionId"],
                         endpoint: region["RegionEndpoint"],

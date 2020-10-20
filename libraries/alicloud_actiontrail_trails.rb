@@ -36,10 +36,11 @@ class AliCloudActionTrailTrails < AliCloudResourceBase
         action: "DescribeTrails",
         params: {
           "RegionId": opts[:region],
-        },
+        }
       )["TrailList"]
     end
     return [] if !@actiontrails || @actiontrails.empty?
+
     @actiontrails.each do |actiontrail|
       actiontrail_rows += [{ name: actiontrail["Name"],
                              oss_bucket_name: actiontrail["OssBucketName"],

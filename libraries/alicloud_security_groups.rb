@@ -41,11 +41,12 @@ class AliCloudSecurityGroups < AliCloudResourceBase
         action: "DescribeSecurityGroups",
         params: {
           "RegionId": opts[:region],
-        },
+        }
       )["SecurityGroups"]["SecurityGroup"]
     end
 
     return [] if !@security_groups || @security_groups.empty?
+
     @security_groups.map do |security_group|
       security_group_rows += [{
         group_id: security_group["SecurityGroupId"],

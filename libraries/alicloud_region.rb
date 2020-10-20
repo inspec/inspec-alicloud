@@ -24,6 +24,7 @@ class AliCloudRegion < AliCloudResourceBase
       @regions = @alicloud.ecs_client.request(action: "DescribeRegions")["Regions"]["Region"]
       resp = @regions.find { |r| r["RegionId"] == @region_name }
       return if resp.nil?
+
       @endpoint = resp["RegionEndpoint"]
       @region_local_name = resp["LocalName"]
     end

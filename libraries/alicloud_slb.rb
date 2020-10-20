@@ -21,14 +21,14 @@ class AliCloudSlb < AliCloudResourceBase
     opts[:slb_id] = opts.delete(:id) if opts.key?(:id)
 
     super(opts)
-    validate_parameters(required: %i(slb_id))
+    validate_parameters(required: %i{slb_id})
     catch_alicloud_errors do
       @resp = @alicloud.slb_client.request(
         action: "DescribeLoadBalancerAttribute",
         params: {
           'RegionId': opts[:region],
           'LoadBalancerId': opts[:slb_id],
-        },
+        }
       )
     end
 

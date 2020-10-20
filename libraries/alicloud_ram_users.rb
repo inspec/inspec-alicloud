@@ -34,11 +34,12 @@ class AliCloudRamUsers < AliCloudResourceBase
         action: "ListUsers",
         params: {
           'RegionId': opts[:region],
-        },
+        }
       )["Users"]["User"]
     end
 
     return [] if !@users || @users.empty?
+
     user_rows = []
     @users.map do |user|
       user_rows += [{

@@ -73,11 +73,12 @@ class AliCloudECSInstances < AliCloudResourceBase
         action: "DescribeInstances",
         params: {
           'RegionId': opts[:region],
-        },
+        }
       )["Instances"]["Instance"]
     end
 
     return [] if !@instances || @instances.empty?
+
     instance_rows = []
     @instances.map do |instance|
       instance_rows += [{

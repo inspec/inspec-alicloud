@@ -47,11 +47,12 @@ class AliCloudVpcs < AliCloudResourceBase
         action: "DescribeVpcs",
         params: {
           'RegionId': opts[:region],
-        },
+        }
       )["Vpcs"]["Vpc"]
     end
 
     return [] if !@vpcs || @vpcs.empty?
+
     @vpcs.map do |vpc|
       vpc_rows += [{
         vpc_id:             vpc["VpcId"],

@@ -53,11 +53,12 @@ class AliCloudSlbs < AliCloudResourceBase
         action: "DescribeLoadBalancers",
         params: {
           'RegionId': opts[:region],
-        },
+        }
       )["LoadBalancers"]["LoadBalancer"]
     end
 
-    return [] if !@load_balancers|| @load_balancers.empty?
+    return [] if !@load_balancers || @load_balancers.empty?
+
     @load_balancers.map do |load_balancer|
       load_balancer_rows += [{
         created_time_stamp:   load_balancer["CreateTimeStamp"],

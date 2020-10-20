@@ -21,11 +21,11 @@ class AliCloudResourceDirectory < AliCloudResourceBase
         action: "GetResourceDirectory",
         params: {
           "RegionId": opts[:region],
-        },
+        }
       )
     end
 
-    if @resp.nil? or @resp["ResourceDirectory"].nil?
+    if @resp.nil? || @resp["ResourceDirectory"].nil?
       @resource_directory_id = nil
       @master_account_name = nil
       @master_account_id = nil

@@ -31,7 +31,7 @@ class AliCloudRam < AliCloudResourceBase
         },
         opts: {
           method: "POST",
-        },
+        }
       )["PasswordPolicy"]
     end
     if @resp.nil?

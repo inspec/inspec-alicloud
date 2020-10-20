@@ -43,11 +43,12 @@ class AliCloudDisks < AliCloudResourceBase
         action: "DescribeDisks",
         params: {
           'RegionId': opts[:region],
-        },
+        }
       )["Disks"]["Disk"]
     end
 
     return [] if !@disks || @disks.empty?
+
     @disks.map do |disk|
       disk_rows += [{
         id: disk["DiskId"],

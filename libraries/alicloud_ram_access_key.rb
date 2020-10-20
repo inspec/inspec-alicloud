@@ -17,7 +17,7 @@ class AliCloudAccessKey < AliCloudResourceBase
   def initialize(opts = {})
     opts = { access_key_id: opts } if opts.is_a?(String)
     super(opts)
-    validate_parameters(required: %i(access_key_id), allow: %i(user_name))
+    validate_parameters(required: %i{access_key_id}, allow: %i{user_name})
 
     catch_alicloud_errors do
       params = { "RegionId": opts[:region] }
@@ -27,15 +27,15 @@ class AliCloudAccessKey < AliCloudResourceBase
             params: params,
             opts: {
               method: "POST",
-            },
+            }
       )["AccessKeys"]["AccessKey"]
 
       @keys.map do |key|
         # rubocop:disable Style/Next
         if key["AccessKeyId"] == opts[:access_key_id]
           @access_key_id = key["AccessKeyId"]
-          @status         = key["Status"]
-          @create_date    = key["CreateDate"]
+          @status = key["Status"]
+          @create_date = key["CreateDate"]
           break
         end
         # rubocop:enable Style/Next

@@ -17,14 +17,14 @@ class AliCloudVpc < AliCloudResourceBase
     opts = { vpc_id: opts } if opts.is_a?(String)
 
     super(opts)
-    validate_parameters(required: %i(vpc_id))
+    validate_parameters(required: %i{vpc_id})
     catch_alicloud_errors do
       @resp = @alicloud.vpc_client.request(
         action: "DescribeVpcAttribute",
         params: {
           'RegionId': opts[:region],
           'VpcId': opts[:vpc_id],
-        },
+        }
       )
     end
 
@@ -50,6 +50,7 @@ class AliCloudVpc < AliCloudResourceBase
     @attached_cens      = []
     # AssociatedCens will only be returned when the VPC is attached to CEN
     return if @vpc_info["AssociatedCens"].nil?
+
     @vpc_info["AssociatedCens"]["AssociatedCen"].each do |cen|
       @attached_cens.append(cen["CenId"])
     end
