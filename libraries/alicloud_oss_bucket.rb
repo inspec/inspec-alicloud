@@ -69,7 +69,7 @@ class AliCloudOssBucket < AliCloudResourceBase
     return false unless exists?
 
     catch_alicloud_errors do
-      @has_versioning_enabled ||= @bucket.versioning.enable == true
+      @has_versioning_enabled ||= @bucket.versioning.status == "Enabled"
     end
   end
 
