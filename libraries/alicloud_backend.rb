@@ -38,7 +38,7 @@ class AliCloudConnection
     client = RPCClient.new(
       access_key_id:     ENV["ALICLOUD_ACCESS_KEY"],
       access_key_secret: ENV["ALICLOUD_SECRET_KEY"],
-      security_token:    ENV['ALICLOUD_SECURITY_TOKEN'],
+      security_token:    ENV["ALICLOUD_SECURITY_TOKEN"],
       endpoint:          endpoint,
       api_version:       api_version
     )
@@ -54,7 +54,7 @@ class AliCloudConnection
       endpoint: endpoint,
       access_key_id: ENV["ALICLOUD_ACCESS_KEY"],
       access_key_secret: ENV["ALICLOUD_SECRET_KEY"],
-      sts_token:    ENV['ALICLOUD_SECURITY_TOKEN']
+      sts_token:    ENV["ALICLOUD_SECURITY_TOKEN"]
     )
   end
 
