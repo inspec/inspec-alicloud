@@ -1,12 +1,9 @@
 # Documentation available at https://expeditor.chef.io/docs/getting-started/
 ---
-
-# DISABLE PIPELINE until repo is public
-# chef-oss Buildkite org does not have access to private repos
-# pipelines:
-#  - verify:
-#     description: Pull Request validation tests
-#     public: true
+pipelines:
+  - verify:
+      description: Pull Request validation tests
+      public: true
 
 slack:
   notify_channel: inspec-notify
@@ -22,7 +19,7 @@ github:
   # allow bumping the major release via label
   major_bump_labels:
     - "Expeditor: Bump Version Major"
- 
+
 changelog:
   categories:
     - "Type: Enhancement": "Enhancements"
@@ -39,4 +36,3 @@ merge_actions:
       ignore_labels:
         - "Expeditor: Skip Changelog"
         - "Expeditor: Skip All"
-
