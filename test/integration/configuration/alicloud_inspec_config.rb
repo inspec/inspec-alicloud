@@ -132,7 +132,7 @@ module AliCloudInspecConfig
     outputs = get_tf_output_vars
     outputs.each do |tf|
       # also assuming single values here
-      value = `cd "#{build_dir}" && terraform output #{tf}`.chop.gsub(/"/, '')
+      value = `cd "#{build_dir}" && terraform output #{tf}`.chop.gsub(/"/, "")
       contents[tf.to_sym] = value
     end
     File.open(File.join(File.dirname(__FILE__), "..", "build", file_name), "w") do |f|
