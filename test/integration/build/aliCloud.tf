@@ -1,7 +1,13 @@
 # AliCloud Terraform Templates for InSpec Testing
 
 terraform {
-  required_version = ">= 0.12"
+  required_version = ">= 0.15"
+  required_providers {
+    alicloud = {
+      source = "aliyun/alicloud"
+      version = "1.122.1"
+    }
+  }
 }
 
 # Configure variables
@@ -14,7 +20,10 @@ variable "alicloud_vpc_vswitch_cidr" {}
 variable "alicloud_security_group_name" {}
 variable "alicloud_security_group_description" {}
 variable "alicloud_security_group_rule_port_range" {}
+variable "alicloud_security_group_rule_port_in_range" {}
+variable "alicloud_security_group_rule_port_not_in_range" {}
 variable "alicloud_security_group_rule_cidr" {}
+variable "alicloud_security_group_rule_cidr_not_in" {}
 variable "alicloud_bucket_acl_name" {}
 variable "alicloud_bucket_website_name" {}
 variable "alicloud_bucket_logging_target_name" {}
@@ -50,7 +59,6 @@ variable "alicloud_ecs_instance_disk_category" {}
 variable "alicloud_ecs_instance_disk_encrypted" {}
 
 provider "alicloud" {
-  version = "1.88"
   region  = var.alicloud_region
 }
 
@@ -60,21 +68,21 @@ data "alicloud_regions" "current" {}
 
 resource "alicloud_vpc" "inspec_vpc" {
   count       = var.alicloud_enable_create
-  name        = var.alicloud_vpc_name
+  vpc_name    = var.alicloud_vpc_name
   description = var.alicloud_vpc_description
   cidr_block  = var.alicloud_vpc_cidr
 }
 
 resource "alicloud_vswitch" "inspec_vswitch" {
-  count             = var.alicloud_enable_create
-  vpc_id            = alicloud_vpc.inspec_vpc.0.id
-  cidr_block        = var.alicloud_vpc_vswitch_cidr
-  availability_zone = data.alicloud_zones.zones_ds.zones.0.id
-  name              = var.alicloud_vpc_vswitch_name
+  count        = var.alicloud_enable_create
+  vpc_id       = alicloud_vpc.inspec_vpc.0.id
+  cidr_block   = var.alicloud_vpc_vswitch_cidr
+  zone_id      = data.alicloud_zones.zones_ds.zones.0.id
+  vswitch_name = var.alicloud_vpc_vswitch_name
 }
 
 ########### Security Groups #####################
-
+#
 # there is no default security group it seems in alicloud
 # creating two so the security_groups verify tests can count
 # more than 1
@@ -234,9 +242,9 @@ ROLE
 }
 
 resource "alicloud_ram_policy" "actiontrail-policy" {
-  count       = var.alicloud_enable_create
-  name        = var.alicloud_action_trail_ram_policy_name
-  document    = <<POLICY
+  count           = var.alicloud_enable_create
+  policy_name     = var.alicloud_action_trail_ram_policy_name
+  policy_document = <<POLICY
 {
   "Version": "1",
   "Statement": [
@@ -277,10 +285,9 @@ resource "alicloud_oss_bucket" "action-trail-bucket" {
   force_destroy = true
 }
 
-resource "alicloud_actiontrail" "action-trail" {
-  name            = var.alicloud_action_trail_name
+resource "alicloud_actiontrail_trail" "action-trail" {
+  trail_name            = var.alicloud_action_trail_name
   oss_bucket_name = alicloud_oss_bucket.action-trail-bucket.0.id
-  role_name       = alicloud_ram_role_policy_attachment.actiontrail-attachment.0.role_name
 }
 
 
@@ -292,27 +299,28 @@ data "alicloud_zones" "zones_ds" {
 
 resource "alicloud_disk" "alpha" {
   count             = var.alicloud_enable_create
-  availability_zone = data.alicloud_zones.zones_ds.zones.0.id
-  name              = var.alicloud_disk_name
-  description       = var.alicloud_disk_desc
-  category          = var.alicloud_disk_category
-  size              = var.alicloud_disk_size
-  encrypted         = var.alicloud_disk_encrypted
+  zone_id     = data.alicloud_zones.zones_ds.zones.0.id
+  disk_name   = var.alicloud_disk_name
+  description = var.alicloud_disk_desc
+  category    = var.alicloud_disk_category
+  size        = var.alicloud_disk_size
+  encrypted   = var.alicloud_disk_encrypted
 }
 
 resource "alicloud_disk" "beta" {
-  count             = var.alicloud_enable_create
-  availability_zone = data.alicloud_zones.zones_ds.zones.0.id
-  name              = "second-disk"
-  description       = "second test disk"
-  category          = var.alicloud_disk_category
-  size              = var.alicloud_disk_size
+  count       = var.alicloud_enable_create
+  zone_id     = data.alicloud_zones.zones_ds.zones.0.id
+  disk_name   = "second-disk"
+  description = "second test disk"
+  category    = var.alicloud_disk_category
+  size        = var.alicloud_disk_size
 }
 
 ############ SLB's ##############################
 
 variable "alicloud_slb_http_name" {}
 variable "alicloud_slb_http_address_type" {}
+variable "alicloud_slb_http_specification" {}
 variable "alicloud_slb_https_name" {}
 variable "alicloud_slb_https_address_type" {}
 variable "alicloud_slb_https_specification" {}
@@ -337,6 +345,7 @@ resource "alicloud_slb" "slb-http-test" {
   master_zone_id = data.alicloud_zones.zones_slb.zones.0.id
   name           = var.alicloud_slb_http_name
   address_type   = var.alicloud_slb_http_address_type
+  specification  = var.alicloud_slb_http_specification
   tags           = var.alicloud_tags
 }
 
