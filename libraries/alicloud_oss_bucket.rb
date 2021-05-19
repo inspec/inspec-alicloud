@@ -55,13 +55,12 @@ class AliCloudOssBucket < AliCloudResourceBase
     return false unless exists?
 
     @has_default_encryption_enabled ||= catch_alicloud_errors do
-      begin
-        @has_default_encryption_enabled = !@bucket.encryption.sse_algorithm.nil?
-      rescue Aliyun::OSS::ServerError
-        false
-      rescue StandardError => e
-        fail_resource("Unexpected error thrown: #{e}")
-      end
+      @has_default_encryption_enabled = !@bucket.encryption.sse_algorithm.nil?
+    rescue Aliyun::OSS::ServerError
+      false
+    rescue StandardError => e
+      fail_resource("Unexpected error thrown: #{e}")
+
     end
   end
 
