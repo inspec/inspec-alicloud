@@ -8,7 +8,7 @@ gem "bundle"
 gem "inspec-bin"
 gem "aliyunsdkcore"
 gem "aliyun-sdk", "~> 0.8.0"
-gem "train-alicloud", "~> 0.0.2"
+gem "train-alicloud", "~> 0.0.4"
 
 group :development do
   gem "pry"
