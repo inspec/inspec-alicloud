@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.1.3 -->
+<!-- latest_release 0.1.4 -->
+## [v0.1.4](https://github.com/inspec/inspec-alicloud/tree/v0.1.4) (2021-05-21)
+
+#### Merged Pull Requests
+- Upgraded to TF 0.15 and Alicloud v1.122.1, fixed deprecations and bugs [#49](https://github.com/inspec/inspec-alicloud/pull/49) ([sandratiffin](https://github.com/sandratiffin))
+<!-- latest_release -->
+
 ## [v0.1.3](https://github.com/inspec/inspec-alicloud/tree/v0.1.3) (2021-05-19)
 
 #### Merged Pull Requests
 - Fix lint issue [#50](https://github.com/inspec/inspec-alicloud/pull/50) ([sandratiffin](https://github.com/sandratiffin))
-<!-- latest_release -->
 
 ## [v0.1.2](https://github.com/inspec/inspec-alicloud/tree/v0.1.2) (2020-11-24)
 
