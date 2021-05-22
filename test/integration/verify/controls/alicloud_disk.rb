@@ -10,7 +10,7 @@ title "Test single AliCloud Disk"
 
 control "alicloud-disk-1.0" do
   impact 1.0
-  title "Ensure AliCloud Diks has the correct properties."
+  title "Ensure AliCloud Disk has the correct properties."
 
   describe alicloud_disk(disk_id: "no-such-disk") do
     it { should_not exist }

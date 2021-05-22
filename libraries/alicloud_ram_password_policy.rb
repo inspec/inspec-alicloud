@@ -23,6 +23,8 @@ class AliCloudRam < AliCloudResourceBase
 
   def initialize(opts = {})
     super(opts)
+    validate_parameters(required: %i{region})
+
     catch_alicloud_errors do
       @resp = @alicloud.ram_client.request(
         action: "GetPasswordPolicy",

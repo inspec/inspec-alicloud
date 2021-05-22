@@ -17,8 +17,9 @@ class AliCloudDisk < AliCloudResourceBase
   def initialize(opts = {})
     opts = { disk_id: opts } if opts.is_a?(String)
     opts[:disk_id] = opts.delete(:id) if opts.key?(:id) # id is an alias for group_id
+    @opts = opts
     super(opts)
-    validate_parameters(required: %i{disk_id})
+    validate_parameters(required: %i{disk_id region})
 
     catch_alicloud_errors do
       @resp = @alicloud.ecs_client.request(
@@ -35,7 +36,6 @@ class AliCloudDisk < AliCloudResourceBase
 
     if @resp.nil?
       @encrypted = false
-      @diks_id = "empty response"
       return
     end
 
@@ -54,9 +54,7 @@ class AliCloudDisk < AliCloudResourceBase
   end
 
   def to_s
-    d = ""
-    d += "ID: #{@id} " if @id
-    d += "Name: #{@name} " if @name
-    opts.key?(:alicloud_region) ? "ECS Disk: #{d} in #{opts[:alicloud_region]}" : "ECS Disk #{d}"
+    d = @name ? " Name: #{@name}" : ""
+    @opts.key?(:region) ? "ECS Disk: ID: #{@opts[:disk_id]}#{d} in #{opts[:region]}" : "ECS Disk #{@opts[:disk_id]}#{d}"
   end
 end

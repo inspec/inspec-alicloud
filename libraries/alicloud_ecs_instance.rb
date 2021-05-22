@@ -24,8 +24,10 @@ class AliCloudECSInstance < AliCloudResourceBase
   def initialize(opts = {})
     opts = { instance_id: opts } if opts.is_a?(String)
     opts[:instance_id] = opts.delete(:id) if opts.key?(:id) # id is an alias for group_id
+    @opts = opts
     super(opts)
-    validate_parameters(required: %i{instance_id})
+    validate_parameters(required: %i{instance_id region})
+
     catch_alicloud_errors do
       @resp = @alicloud.ecs_client.request(
         action: "DescribeInstanceAttribute",
@@ -84,6 +86,6 @@ class AliCloudECSInstance < AliCloudResourceBase
   end
 
   def to_s
-    "ECS Instance #{instance_id}"
+    "ECS Instance #{@opts[:instance_id]}"
   end
 end

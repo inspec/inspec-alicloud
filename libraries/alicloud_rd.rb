@@ -16,6 +16,8 @@ class AliCloudResourceDirectory < AliCloudResourceBase
 
   def initialize(opts = {})
     super(opts)
+    validate_parameters(required: %i{region})
+
     catch_alicloud_errors do
       @resp = @alicloud.rm_client.request(
         action: "GetResourceDirectory",

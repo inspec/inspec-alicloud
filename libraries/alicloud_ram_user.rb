@@ -19,9 +19,9 @@ class AliCloudRamUser < AliCloudResourceBase
   def initialize(opts = {})
     opts = { user_name: opts } if opts.is_a?(String)
     super(opts)
-    validate_parameters(required: %i{user_name})
+    validate_parameters(required: %i{user_name region})
 
-    catch_alicloud_errors do
+    catch_alicloud_errors("EntityNotExist.User") do
       @resp = @alicloud.ram_client.request(
         action: "GetUser",
         params: {

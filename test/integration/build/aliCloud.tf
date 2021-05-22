@@ -48,6 +48,13 @@ variable "alicloud_ram_user_name" {}
 variable "alicloud_ram_user_display_name" {}
 variable "alicloud_ram_user_mobile" {}
 variable "alicloud_ram_user_email" {}
+variable "alicloud_ram_group_name" {}
+variable "alicloud_ram_role_name" {}
+variable "alicloud_ram_policy_name" {}
+variable "alicloud_ram_attached_policy_name_1" {}
+variable "alicloud_ram_attached_policy_name_2" {}
+variable "alicloud_ram_account_password_policy_password_reuse_prevention" {}
+variable "alicloud_ram_account_password_policy_max_password_age" {}
 variable "alicloud_ecs_instance_type" {}
 variable "alicloud_ecs_instance_system_disk_category" {}
 variable "alicloud_ecs_instance_image_id" {}
@@ -65,6 +72,8 @@ provider "alicloud" {
 data "alicloud_caller_identity" "creds" {}
 
 data "alicloud_regions" "current" {}
+
+########### VPC #################################
 
 resource "alicloud_vpc" "inspec_vpc" {
   count       = var.alicloud_enable_create
@@ -101,6 +110,7 @@ resource "alicloud_security_group" "alpha" {
 }
 
 resource "alicloud_security_group_rule" "sg-test" {
+  count             = var.alicloud_enable_create
   type              = "ingress"
   ip_protocol       = "tcp"
   nic_type          = "intranet"
@@ -113,7 +123,7 @@ resource "alicloud_security_group_rule" "sg-test" {
 
 # Create 20 additional security groups to test the AliCloudCommonClient pagination code
 resource "alicloud_security_group" "bulk" {
-  count       = 20
+  count       = "%{ if var.alicloud_enable_create == 0 }0%{ else }20%{ endif }"
   name        = "${var.alicloud_security_group_name}-bulk-${count.index}"
   description = "${var.alicloud_security_group_description}-bulk"
   vpc_id      = alicloud_vpc.inspec_vpc.0.id
@@ -217,68 +227,6 @@ resource "alicloud_oss_bucket" "bucket-versioning" {
 
 ########### ActionTrail #########################
 
-resource "alicloud_ram_role" "actiontrail-role" {
-  count       = var.alicloud_enable_create
-  name        = var.alicloud_action_trail_ram_role_name
-  document    = <<ROLE
-{
-    "Statement": [
-        {
-            "Action": "sts:AssumeRole",
-            "Effect": "Allow",
-            "Principal": {
-                "Service": [
-                    "actiontrail.aliyuncs.com"
-                ]
-            }
-        }
-    ],
-    "Version": "1"
-}
-
-ROLE
-  description = var.alicloud_action_trail_ram_role_description
-  force       = "true"
-}
-
-resource "alicloud_ram_policy" "actiontrail-policy" {
-  count           = var.alicloud_enable_create
-  policy_name     = var.alicloud_action_trail_ram_policy_name
-  policy_document = <<POLICY
-{
-  "Version": "1",
-  "Statement": [
-    {
-      "Action": [
-        "oss:ListObjects",
-        "oss:PutObject",
-        "oss:GetBucketLocation"
-      ],
-      "Resource": "*",
-      "Effect": "Allow"
-    },
-    {
-      "Action": [
-        "log:PostLogStoreLogs",
-        "log:CreateLogstore"
-      ],
-      "Resource": "*",
-      "Effect": "Allow"
-    }
-  ]
-}
-POLICY
-  description = var.alicloud_action_trail_ram_policy_description
-  force       = true
-}
-
-resource "alicloud_ram_role_policy_attachment" "actiontrail-attachment" {
-  count       = var.alicloud_enable_create
-  policy_name = alicloud_ram_policy.actiontrail-policy.0.name
-  role_name   = alicloud_ram_role.actiontrail-role.0.name
-  policy_type = alicloud_ram_policy.actiontrail-policy.0.type
-}
-
 resource "alicloud_oss_bucket" "action-trail-bucket" {
   count         = var.alicloud_enable_create
   bucket        = var.alicloud_action_trail_bucket_name
@@ -286,10 +234,10 @@ resource "alicloud_oss_bucket" "action-trail-bucket" {
 }
 
 resource "alicloud_actiontrail_trail" "action-trail" {
-  trail_name            = var.alicloud_action_trail_name
+  count           = var.alicloud_enable_create
+  trail_name      = var.alicloud_action_trail_name
   oss_bucket_name = alicloud_oss_bucket.action-trail-bucket.0.id
 }
-
 
 ########### Disk ################################
 
@@ -316,7 +264,7 @@ resource "alicloud_disk" "beta" {
   size        = var.alicloud_disk_size
 }
 
-############ SLB's ##############################
+########### SLB's ###############################
 
 variable "alicloud_slb_http_name" {}
 variable "alicloud_slb_http_address_type" {}
@@ -358,17 +306,19 @@ resource "alicloud_slb" "slb-https-test" {
   tags           = var.alicloud_tags
 }
 
-############# SLB server certificate #############
+########### SLB server certificate ##############
 
 resource "alicloud_slb_server_certificate" "slb-cert" {
+  count              = var.alicloud_enable_create
   name               = var.alicloud_slb_server_certificate_name
   server_certificate = file("${path.module}/fixtures/certs/test.crt")
   private_key        = file("${path.module}/fixtures/certs/test.key")
 }
 
-############# SLB Listeners ######################
+########### SLB Listeners #######################
 
 resource "alicloud_slb_listener" "http" {
+  count            = var.alicloud_enable_create
   load_balancer_id = alicloud_slb.slb-http-test.0.id
   frontend_port    = var.alicloud_http_listener_fe_port
   backend_port     = var.alicloud_http_listener_be_port
@@ -377,28 +327,28 @@ resource "alicloud_slb_listener" "http" {
 }
 
 resource "alicloud_slb_listener" "https" {
+  count                 = var.alicloud_enable_create
   load_balancer_id      = alicloud_slb.slb-https-test.0.id
   frontend_port         = var.alicloud_https_listener_fe_port
   backend_port          = var.alicloud_https_listener_be_port
   protocol              = var.alicloud_https_listener_protocol
   bandwidth             = var.alicloud_https_listener_bandwidth
   tls_cipher_policy     = var.alicloud_https_listener_tls_cipher_policy
-  server_certificate_id = alicloud_slb_server_certificate.slb-cert.id
+  server_certificate_id = alicloud_slb_server_certificate.slb-cert.0.id
 }
 
-########### RAM Password Policy ##################
-
-variable "alicloud_ram_account_password_policy_password_reuse_prevention" {}
-variable "alicloud_ram_account_password_policy_max_password_age" {}
+########### RAM Password Policy #################
 
 resource "alicloud_ram_account_password_policy" "test" {
+  count                     = var.alicloud_enable_create
   password_reuse_prevention = var.alicloud_ram_account_password_policy_password_reuse_prevention
   max_password_age          = var.alicloud_ram_account_password_policy_max_password_age
 }
 
-########### RAM User ##################
+########### RAM User ############################
 
 resource "alicloud_ram_user" "user" {
+  count        = var.alicloud_enable_create
   name         = var.alicloud_ram_user_name
   display_name = var.alicloud_ram_user_display_name
   mobile       = var.alicloud_ram_user_mobile
@@ -406,18 +356,153 @@ resource "alicloud_ram_user" "user" {
 }
 
 resource "alicloud_ram_access_key" "ak" {
-  user_name = alicloud_ram_user.user.name
+  count     = var.alicloud_enable_create
+  user_name = alicloud_ram_user.user.0.name
 }
 
-########### ECS Instances ##################
+########### RAM Group ###########################
+
+resource "alicloud_ram_group" "group" {
+  count        = var.alicloud_enable_create
+  name         = var.alicloud_ram_group_name
+}
+
+########### RAM Role ############################
+
+resource "alicloud_ram_role" "role" {
+  count = var.alicloud_enable_create
+  name  = var.alicloud_ram_role_name
+
+  document = <<POLICY
+{
+  "Version": "1",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ecs.aliyuncs.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+POLICY
+
+}
+
+########### RAM Policy ##########################
+
+resource "alicloud_ram_policy" "alicloud_policy_1" {
+  count       = var.alicloud_enable_create
+  policy_name = var.alicloud_ram_policy_name
+  description = "Test policy"
+
+  policy_document = <<POLICY
+{
+  "Version": "1",
+  "Statement": [
+    {
+      "Action": [
+        "ecs:Describe*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "NotAction": "oss:DeleteBucket",
+      "Effect": "Allow",
+      "Resource": "acs:oss:::*"
+    }
+  ]
+}
+POLICY
+}
+
+resource "alicloud_ram_policy" "alicloud_attached_policy_1" {
+  count       = var.alicloud_enable_creation
+  policy_name = var.alicloud_ram_attached_policy_name_1
+  description = "Test policy"
+
+  policy_document = <<POLICY
+{
+  "Version": "1",
+  "Statement": [
+    {
+      "Action": [
+        "ecs:Describe*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "NotAction": "oss:DeleteBucket",
+      "Effect": "Allow",
+      "Resource": "acs:oss:::*"
+    }
+  ]
+}
+POLICY
+}
+
+resource "alicloud_ram_role_policy_attachment" "attach_policy_to_role_1" {
+  count      = var.alicloud_enable_create
+  role_name   = alicloud_ram_role.role[0].name
+  policy_name = alicloud_ram_policy.alicloud_attached_policy_1[0].policy_name
+  policy_type = alicloud_ram_policy.alicloud_attached_policy_1[0].type
+}
+
+resource "alicloud_ram_policy" "alicloud_attached_policy_2" {
+  count       = var.alicloud_enable_creation
+  policy_name = var.alicloud_ram_attached_policy_name_2
+  description = "Test policy"
+
+  policy_document = <<POLICY
+{
+  "Version": "1",
+  "Statement": [
+    {
+      "Action": [
+        "ecs:Describe*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "NotAction": "oss:DeleteBucket",
+      "Effect": "Allow",
+      "Resource": "acs:oss:::*"
+    }
+  ]
+}
+POLICY
+}
+
+resource "alicloud_ram_user_policy_attachment" "attach_policy_to_user_1" {
+  count       = var.alicloud_enable_create
+  user_name   = alicloud_ram_user.user[0].name
+  policy_name = alicloud_ram_policy.alicloud_attached_policy_2[0].policy_name
+  policy_type = alicloud_ram_policy.alicloud_attached_policy_2[0].type
+}
+
+resource "alicloud_ram_group_policy_attachment" "attach_policy_to_group_1" {
+  count       = var.alicloud_enable_create
+  group_name   = alicloud_ram_group.group[0].name
+  policy_name = alicloud_ram_policy.alicloud_attached_policy_2[0].policy_name
+  policy_type = alicloud_ram_policy.alicloud_attached_policy_2[0].type
+}
+
+########### ECS Instances #######################
 
 resource "alicloud_kms_key" "ecs" {
-        description             = "ecs test instance disk key"
-        pending_window_in_days  = "7"
-        key_state               = "Enabled"
+  count                   = var.alicloud_enable_create
+  description             = "ecs test instance disk key"
+  pending_window_in_days  = "7"
+  key_state               = "Enabled"
 }
 
 resource "alicloud_instance" "instance" {
+  count             = var.alicloud_enable_create
   availability_zone = data.alicloud_zones.zones_ds.zones.0.id
   security_groups   = [alicloud_security_group.default.0.id]
 

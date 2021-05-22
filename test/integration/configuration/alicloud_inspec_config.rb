@@ -19,6 +19,8 @@ module AliCloudInspecConfig
 
   # Config for terraform / inspec in the below hash
   @config = {
+      # Simple flag to disable creation of resources (useful when prototyping new ones in isolation)
+      alicloud_enable_create: 1,
       # Generic AliCloud resource parameters
       alicloud_region: @alicloud_region,
       alicloud_vpc_name: "vpc-#{add_random_string}",
@@ -80,12 +82,15 @@ module AliCloudInspecConfig
       alicloud_ecs_instance_disk_size: 20,
       alicloud_ecs_instance_disk_category: "cloud_efficiency",
       alicloud_ecs_instance_disk_encrypted: "true",
-      # Simple flag to disable creation of resources (useful when prototyping new ones in isolation)
-      alicloud_enable_create: 1,
-      alicloud_ram_user_name: "inspec-integraion-test-#{add_random_string}",
+      alicloud_ram_user_name: "inspec-integration-test-#{add_random_string}",
       alicloud_ram_user_display_name: "inspec-user",
       alicloud_ram_user_mobile: "86-18688888888",
       alicloud_ram_user_email: "user@inspec.com",
+      alicloud_ram_group_name: "test-group-#{add_random_string}",
+      alicloud_ram_role_name: "test-role-#{add_random_string}",
+      alicloud_ram_policy_name: "test-policy-#{add_random_string}",
+      alicloud_ram_attached_policy_name_1: "test-attached-policy-#{add_random_string}",
+      alicloud_ram_attached_policy_name_2: "test-attached-policy-#{add_random_string}",
   }
 
   def self.config

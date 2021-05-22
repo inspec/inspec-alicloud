@@ -18,9 +18,10 @@ class AliCloudSecurityGroup < AliCloudResourceBase
     opts[:group_id] = opts.delete(:id) if opts.key?(:id) # id is an alias for group_id
 
     super(opts)
-    validate_parameters(required: %i{group_id})
+    validate_parameters(required: %i{group_id region})
+    @opts = opts
 
-    catch_alicloud_errors do
+    catch_alicloud_errors(ignore: "InvalidSecurityGroupId.NotFound") do
       @resp = @alicloud.ecs_client.request(
         action: "DescribeSecurityGroupAttribute",
         params: {
@@ -74,10 +75,13 @@ class AliCloudSecurityGroup < AliCloudResourceBase
   end
 
   def to_s
-    sg = ""
-    sg += "ID: #{@group_id} " if @group_id
-    sg += "Name: #{@group_name} " if @group_name
-    sg += "VPC ID: #{@vpc_id} " if @vpc_id
-    opts.key?(:alicloud_region) ? "ECS Security Group: #{sg} in #{opts[:alicloud_region]}" : "ECS Security Group #{sg}"
+    if @group_id
+      sg = " ID: #{@group_id}"
+      sg += " Name: #{@group_name}" if @group_name
+      sg += " VPC ID: #{@vpc_id}" if @vpc_id
+    else
+      sg = " " + opts[:group_id]
+    end
+    opts.key?(:region) ? "ECS Security Group:#{sg} in #{opts[:region]}" : "ECS Security Group#{sg}"
   end
 end

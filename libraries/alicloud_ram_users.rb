@@ -27,7 +27,7 @@ class AliCloudRamUsers < AliCloudResourceBase
 
   def initialize(opts = {})
     super(opts)
-    validate_parameters
+    validate_parameters(required: %i{region})
 
     catch_alicloud_errors do
       @users = @alicloud.ram_client.request(
