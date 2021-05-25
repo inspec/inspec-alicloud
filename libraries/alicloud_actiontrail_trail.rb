@@ -16,7 +16,7 @@ class AliCloudActionTrailTrail < AliCloudResourceBase
   def initialize(opts = {})
     opts = { trail_name: opts } if opts.is_a?(String)
     super(opts)
-    validate_parameters(required: [:trail_name])
+    validate_parameters(required: %i{trail_name region})
 
     @trail_name = opts[:trail_name]
     catch_alicloud_errors do
@@ -28,10 +28,7 @@ class AliCloudActionTrailTrail < AliCloudResourceBase
         }
       )["TrailList"]
 
-      if resp.empty?
-        @trail_name = "empty response"
-        return
-      end
+      return if resp.empty?
 
       @trail = resp.first
       @oss_bucket_name = @trail["OssBucketName"]

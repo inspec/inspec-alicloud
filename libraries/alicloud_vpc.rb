@@ -15,9 +15,10 @@ class AliCloudVpc < AliCloudResourceBase
 
   def initialize(opts = {})
     opts = { vpc_id: opts } if opts.is_a?(String)
-
+    @opts = opts
     super(opts)
-    validate_parameters(required: %i{vpc_id})
+    validate_parameters(required: %i{vpc_id region})
+
     catch_alicloud_errors do
       @resp = @alicloud.vpc_client.request(
         action: "DescribeVpcAttribute",
@@ -65,6 +66,6 @@ class AliCloudVpc < AliCloudResourceBase
   end
 
   def to_s
-    "Virtual Private Cloud #{@vpc_id}"
+    "Virtual Private Cloud #{@opts[:vpc_id]}"
   end
 end

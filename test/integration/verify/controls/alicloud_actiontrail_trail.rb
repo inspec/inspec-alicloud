@@ -18,7 +18,7 @@ control "alicloud-actiontrail-1.0" do
   describe alicloud_actiontrail_trail(trail_name: alicloud_action_trail_name) do
     it { should exist }
     its("oss_bucket_name") { should eq alicloud_action_trail_bucket_id }
-    its("delivered_logs_days_ago") { should eq 0 }
+    # its("delivered_logs_days_ago") { should eq 0 }
     its("status") { should cmp "Enable" }
     its("trail_region") { should cmp "All" }
   end

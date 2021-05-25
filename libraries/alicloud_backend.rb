@@ -155,14 +155,14 @@ class AliCloudResourceBase < Inspec.resource(1)
     @opts = opts
     # ensure we have a AliCloud connection, resources can choose which of the clients to instantiate
     client_args = {}
-    if opts.is_a?(Hash)
+    if @opts.is_a?(Hash)
       # below allows each resource to optionally and conveniently set a region
       client_args[:region] = opts[:region] if opts[:region]
       # below allows each resource to optionally and conveniently set an endpoint
       client_args[:endpoint] = opts[:endpoint] if opts[:endpoint]
+      # Default region to ALICLOUD_REGION env var - needed in the resource requests for most resources
+      @opts[:region] ||= ENV["ALICLOUD_REGION"]
     end
-    # Default region to ALICLOUD_REGION env var - needed in the resource requests for most resources
-    @opts[:region] ||= ENV["ALICLOUD_REGION"]
     @alicloud = AliCloudConnection.new(client_args)
   end
 
@@ -173,6 +173,7 @@ class AliCloudResourceBase < Inspec.resource(1)
   def validate_parameters(allow: [], required: nil, require_any_of: nil)
     if required
       raise ArgumentError, "Expected required parameters as Array of Symbols, got #{required}" unless required.is_a?(Array) && required.all? { |r| r.is_a?(Symbol) }
+      raise ArgumentError, "#{@__resource_name__}: region must be provided via environment variable or hash parameter" if required.include?(:region) && (!@opts.is_a?(Hash) || (@opts[:region].nil? || @opts[:region] == ""))
       raise ArgumentError, "#{@__resource_name__}: `#{required}` must be provided" unless @opts.is_a?(Hash) && required.all? { |req| @opts.key?(req) && !@opts[req].nil? && @opts[req] != "" }
 
       allow += required
@@ -185,11 +186,14 @@ class AliCloudResourceBase < Inspec.resource(1)
       allow += require_any_of
     end
 
-    allow += %i{region endpoint}
+    allow += %i{region} unless allow.include?(:region)
+    allow += %i{endpoint} unless allow.include?(:endpoint)
+    @opts.delete(:region) if @opts.is_a?(Hash) && @opts[:region].nil?
+
     raise ArgumentError, "Scalar arguments not supported" unless defined?(@opts.keys)
     raise ArgumentError, "Unexpected arguments found" unless @opts.keys.all? { |a| allow.include?(a) }
     raise ArgumentError, "Provided parameter should not be empty" unless @opts.values.all? do |a|
-      return true if a.class == Integer
+      return true if a.instance_of?(Integer) || a.instance_of?(TrueClass) || a.instance_of?(FalseClass)
 
       !a.empty?
     end
@@ -202,12 +206,14 @@ class AliCloudResourceBase < Inspec.resource(1)
   end
 
   # Intercept AliCloud exceptions
-  def catch_alicloud_errors
+  def catch_alicloud_errors(ignore = [])
     yield # Catch and create custom messages as needed
   rescue ArgumentError
     Inspec::Log.error "It appears that you have not set your AliCloud credentials."
     fail_resource("No AliCloud credentials available")
   rescue StandardError => e
+    ignore = [ ignore ] if ignore.is_a?(String)
+    ignore.each { |error| return nil if e.message =~ /\b#{error}\b/ }
     Inspec::Log.warn "AliCloud Service Error encountered running a control with Resource #{@__resource_name__}. " \
                       "Error message: #{e.message}. You should address this error to ensure your controls are " \
                       "behaving as expected."
