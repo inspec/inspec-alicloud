@@ -13,7 +13,7 @@ class AliCloudRamUserMFA < AliCloudResourceBase
   end
   '
 
-  attr_reader :serial_number, :user_name
+  attr_reader :user_name, :serial_number, :type
 
   def initialize(opts = {})
     opts = { user_name: opts } if opts.is_a?(String)
@@ -21,8 +21,20 @@ class AliCloudRamUserMFA < AliCloudResourceBase
     validate_parameters(required: %i{user_name region})
     @user_name = opts[:user_name]
 
-    catch_alicloud_errors do
-      @resp = @alicloud.ram_client.request(
+    @resp = fetch_mfa_info(opts)
+    if @resp.nil?
+      @serial_number = "empty response"
+      return
+    end
+
+    @mfa           = @resp
+    @serial_number = @mfa["SerialNumber"]
+    @type          = @mfa["Type"]
+  end
+
+  def fetch_mfa_info(opts)
+    catch_alicloud_errors(ignore: "EntityNotExist.User.MFADevice") do
+      resp = @alicloud.ram_client.request(
         action: "GetUserMFAInfo",
         params: {
           'RegionId': opts[:region],
@@ -32,15 +44,8 @@ class AliCloudRamUserMFA < AliCloudResourceBase
           method: "POST",
         }
       )["MFADevice"]
+      return resp
     end
-
-    if @resp.nil?
-      @serial_number = "empty response"
-      return
-    end
-
-    @mfa                = @resp
-    @serial_number      = @mfa["SerialNumber"]
   end
 
   def exists?
