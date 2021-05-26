@@ -48,6 +48,8 @@ variable "alicloud_ram_user_name" {}
 variable "alicloud_ram_user_display_name" {}
 variable "alicloud_ram_user_mobile" {}
 variable "alicloud_ram_user_email" {}
+variable "alicloud_ram_user_password" {}
+variable "alicloud_ram_user_name_2" {}
 variable "alicloud_ram_group_name" {}
 variable "alicloud_ram_role_name" {}
 variable "alicloud_ram_policy_name" {}
@@ -355,9 +357,26 @@ resource "alicloud_ram_user" "user" {
   email        = var.alicloud_ram_user_email
 }
 
+resource "alicloud_ram_user" "user_2" {
+  count        = var.alicloud_enable_create
+  name         = var.alicloud_ram_user_name_2
+}
+
 resource "alicloud_ram_access_key" "ak" {
   count     = var.alicloud_enable_create
   user_name = alicloud_ram_user.user.0.name
+}
+
+resource "alicloud_ram_access_key" "ak_2" {
+  count     = var.alicloud_enable_create
+  status = "Inactive"
+  user_name = alicloud_ram_user.user.0.name
+}
+
+resource "alicloud_ram_login_profile" "profile" {
+  count     = var.alicloud_enable_create
+  user_name = alicloud_ram_user.user.0.name
+  password  = var.alicloud_ram_user_password
 }
 
 ########### RAM Group ###########################
@@ -420,7 +439,7 @@ POLICY
 }
 
 resource "alicloud_ram_policy" "alicloud_attached_policy_1" {
-  count       = var.alicloud_enable_creation
+  count       = var.alicloud_enable_create
   policy_name = var.alicloud_ram_attached_policy_name_1
   description = "Test policy"
 
@@ -453,7 +472,7 @@ resource "alicloud_ram_role_policy_attachment" "attach_policy_to_role_1" {
 }
 
 resource "alicloud_ram_policy" "alicloud_attached_policy_2" {
-  count       = var.alicloud_enable_creation
+  count       = var.alicloud_enable_create
   policy_name = var.alicloud_ram_attached_policy_name_2
   description = "Test policy"
 
