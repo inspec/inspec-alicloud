@@ -5,16 +5,16 @@ class AliCloudRamPoliciesConstructorTest < Minitest::Test
   def setup
     ENV["ALICLOUD_REGION"] = "us-east-1"
 
-    system = { "Policies" => { "Policy" => [{ "PolicyType" => "System", "Description" => "System test policies 1",
+    system = { "Policies" => { "Policy" => [{ "PolicyType" => "System", "Description" => "System test policy 1",
       "AttachmentCount" => 0, "PolicyName" => "system-test-1", "DefaultVersion" => "v1" },
-      { "PolicyType" => "System", "Description" => "System test policies 2", "AttachmentCount" => 1,
+      { "PolicyType" => "System", "Description" => "System test policy 2", "AttachmentCount" => 1,
       "PolicyName" => "system-test-2", "DefaultVersion" => "v2" }, { "PolicyType" => "System",
-      "Description" => "System test policies 3", "AttachmentCount" => 0, "PolicyName" => "system-test-3",
+      "Description" => "System test policy 3", "AttachmentCount" => 0, "PolicyName" => "system-test-3",
       "DefaultVersion" => "v1" }] }, "IsTruncated" => false }
-    custom = { "Policies" => { "Policy" => [{ "PolicyType" => "Custom", "Description" => "Test policies 1",
+    custom = { "Policies" => { "Policy" => [{ "PolicyType" => "Custom", "Description" => "Test policy 1",
       "AttachmentCount" => 1, "PolicyName" => "test-1", "DefaultVersion" => "v3" }, { "PolicyType" => "Custom",
-      "Description" => "Test policies 2", "AttachmentCount" => 0, "PolicyName" => "test-2", "DefaultVersion" => "v2" },
-      { "PolicyType" => "Custom", "Description" => "Test policies 3", "AttachmentCount" => 0, "PolicyName" => "test-3",
+      "Description" => "Test policy 2", "AttachmentCount" => 0, "PolicyName" => "test-2", "DefaultVersion" => "v2" },
+      { "PolicyType" => "Custom", "Description" => "Test policy 3", "AttachmentCount" => 0, "PolicyName" => "test-3",
       "DefaultVersion" => "v4" }] }, "IsTruncated" => false }
 
     AliCloudRamPolicies.any_instance.stubs(:list_policies).with(type: "System", region: "us-east-1").returns(system)

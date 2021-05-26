@@ -363,8 +363,8 @@ resource "alicloud_ram_access_key" "ak" {
 ########### RAM Group ###########################
 
 resource "alicloud_ram_group" "group" {
-  count        = var.alicloud_enable_create
-  name         = var.alicloud_ram_group_name
+  count = var.alicloud_enable_create
+  name  = var.alicloud_ram_group_name
 }
 
 ########### RAM Role ############################
