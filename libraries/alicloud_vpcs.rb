@@ -35,7 +35,7 @@ class AliCloudVpcs < AliCloudResourceBase
 
   def initialize(opts = {})
     super(opts)
-    validate_parameters
+    validate_parameters(required: %i{region})
     @table = fetch_data
   end
 

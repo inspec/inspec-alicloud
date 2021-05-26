@@ -18,7 +18,7 @@ class AliCloudRamUserMFA < AliCloudResourceBase
   def initialize(opts = {})
     opts = { user_name: opts } if opts.is_a?(String)
     super(opts)
-    validate_parameters(required: %i{user_name})
+    validate_parameters(required: %i{user_name region})
     @user_name = opts[:user_name]
 
     catch_alicloud_errors do

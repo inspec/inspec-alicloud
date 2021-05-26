@@ -8,7 +8,7 @@ control "alicloud-instance-1.0" do
 
   describe alicloud_ecs_instance(instance_id: alicloud_instance_id) do  # gets region from env var
     it { should exist }
-    its("desciption") { should be_nil }
+    its("description") { should eq "" }
     its("memory") { should eq 8192 }
     its("instance_charge_type") { should eq "PostPaid" }
     its("cpu") { should eq 2 }

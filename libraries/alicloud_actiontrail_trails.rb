@@ -14,9 +14,11 @@ class AliCloudActionTrailTrails < AliCloudResourceBase
   attr_reader :table
 
   def initialize(opts = {})
+    @opts = opts
     # Call the parent class constructor
     super(opts)
-    validate_parameters
+    validate_parameters(required: %i{region})
+
     @table = fetch_data
   end
 

@@ -21,4 +21,8 @@ control "alicloud-test-ram-user-1.0" do
     its("create_date") { should_not be_nil }
     its("mobile_phone") { should_not be_nil }
   end
+
+  describe alicloud_ram_user("no-such-user") do
+    it { should_not exist }
+  end
 end

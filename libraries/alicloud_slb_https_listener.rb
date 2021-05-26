@@ -14,7 +14,7 @@ class AliCloudSlbHttpsListener < AliCloudResourceBase
 
   def initialize(opts = {})
     super(opts)
-    validate_parameters(required: %i{slb_id listener_port})
+    validate_parameters(required: %i{slb_id listener_port region})
 
     catch_alicloud_errors do
       @resp = @alicloud.slb_client.request(
