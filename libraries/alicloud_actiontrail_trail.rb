@@ -15,6 +15,7 @@ class AliCloudActionTrailTrail < AliCloudResourceBase
 
   def initialize(opts = {})
     opts = { trail_name: opts } if opts.is_a?(String)
+    @opts = opt
     super(opts)
     validate_parameters(required: %i{trail_name region})
 

@@ -56,8 +56,11 @@ output "alicloud_bucket_versioning_name" {
   value = alicloud_oss_bucket.bucket-versioning.0.id
 }
 output "alicloud_instance_id" {
-  value = alicloud_instance.instance.id
+  value = alicloud_instance.instance.0.id
 }
 output "alicloud_ram_access_key_id" {
-  value = alicloud_ram_access_key.ak.id
+  value = alicloud_ram_access_key.ak.0.id
+}
+output "alicloud_ram_role_arn" {
+  value = alicloud_ram_role.role.0.arn
 }

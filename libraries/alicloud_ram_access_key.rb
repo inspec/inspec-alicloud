@@ -19,6 +19,7 @@ class AliCloudAccessKey < AliCloudResourceBase
     @opts = opts
     super(opts)
     validate_parameters(required: %i{access_key_id}, allow: %i{user_name})
+    @opts = opts
 
     catch_alicloud_errors do
       params = { "RegionId": opts[:region] }

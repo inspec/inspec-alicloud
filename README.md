@@ -2,7 +2,7 @@
 
 * **[Project State](https://github.com/chef/chef-oss-practices/blob/master/repo-management/repo-states.md): Prototyping**
 
-This InSpec resource pack uses the AliCloud SDK v0 and provides the required resources to write tests for resources in AliCloud.
+This InSpec resource pack uses the AliCloud SDK v0.8.0 and provides the required resources to write tests for resources in AliCloud.
 
 ## Prerequisites
 
@@ -22,7 +22,7 @@ Set your AliCloud credentials in an `.envrc` file or export them in your shell. 
 ```
 
 ## Resources
-This resouce pack allows the testing of the following AliCloud resources. If a resource you wish to test is not listed, please feel free to open an [Issue](https://github.com/chef-customers/inspec-alicloud/issues). As an open source project, we also welcome public contributions via [Pull Request](https://github.com/chef-customers/inspec-alicloud/pulls).
+This resource pack allows the testing of the following AliCloud resources. If a resource you wish to test is not listed, please feel free to open an [Issue](https://github.com/chef-customers/inspec-alicloud/issues). As an open source project, we also welcome public contributions via [Pull Request](https://github.com/chef-customers/inspec-alicloud/pulls).
 
 - [alicloud_actiontrail_trail](libraries/alicloud_actiontrail_trail.rb)
 - [alicloud_actiontrail_trails](libraries/alicloud_actiontrail_trails.rb)
@@ -31,11 +31,14 @@ This resouce pack allows the testing of the following AliCloud resources. If a r
 - [alicloud_disks](libraries/alicloud_disks.rb)
 - [alicloud_ecs_instance](libraries/alicloud_ecs_instance.rb)
 - [alicloud_ecs_instances](libraries/alicloud_ecs_instances.rb)
+- [alicloud_ims_sso](libraries/alicloud_ims_sso.rb)
 - [alicloud_oss_bucket](libraries/alicloud_oss_bucket.rb)
 - [alicloud_oss_buckets](libraries/alicloud_oss_buckets.rb)
 - [alicloud_ram_access_key](libraries/alicloud_ram_access_key.rb)
 - [alicloud_ram_access_keys](libraries/alicloud_ram_access_keys.rb)
 - [alicloud_ram_password_policy](libraries/alicloud_ram_password_policy.rb)
+- [alicloud_ram_policy](libraries/alicloud_ram_policy.rb)
+- [alicloud_ram_policies](libraries/alicloud_ram_policies.rb)
 - [alicloud_ram_user](libraries/alicloud_ram_user.rb)
 - [alicloud_ram_user_mfa](libraries/alicloud_ram_user_mfa.rb)
 - [alicloud_ram_users](libraries/alicloud_ram_users.rb)
@@ -55,7 +58,7 @@ This resouce pack allows the testing of the following AliCloud resources. If a r
 
 #### Train and InSpec Dependencies
 
-InSpec AliCloud depends on version 0 of the AliCloud SDK that is provided via [Train AliCloud](https://github.com/chef-customers/train-alicloud). InSpec does not ship with Train AliCloud so this is explicitly listed in the Gemfile here.
+InSpec AliCloud depends on version 0.0.4 of the AliCloud SDK that is provided via [Train AliCloud](https://github.com/chef-customers/train-alicloud). InSpec does not ship with Train AliCloud so this is explicitly listed in the Gemfile here.
 
 ### Running the unit and integration tests
 

@@ -232,11 +232,6 @@ class AliCloudResourceBase < Inspec.resource(1)
       NullResponse.new
     end
   end
-
-  # This is to make RuboCop happy.
-  def respond_to_missing?(*several_variants)
-    super
-  end
 end
 
 # Ensure to return nil recursively.
@@ -264,11 +259,6 @@ class NullResponse
     else
       self
     end
-  end
-
-  # This is to make RuboCop happy.
-  def respond_to_missing?(*several_variants)
-    super
   end
 
   def to_s
