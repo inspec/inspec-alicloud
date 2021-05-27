@@ -22,7 +22,7 @@ output "alicloud_action_trail_bucket_id" {
   value = alicloud_oss_bucket.action-trail-bucket.0.id
 }
 output "alicloud_disk_id" {
-  value = alicloud_disk.alpha.0.id
+  value = alicloud_ecs_disk.alpha.0.id
 }
 output "alicloud_slb_http_id" {
   value = alicloud_slb.slb-http-test.0.id
