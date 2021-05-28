@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.1.7 -->
+<!-- latest_release 0.1.8 -->
+## [v0.1.8](https://github.com/inspec/inspec-alicloud/tree/v0.1.8) (2021-05-28)
+
+#### Merged Pull Requests
+- Upgrade to GitHub-native Dependabot [#48](https://github.com/inspec/inspec-alicloud/pull/48) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
+<!-- latest_release -->
+
 ## [v0.1.7](https://github.com/inspec/inspec-alicloud/tree/v0.1.7) (2021-05-28)
 
 #### Merged Pull Requests
 - add alicloud_apsaradb_rds_instance and alicloud_apsaradb_rds_instances resources [#54](https://github.com/inspec/inspec-alicloud/pull/54) ([sandratiffin](https://github.com/sandratiffin))
-<!-- latest_release -->
 
 ## [v0.1.6](https://github.com/inspec/inspec-alicloud/tree/v0.1.6) (2021-05-28)
 
