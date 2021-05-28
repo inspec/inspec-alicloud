@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.1.5 -->
+<!-- latest_release 0.1.6 -->
+## [v0.1.6](https://github.com/inspec/inspec-alicloud/tree/v0.1.6) (2021-05-28)
+
+#### Merged Pull Requests
+- Bug fixes [#53](https://github.com/inspec/inspec-alicloud/pull/53) ([sandratiffin](https://github.com/sandratiffin))
+<!-- latest_release -->
+
 ## [v0.1.5](https://github.com/inspec/inspec-alicloud/tree/v0.1.5) (2021-05-26)
 
 #### Merged Pull Requests
 - Add alicloud_ram_policy + alicloud_ram_policies resources, plus bug fixes &amp; cleanup [#52](https://github.com/inspec/inspec-alicloud/pull/52) ([sandratiffin](https://github.com/sandratiffin))
-<!-- latest_release -->
 
 ## [v0.1.4](https://github.com/inspec/inspec-alicloud/tree/v0.1.4) (2021-05-21)
 
