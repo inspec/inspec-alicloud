@@ -13,16 +13,56 @@ class AliCloudRamUser < AliCloudResourceBase
   end
   "
 
-  attr_reader :update_date, :user_name, :email, :user_id, :comments,
-              :display_name, :last_login_date, :create_date, :mobile_phone
+  attr_reader :user_name, :user_id, :display_name, :comments, :email,
+              :mobile_phone, :create_date, :update_date, :last_login_date,
+              :access_keys, :active_access_keys
 
   def initialize(opts = {})
     opts = { user_name: opts } if opts.is_a?(String)
     super(opts)
+    @opts = opts
     validate_parameters(required: %i{user_name region})
 
+    @resp = fetch_user_info(opts)
+    return if @resp.nil?
+
+    @user            = @resp
+    @user_name       = @user["UserName"]
+    @user_id         = @user["UserId"]
+    @display_name    = @user["DisplayName"]
+    @comments        = @user["Comments"]
+    @email           = @user["Email"]
+    @mobile_phone    = @user["MobilePhone"]
+    @create_date     = @user["CreateDate"]
+    @update_date     = @user["UpdateDate"]
+    @last_login_date = @user["LastLoginDate"]
+
+    login_profile = fetch_login_profile(opts)
+    @has_console_access = login_profile.nil? ? false : true
+
+    access_keys = fetch_access_keys(opts)
+    @access_keys = access_keys.nil? ? [] : access_keys.map { |x| x["AccessKeyId"] }
+    @active_access_keys = access_keys.nil? ? [] : access_keys.select { |x| x["Status"] == "Active" }.map { |x| x["AccessKeyId"] }
+
+    @has_active_access_key = @active_access_keys == [] ? false : true
+    @has_console_and_key_access = has_console_and_key_access?
+  end
+
+  def has_console_and_key_access?
+    @has_console_access && !@active_access_keys.nil? && @active_access_keys != []
+  end
+
+  def has_console_access?
+    @has_console_access
+  end
+
+  def has_active_access_key?
+    @has_active_access_key
+  end
+
+  def fetch_user_info(opts)
     catch_alicloud_errors("EntityNotExist.User") do
-      @resp = @alicloud.ram_client.request(
+      resp = @alicloud.ram_client.request(
         action: "GetUser",
         params: {
           'RegionId': opts[:region],
@@ -32,23 +72,40 @@ class AliCloudRamUser < AliCloudResourceBase
           method: "POST",
         }
       )["User"]
+      return resp
     end
+  end
 
-    if @resp.nil?
-      @user_id = "empty response"
-      return
+  def fetch_login_profile(opts)
+    catch_alicloud_errors("EntityNotExist.User.LoginProfile") do
+      resp = @alicloud.ram_client.request(
+        action: "GetLoginProfile",
+        params: {
+          'RegionId': opts[:region],
+          'UserName': opts[:user_name],
+        },
+        opts: {
+          method: "POST",
+        }
+      )["LoginProfile"]
+      return resp
     end
+  end
 
-    @user               = @resp
-    @update_date        = @resp["UpdateDate"]
-    @user_name          = @resp["UserName"]
-    @email              = @resp["Email"]
-    @user_id            = @resp["UserId"]
-    @comments           = @resp["Comments"]
-    @display_name       = @resp["DisplayName"]
-    @last_login_date    = @resp["LastLoginDate"]
-    @create_date        = @resp["CreateDate"]
-    @mobile_phone       = @resp["MobilePhone"]
+  def fetch_access_keys(opts)
+    catch_alicloud_errors do
+      resp = @alicloud.ram_client.request(
+        action: "ListAccessKeys",
+        params: {
+          'RegionId': opts[:region],
+          'UserName': opts[:user_name],
+        },
+        opts: {
+          method: "POST",
+        }
+      )["AccessKeys"]["AccessKey"]
+      return resp
+    end
   end
 
   def exists?
@@ -56,6 +113,6 @@ class AliCloudRamUser < AliCloudResourceBase
   end
 
   def to_s
-    "RAM User #{@user_id}"
+    "RAM User #{@opts[:user_name]}"
   end
 end

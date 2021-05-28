@@ -7,6 +7,7 @@
 # If any of the @config keys are exported as environment variables in uppercase, these take precedence.
 require "json"
 require "yaml"
+require "securerandom"
 
 module AliCloudInspecConfig
 
@@ -86,6 +87,8 @@ module AliCloudInspecConfig
       alicloud_ram_user_display_name: "inspec-user",
       alicloud_ram_user_mobile: "86-18688888888",
       alicloud_ram_user_email: "user@inspec.com",
+      alicloud_ram_user_password: SecureRandom.urlsafe_base64(nil, true),
+      alicloud_ram_user_name_2: "inspec-integration-test-#{add_random_string}",
       alicloud_ram_group_name: "test-group-#{add_random_string}",
       alicloud_ram_role_name: "test-role-#{add_random_string}",
       alicloud_ram_policy_name: "test-policy-#{add_random_string}",

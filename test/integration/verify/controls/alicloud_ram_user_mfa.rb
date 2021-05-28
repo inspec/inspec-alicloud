@@ -4,12 +4,13 @@
 
 title "Test Alicloud RAM User MFA"
 
-control "alicloud-test-ram-user-mfa-1.0" do
+control "alicloud-ram-user-mfa-1.0" do
   impact 1.0
   title "Ensure RAM user MFA library has correct properties"
 
   # describe alicloud_ram_user_mfa(alicloud_ram_user_name) do
-  #     it { should exist }
-  #     its('serial_number') { should eq alicloud_ram_user_mfa_serial_number }
+  #   it { should exist }
+  #   its('serial_number') { should eq alicloud_ram_user_mfa_serial_number }
+  #   its('type') { should eq 'VMFA' }
   # end
 end
