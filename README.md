@@ -26,6 +26,7 @@ This resource pack allows the testing of the following AliCloud resources. If a 
 
 - [alicloud_actiontrail_trail](libraries/alicloud_actiontrail_trail.rb)
 - [alicloud_actiontrail_trails](libraries/alicloud_actiontrail_trails.rb)
+- [alicloud_apsaradb_rds_instance](libraries/alicloud_apsaradb_rds_instance.rb)
 - [alicloud_backend](libraries/alicloud_backend.rb)
 - [alicloud_disk](libraries/alicloud_disk.rb)
 - [alicloud_disks](libraries/alicloud_disks.rb)
