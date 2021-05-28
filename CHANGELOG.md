@@ -4,8 +4,13 @@
 ## [v0.1.6](https://github.com/inspec/inspec-alicloud/tree/v0.1.6) (2021-05-28)
 
 #### Merged Pull Requests
-- updates to alicloud_user, alicloud_users, alicloud_user_mfa resources [#55](https://github.com/inspec/inspec-alicloud/pull/55) ([sandratiffin](https://github.com/sandratiffin))
+- update alicloud_disk(s) to support auto snapshot and release disk with instance options [#56](https://github.com/inspec/inspec-alicloud/pull/56) ([sandratiffin](https://github.com/sandratiffin))
 <!-- latest_release -->
+
+## [v0.1.6](https://github.com/inspec/inspec-alicloud/tree/v0.1.6) (2021-05-28)
+
+#### Merged Pull Requests
+- updates to alicloud_user, alicloud_users, alicloud_user_mfa resources [#55](https://github.com/inspec/inspec-alicloud/pull/55) ([sandratiffin](https://github.com/sandratiffin))
 
 ## [v0.1.6](https://github.com/inspec/inspec-alicloud/tree/v0.1.6) (2021-05-28)
 
