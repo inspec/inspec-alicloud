@@ -4,8 +4,13 @@
 ## [v0.1.6](https://github.com/inspec/inspec-alicloud/tree/v0.1.6) (2021-05-28)
 
 #### Merged Pull Requests
-- Bug fixes [#53](https://github.com/inspec/inspec-alicloud/pull/53) ([sandratiffin](https://github.com/sandratiffin))
+- updates to alicloud_user, alicloud_users, alicloud_user_mfa resources [#55](https://github.com/inspec/inspec-alicloud/pull/55) ([sandratiffin](https://github.com/sandratiffin))
 <!-- latest_release -->
+
+## [v0.1.6](https://github.com/inspec/inspec-alicloud/tree/v0.1.6) (2021-05-28)
+
+#### Merged Pull Requests
+- Bug fixes [#53](https://github.com/inspec/inspec-alicloud/pull/53) ([sandratiffin](https://github.com/sandratiffin))
 
 ## [v0.1.5](https://github.com/inspec/inspec-alicloud/tree/v0.1.5) (2021-05-26)
 
