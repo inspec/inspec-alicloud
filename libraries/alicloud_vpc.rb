@@ -15,10 +15,9 @@ class AliCloudVpc < AliCloudResourceBase
 
   def initialize(opts = {})
     opts = { vpc_id: opts } if opts.is_a?(String)
-
+    @opts = opts
     super(opts)
     validate_parameters(required: %i{vpc_id region})
-    @opts = opts
 
     catch_alicloud_errors do
       @resp = @alicloud.vpc_client.request(

@@ -16,10 +16,9 @@ class AliCloudSecurityGroup < AliCloudResourceBase
   def initialize(opts = {})
     opts = { group_id: opts } if opts.is_a?(String)
     opts[:group_id] = opts.delete(:id) if opts.key?(:id) # id is an alias for group_id
-
+    @opts = opts
     super(opts)
     validate_parameters(required: %i{group_id region})
-    @opts = opts
 
     catch_alicloud_errors(ignore: "InvalidSecurityGroupId.NotFound") do
       @resp = @alicloud.ecs_client.request(

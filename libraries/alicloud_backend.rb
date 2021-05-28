@@ -173,7 +173,7 @@ class AliCloudResourceBase < Inspec.resource(1)
   def validate_parameters(allow: [], required: nil, require_any_of: nil)
     if required
       raise ArgumentError, "Expected required parameters as Array of Symbols, got #{required}" unless required.is_a?(Array) && required.all? { |r| r.is_a?(Symbol) }
-      raise ArgumentError, "#{@__resource_name__}: region must be provided" if required.include?(:region) && (!@opts.is_a?(Hash) || (@opts[:region].nil? || @opts[:region] == ""))
+      raise ArgumentError, "#{@__resource_name__}: region must be provided via environment variable or hash parameter" if required.include?(:region) && (!@opts.is_a?(Hash) || (@opts[:region].nil? || @opts[:region] == ""))
       raise ArgumentError, "#{@__resource_name__}: `#{required}` must be provided" unless @opts.is_a?(Hash) && required.all? { |req| @opts.key?(req) && !@opts[req].nil? && @opts[req] != "" }
 
       allow += required

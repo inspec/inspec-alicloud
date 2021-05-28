@@ -16,6 +16,7 @@ class AliCloudAccessKey < AliCloudResourceBase
 
   def initialize(opts = {})
     opts = { access_key_id: opts } if opts.is_a?(String)
+    @opts = opts
     super(opts)
     validate_parameters(required: %i{access_key_id}, allow: %i{user_name})
     @opts = opts

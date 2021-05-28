@@ -363,8 +363,8 @@ resource "alicloud_ram_access_key" "ak" {
 ########### RAM Group ###########################
 
 resource "alicloud_ram_group" "group" {
-  count        = var.alicloud_enable_create
-  name         = var.alicloud_ram_group_name
+  count = var.alicloud_enable_create
+  name  = var.alicloud_ram_group_name
 }
 
 ########### RAM Role ############################
@@ -420,7 +420,7 @@ POLICY
 }
 
 resource "alicloud_ram_policy" "alicloud_attached_policy_1" {
-  count       = var.alicloud_enable_creation
+  count       = var.alicloud_enable_create
   policy_name = var.alicloud_ram_attached_policy_name_1
   description = "Test policy"
 
@@ -453,7 +453,7 @@ resource "alicloud_ram_role_policy_attachment" "attach_policy_to_role_1" {
 }
 
 resource "alicloud_ram_policy" "alicloud_attached_policy_2" {
-  count       = var.alicloud_enable_creation
+  count       = var.alicloud_enable_create
   policy_name = var.alicloud_ram_attached_policy_name_2
   description = "Test policy"
 

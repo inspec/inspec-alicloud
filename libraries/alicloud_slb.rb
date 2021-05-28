@@ -19,12 +19,11 @@ class AliCloudSlb < AliCloudResourceBase
   def initialize(opts = {})
     opts = { slb_id: opts } if opts.is_a?(String)
     opts[:slb_id] = opts.delete(:id) if opts.key?(:id)
-
+    @opts = opts
     super(opts)
     validate_parameters(required: %i{slb_id region})
-    @opts = opts
 
-    catch_alicloud_errors("InvalidLoadBalancerId.NotFound") do
+    catch_alicloud_errors(ignore: "InvalidLoadBalancerId.NotFound") do
       @resp = @alicloud.slb_client.request(
         action: "DescribeLoadBalancerAttribute",
         params: {
