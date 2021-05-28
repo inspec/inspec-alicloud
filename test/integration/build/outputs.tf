@@ -1,23 +1,21 @@
 output "alicloud_vpc_id" {
   value = alicloud_vpc.inspec_vpc.0.id
 }
-
 output "alicloud_vswitch_id" {
   value = alicloud_vswitch.inspec_vswitch.0.id
 }
-
 output "alicloud_vrouter_id" {
   value = alicloud_vpc.inspec_vpc.0.router_id
 }
-
 output "alicloud_security_group_id" {
   value = alicloud_security_group.default.0.id
 }
-
 output "alicloud_security_group_alpha_id" {
   value = alicloud_security_group.alpha.0.id
 }
-
+output "alicloud_rds_db_id" {
+  value = alicloud_db_instance.rds.0.id
+}
 output "alicloud_action_trail_bucket_id" {
   value = alicloud_oss_bucket.action-trail-bucket.0.id
 }
@@ -30,7 +28,6 @@ output "alicloud_slb_http_id" {
 output "alicloud_slb_https_id" {
   value = alicloud_slb.slb-https-test.0.id
 }
-
 output "alicloud_bucket_acl_name" {
   value = alicloud_oss_bucket.bucket-acl.0.id
 }

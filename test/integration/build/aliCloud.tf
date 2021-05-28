@@ -24,6 +24,11 @@ variable "alicloud_security_group_rule_port_in_range" {}
 variable "alicloud_security_group_rule_port_not_in_range" {}
 variable "alicloud_security_group_rule_cidr" {}
 variable "alicloud_security_group_rule_cidr_not_in" {}
+variable "alicloud_rds_db_engine" {}
+variable "alicloud_rds_db_engine_version" {}
+variable "alicloud_rds_instance_type" {}
+variable "alicloud_rds_storage" {}
+variable "alicloud_rds_db_name" {}
 variable "alicloud_bucket_acl_name" {}
 variable "alicloud_bucket_website_name" {}
 variable "alicloud_bucket_logging_target_name" {}
@@ -132,6 +137,19 @@ resource "alicloud_security_group" "bulk" {
   name        = "${var.alicloud_security_group_name}-bulk-${count.index}"
   description = "${var.alicloud_security_group_description}-bulk"
   vpc_id      = alicloud_vpc.inspec_vpc.0.id
+}
+
+########### ApsaraDB RDS Instance ###############
+
+resource "alicloud_db_instance" "rds" {
+  count                = var.alicloud_enable_create
+  engine               = var.alicloud_rds_db_engine
+  engine_version       = var.alicloud_rds_db_engine_version
+  instance_type        = var.alicloud_rds_instance_type
+  instance_storage     = var.alicloud_rds_storage
+  instance_name        = var.alicloud_rds_db_name
+  vswitch_id           = alicloud_vswitch.inspec_vswitch.0.id
+  security_ips         = tolist([var.alicloud_vpc_cidr])
 }
 
 ########### OSS Buckets #########################

@@ -30,7 +30,7 @@ class AliCloudConnection
     region ||= ENV["ALICLOUD_REGION"]
 
     endpoint = @client_args.fetch(:endpoint, nil) if @client_args
-    endpoint ||= if %w{sts ram resourcemanager ims}.include?(api)
+    endpoint ||= if %w{sts ram resourcemanager ims rds}.include?(api)
                    "https://#{api}.aliyuncs.com"
                  else
                    "https://#{api}.#{region}.aliyuncs.com"
@@ -100,6 +100,10 @@ class AliCloudConnection
   def ims_client
     alicloud_client(api: "ims", api_version: "2019-08-15")
   end
+
+  def rds_client
+    alicloud_client(api: "rds", api_version: "2014-08-15")
+  end
 end
 
 # an AliCloud RPCClient Wrapper to handle pagination response
@@ -139,7 +143,7 @@ class AliCloudCommonClient
         end
       end
       # stop looping if the response is not paginated or has reached the last page
-      break if response["PageNumber"].nil? || (page_number * response["PageSize"] >= response["TotalCount"])
+      break if response["PageNumber"].nil? || response["PageSize"].nil? || (page_number * response["PageSize"] >= response["TotalCount"])
 
       page_number += 1
     end
