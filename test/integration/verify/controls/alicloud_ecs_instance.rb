@@ -1,4 +1,5 @@
 alicloud_instance_id = input(:alicloud_instance_id, value: "", description: "AliCloud test instance ID.")
+alicloud_ram_role_name = input(:alicloud_ram_role_name, value: "", description: "AliCloud RAM role name.")
 
 title "Test single AliCloud ECS Instance"
 
@@ -23,7 +24,6 @@ control "alicloud-instance-1.0" do
     its("vlan_id") { should_not be_nil }
     its("status") { should eq "Running" }
     its("io_optimized") { should eq "optimized" }
-    its("request_id") { should_not be_nil }
     its("zone_id") { should_not be_nil }
     its("cluster_id") { should_not be_nil }
     its("stopped_mode") { should eq "Not-applicable" }
@@ -39,6 +39,9 @@ control "alicloud-instance-1.0" do
     its("creation_time") { should_not be_nil }
     its("region_id") { should_not be_nil }
     its("credit_specification") { should_not be_nil }
-
+    its("deletion_protection") { should be false }  # Can't test setting it to true in Terraform, if you do Terraform can't delete it
+    its("ram_roles") { should cmp [alicloud_ram_role_name] }
+    its("ram_roles") { should include alicloud_ram_role_name }
+    its("ram_roles.count") { should eq 1 }
   end
 end
