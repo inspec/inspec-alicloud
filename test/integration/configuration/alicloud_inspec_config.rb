@@ -55,6 +55,9 @@ module AliCloudInspecConfig
       alicloud_disk_desc: "Test disk for inspec",
       alicloud_disk_encrypted: false, # need to set up kms before setting to true
       alicloud_disk_category: "cloud_efficiency",
+      alicloud_disk_delete_with_instance: true,
+      alicloud_disk_enable_auto_snapshot: true,
+      alicloud_disk_delete_auto_snapshot: true,
       alicloud_slb_http_name: "slb-http-#{add_random_string}",
       alicloud_slb_http_address_type: "internet",
       alicloud_slb_http_specification: "slb.s1.small",

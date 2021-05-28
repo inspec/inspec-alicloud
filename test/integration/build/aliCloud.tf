@@ -43,6 +43,9 @@ variable "alicloud_disk_size" {}
 variable "alicloud_disk_desc" {}
 variable "alicloud_disk_encrypted" {}
 variable "alicloud_disk_category" {}
+variable "alicloud_disk_delete_with_instance" {}
+variable "alicloud_disk_enable_auto_snapshot" {}
+variable "alicloud_disk_delete_auto_snapshot" {}
 variable "alicloud_enable_create" {}
 variable "alicloud_ram_user_name" {}
 variable "alicloud_ram_user_display_name" {}
@@ -247,17 +250,20 @@ data "alicloud_zones" "zones_ds" {
   available_resource_creation = "Disk"
 }
 
-resource "alicloud_disk" "alpha" {
-  count             = var.alicloud_enable_create
-  zone_id     = data.alicloud_zones.zones_ds.zones.0.id
-  disk_name   = var.alicloud_disk_name
-  description = var.alicloud_disk_desc
-  category    = var.alicloud_disk_category
-  size        = var.alicloud_disk_size
-  encrypted   = var.alicloud_disk_encrypted
+resource "alicloud_ecs_disk" "alpha" {
+  count                = var.alicloud_enable_create
+  zone_id              = data.alicloud_zones.zones_ds.zones.0.id
+  disk_name            = var.alicloud_disk_name
+  description          = var.alicloud_disk_desc
+  category             = var.alicloud_disk_category
+  size                 = var.alicloud_disk_size
+  encrypted            = var.alicloud_disk_encrypted
+  delete_with_instance = var.alicloud_disk_delete_with_instance
+  enable_auto_snapshot = var.alicloud_disk_enable_auto_snapshot
+  delete_auto_snapshot = var.alicloud_disk_delete_auto_snapshot
 }
 
-resource "alicloud_disk" "beta" {
+resource "alicloud_ecs_disk" "beta" {
   count       = var.alicloud_enable_create
   zone_id     = data.alicloud_zones.zones_ds.zones.0.id
   disk_name   = "second-disk"
