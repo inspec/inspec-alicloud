@@ -545,9 +545,10 @@ resource "alicloud_kms_key" "ecs" {
 }
 
 resource "alicloud_instance" "instance" {
-  count             = var.alicloud_enable_create
-  availability_zone = data.alicloud_zones.zones_ds.zones.0.id
-  security_groups   = [alicloud_security_group.default.0.id]
+  count               = var.alicloud_enable_create
+  availability_zone   = data.alicloud_zones.zones_ds.zones.0.id
+  security_groups     = [alicloud_security_group.default.0.id]
+  role_name           = alicloud_ram_role.role[0].name
 
   # series III
   instance_type              = var.alicloud_ecs_instance_type

@@ -13,14 +13,13 @@ class AliCloudECSInstance < AliCloudResourceBase
   end
   '
 
-  attr_reader :description, :memory, :instance_charge_type, :cpu, :instance_network_type, :public_ip_address,
-              :inner_ip_address, :expired_time, :image_id, :eip_address, :instance_type, :host_name, :vlan_id,
-              :status, :io_optimized, :request_id, :zone_id, :instance_id, :cluster_id, :stopped_mode,
-              :dedicated_host_attribute, :security_group_ids, :vpc_attributes, :operation_locks, :internet_charge_type,
-              :instance_name, :internet_max_bandwidth_out, :internet_max_bandwidth_in, :serial_number, :creation_time,
-              :region_id, :credit_specification
+  attr_reader :instance_id, :description, :memory, :instance_charge_type, :cpu, :instance_network_type, :public_ip_address,
+              :inner_ip_address, :expired_time, :image_id, :eip_address, :instance_type, :host_name, :vlan_id, :status,
+              :io_optimized, :zone_id, :cluster_id, :stopped_mode, :dedicated_host_attribute, :security_group_ids,
+              :vpc_attributes, :operation_locks, :internet_charge_type, :instance_name, :internet_max_bandwidth_out,
+              :internet_max_bandwidth_in, :serial_number, :creation_time, :region_id, :credit_specification,
+              :deletion_protection, :ram_roles
 
-  # rubocop:disable Metrics/MethodLength
   def initialize(opts = {})
     opts = { instance_id: opts } if opts.is_a?(String)
     opts[:instance_id] = opts.delete(:id) if opts.key?(:id) # id is an alias for group_id
@@ -28,8 +27,68 @@ class AliCloudECSInstance < AliCloudResourceBase
     super(opts)
     validate_parameters(required: %i{instance_id region})
 
+    @instance = fetch_instance(opts)["Instances"]["Instance"].first
+    return if @instance.nil?
+
+    @deletion_protection = @instance["DeletionProtection"]
+
+    @ram_roles = fetch_instance_ram_roles(opts)
+
+    @instance_attributes = fetch_instance_attributes(opts)
+    return if @instance_attributes.nil?
+
+    @description                = @instance_attributes["Description"]
+    @memory                     = @instance_attributes["Memory"]
+    @instance_charge_type       = @instance_attributes["InstanceChargeType"]
+    @cpu                        = @instance_attributes["Cpu"]
+    @instance_network_type      = @instance_attributes["InstanceNetworkType"]
+    @public_ip_address          = @instance_attributes["PublicIpAddress"]["IpAddress"]
+    @inner_ip_address           = @instance_attributes["InnerIpAddress"]["IpAddress"]
+    @expired_time               = @instance_attributes["ExpiredTime"]
+    @image_id                   = @instance_attributes["ImageId"]
+    @eip_address                = @instance_attributes["EipAddress"]
+    @instance_type              = @instance_attributes["InstanceType"]
+    @host_name                  = @instance_attributes["HostName"]
+    @vlan_id                    = @instance_attributes["VlanId"]
+    @status                     = @instance_attributes["Status"]
+    @io_optimized               = @instance_attributes["IoOptimized"]
+    @zone_id                    = @instance_attributes["ZoneId"]
+    @instance_id                = @instance_attributes["InstanceId"]
+    @cluster_id                 = @instance_attributes["ClusterId"]
+    @stopped_mode               = @instance_attributes["StoppedMode"]
+    @dedicated_host_attribute   = @instance_attributes["DedicatedHostAttribute"]
+    @security_group_ids         = @instance_attributes["SecurityGroupIds"]
+    @vpc_attributes             = @instance_attributes["VpcAttributes"]
+    @operation_locks            = @instance_attributes["OperationLocks"]
+    @internet_charge_type       = @instance_attributes["InternetChargeType"]
+    @instance_name              = @instance_attributes["InstanceName"]
+    @internet_max_bandwidth_out = @instance_attributes["InternetMaxBandwidthOut"]
+    @internet_max_bandwidth_in  = @instance_attributes["InternetMaxBandwidthIn"]
+    @serial_number              = @instance_attributes["SerialNumber"]
+    @creation_time              = @instance_attributes["CreationTime"]
+    @region_id                  = @instance_attributes["RegionId"]
+    @credit_specification       = @instance_attributes["CreditSpecification"]
+  end
+
+  def fetch_instance(opts)
     catch_alicloud_errors do
-      @resp = @alicloud.ecs_client.request(
+      resp = @alicloud.ecs_client.request(
+        action: "DescribeInstances",
+        params: {
+          'RegionId': opts[:region],
+          'InstanceIds': [opts[:instance_id]],
+        },
+        opts: {
+          method: "POST",
+        }
+      )
+      return resp
+    end
+  end
+
+  def fetch_instance_attributes(opts)
+    catch_alicloud_errors do
+      resp = @alicloud.ecs_client.request(
         action: "DescribeInstanceAttribute",
         params: {
           'RegionId': opts[:region],
@@ -39,46 +98,24 @@ class AliCloudECSInstance < AliCloudResourceBase
           method: "POST",
         }
       )
-      if @resp.nil?
-        @instance_id = "empty response"
-        return
-      end
-
-      @instance                   = @resp
-      @description                = @instance["Description"]
-      @memory                     = @instance["Memory"]
-      @instance_charge_type       = @instance["InstanceChargeType"]
-      @cpu                        = @instance["Cpu"]
-      @instance_network_type      = @instance["InstanceNetworkType"]
-      @public_ip_address          = @instance["PublicIpAddress"]["IpAddress"]
-      @inner_ip_address           = @instance["InnerIpAddress"]["IpAddress"]
-      @expired_time               = @instance["ExpiredTime"]
-      @image_id                   = @instance["ImageId"]
-      @eip_address                = @instance["EipAddress"]
-      @instance_type              = @instance["InstanceType"]
-      @host_name                  = @instance["HostName"]
-      @vlan_id                    = @instance["VlanId"]
-      @status                     = @instance["Status"]
-      @io_optimized               = @instance["IoOptimized"]
-      @request_id                 = @instance["RequestId"]
-      @zone_id                    = @instance["ZoneId"]
-      @instance_id                = @instance["InstanceId"]
-      @cluster_id                 = @instance["ClusterId"]
-      @stopped_mode               = @instance["StoppedMode"]
-      @dedicated_host_attribute   = @instance["DedicatedHostAttribute"]
-      @security_group_ids         = @instance["SecurityGroupIds"]
-      @vpc_attributes             = @instance["VpcAttributes"]
-      @operation_locks            = @instance["OperationLocks"]
-      @internet_charge_type       = @instance["InternetChargeType"]
-      @instance_name              = @instance["InstanceName"]
-      @internet_max_bandwidth_out = @instance["InternetMaxBandwidthOut"]
-      @internet_max_bandwidth_in  = @instance["InternetMaxBandwidthIn"]
-      @serial_number              = @instance["SerialNumber"]
-      @creation_time              = @instance["CreationTime"]
-      @region_id                  = @instance["RegionId"]
-      @credit_specification       = @instance["CreditSpecification"]
+      return resp
     end
-    # rubocop:enable Metrics/MethodLength
+  end
+
+  def fetch_instance_ram_roles(opts)
+    catch_alicloud_errors do
+      resp = @alicloud.ecs_client.request(
+        action: "DescribeInstanceRamRole",
+        params: {
+          RegionId: opts[:region],
+          InstanceIds: "[\"#{opts[:instance_id]}\"]",
+        },
+        opts: {
+          method: "POST",
+        }
+      )["InstanceRamRoleSets"]["InstanceRamRoleSet"].map { |r| r["RamRoleName"] }
+      return resp
+    end
   end
 
   def exists?
