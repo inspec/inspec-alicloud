@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.1.8 -->
+<!-- latest_release 0.2.0 -->
+## [v0.2.0](https://github.com/inspec/inspec-alicloud/tree/v0.2.0) (2021-06-01)
+
+#### Merged Pull Requests
+- Add the ability to check release protection and RAM roles of ECS instances [#57](https://github.com/inspec/inspec-alicloud/pull/57) ([sandratiffin](https://github.com/sandratiffin))
+<!-- latest_release -->
+
 ## [v0.1.8](https://github.com/inspec/inspec-alicloud/tree/v0.1.8) (2021-05-28)
 
 #### Merged Pull Requests
 - Upgrade to GitHub-native Dependabot [#48](https://github.com/inspec/inspec-alicloud/pull/48) ([dependabot-preview[bot]](https://github.com/dependabot-preview[bot]))
-<!-- latest_release -->
 
 ## [v0.1.7](https://github.com/inspec/inspec-alicloud/tree/v0.1.7) (2021-05-28)
 
