@@ -29,24 +29,24 @@ See also the [documentation on Alicloud ECS instances](https://www.alibabacloud.
 |instance\_names                 | The names of the instances. |
 |host\_names                     | The host names of the instances. |
 |descriptions                    | The descriptions of the instances. |
-|memories                        | The memory sizes of the instances, in MiB. |
+|memory                          | The memory sizes of the instances, in MiB. |
 |cpus                            | The numbers of vCPUs the instances have. |
-|cpu\_options\_s                 | The CPU options of the instances. |
+|cpu\_options                    | The CPU options of the instances. |
 |gpu\_specs                      | The categories of GPU for the instance types. |
 |image\_ids                      | The IDs of the images that the instances are running. |
 |instance\_types                 | The instance types of the instances, e.g. 'ecs.g5.large'. |
 |instance\_type\_families        | The instance families of the instances. |
-|io\_optimizeds                  | Booleans that specify whether the instances are I/O optimized. |
+|io\_optimized                   | Booleans that specify whether the instances are I/O optimized. |
 |os\_names                       | The names of the operating systems for the instances. |
 |os\_types                       | The types of operating systems for the instances: 'windows' or 'linux'. |
 |instance\_network\_types        | The network types of the instances: 'Classic' or 'VPC'. |
 |public\_ip\_addresses           | The public IP addresses of the instances. |
 |inner\_ip\_addresses            | The internal IP addresses of the instances. |
 |eip\_addresses                  | The Elastic IP addresses associated with the instances. |
-|network\_interfaces\_s          | The ENIs bound to the instances. |
+|network\_interfaces             | The ENIs bound to the instances. |
 |vlan\_ids                       | The virtual local area network (VLAN) of the instance. |
-|vpc\_attributes\_s              | The VPC attributes of the instance. |
-|internet\_max\_bandwidth\_outs  | The maximum outbound public bandwidth, in Mbit/s. |
+|vpc\_attributes                 | The VPC attributes of the instance. |
+|internet\_max\_bandwidth\_out   | The maximum outbound public bandwidth, in Mbit/s. |
 |internet\_max\_bandwidth\_in    | The maximum outbound inbound bandwidth, in Mbit/s. |
 |instance\_charge\_types         | The billing method of the instance: 'Prepaid' or 'Postpaid'. |
 |internet\_charge\_types         | The billing method of the EIP: 'PayByBandwidth' or 'PayByTraffic'. |
@@ -62,11 +62,11 @@ See also the [documentation on Alicloud ECS instances](https://www.alibabacloud.
 |metadata\_options               | The metadata options of the instances. |
 |zone\_ids                       | The zone ID of the instances. |
 |cluster\_ids                    | The ID of the cluster to which the instance belongs. |
-|security\_group\_ids\_s         | The security group ids associated with the instance. |
+|security\_group\_ids            | The security group ids associated with the instance. |
 |deployment\_set\_ids            | The IDs of the deployment sets of the instances. |
 |serial\_numbers                 | The serial number of the instances. |
 |dedicated\_instance\_attributes | The attributes of the instances on dedicated hosts. |
-|device\_availables              | Boolean value indicating whether data disks can be attached to the instances. |
+|devices\_available              | Boolean value indicating whether data disks can be attached to the instances. |
 |deletion\_protection            | Boolean value which indicates whether instances can be deleted. |
 |ram\_roles                      | The RAM roles attached to the instances. |
 |entries                         | Provides access to the raw results of the query, which can be treated as an array of hashes. |
