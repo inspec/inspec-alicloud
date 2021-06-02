@@ -16,7 +16,7 @@ class AliCloudECSInstancesConstructorTest < Minitest::Test
       "VpcAttributes" => { "PrivateIpAddress" => { "IpAddress" => ["10.0.1.22"] }, "VpcId" => "vpc-d7o2g7xz9javyxyke96w3",
       "VSwitchId" => "vsw-d7oop1hf6cxg65343zi7s", "NatIpAddress" => "" }, "InternetChargeType" => "PayByTraffic",
       "InstanceName" => "instance-ugxipr", "DeploymentSetId" => "ds0bp67ax", "InternetMaxBandwidthOut" => 10,
-      "SerialNumber" => "xxxxx-xxxx-xxxx", "OSType" => "linux", "CreationTime" => "2021-05-27T13:48Z",
+      "InternetMaxBandwidthIn" => 10, "SerialNumber" => "xxxxx-xxxx-xxxx", "OSType" => "linux", "CreationTime" => "2021-05-27T13:48Z",
       "AutoReleaseTime" => "", "Description" => "host 1", "InstanceTypeFamily" => "ecs.g6", "DedicatedInstanceAttribute" =>
       { "Tenancy" => "", "Affinity" => "" }, "PublicIpAddress" => { "IpAddress" => ["100.100.100.100"] },
       "GPUSpec" => "NVIDIA V100", "NetworkInterfaces" => { "NetworkInterface" => [{ "Type" => "Primary",
@@ -43,7 +43,7 @@ class AliCloudECSInstancesConstructorTest < Minitest::Test
     assert_equal ["instance-ugxipr"], instances.instance_names
     assert_equal ["host-01"], instances.host_names
     assert_equal ["host 1"], instances.descriptions
-    assert_equal [8192], instances.memories
+    assert_equal [8192], instances.memory
     assert_equal ["PostPaid"], instances.instance_charge_types
     assert_equal [2], instances.cpus
     assert_equal ["Ubuntu 18.04"], instances.os_names
@@ -54,17 +54,18 @@ class AliCloudECSInstancesConstructorTest < Minitest::Test
     assert_equal "101.101.101.101", instances.eip_addresses.first["IpAddress"]
     assert_equal [""], instances.vlan_ids
     assert_equal ["Running"], instances.statuses
-    assert_equal [true], instances.io_optimizeds
-    assert_equal "optimal", instances.metadata_options_s.first["HttpTokens"]
+    assert_equal [true], instances.io_optimized
+    assert_equal "optimal", instances.metadata_options.first["HttpTokens"]
     assert_equal ["eu-west-1a"], instances.zone_ids
     assert_equal ["Not-applicable"], instances.stopped_modes
-    assert_equal 1, instances.cpu_options_s.first["CoreCount"]
+    assert_equal 1, instances.cpu_options.first["CoreCount"]
     assert_equal ["2021-05-27T13:48Z"], instances.start_times
-    assert_equal ["sg-12345abc"], instances.security_group_ids_s.first["SecurityGroupId"]
-    assert_equal ["10.0.1.22"], instances.vpc_attributes_s.first["PrivateIpAddress"]["IpAddress"]
+    assert_equal ["sg-12345abc"], instances.security_group_ids.first["SecurityGroupId"]
+    assert_equal ["10.0.1.22"], instances.vpc_attributes.first["PrivateIpAddress"]["IpAddress"]
     assert_equal ["PayByTraffic"], instances.internet_charge_types
     assert_equal ["ds0bp67ax"], instances.deployment_set_ids
-    assert_equal [10], instances.internet_max_bandwidth_outs
+    assert_equal [10], instances.internet_max_bandwidth_in
+    assert_equal [10], instances.internet_max_bandwidth_out
     assert_equal ["xxxxx-xxxx-xxxx"], instances.serial_numbers
     assert_equal ["linux"], instances.os_types
     assert_equal ["2021-05-27T13:48Z"], instances.creation_times
@@ -73,12 +74,12 @@ class AliCloudECSInstancesConstructorTest < Minitest::Test
     assert_equal "", instances.dedicated_instance_attributes.first["Tenancy"]
     assert_equal ["100.100.100.100"], instances.public_ip_addresses.first["IpAddress"]
     assert_equal ["NVIDIA V100"], instances.gpu_specs
-    assert_equal "10.0.1.22", instances.network_interfaces_s.first["NetworkInterface"].first["PrimaryIpAddress"]
+    assert_equal "10.0.1.22", instances.network_interfaces.first["NetworkInterface"].first["PrimaryIpAddress"]
     assert_equal [0.0], instances.spot_price_limits
-    assert_equal [true], instances.device_availables
+    assert_equal [true], instances.devices_available
     assert_equal ["month"], instances.sale_cycles
     assert_equal ["ecs.g6.large"], instances.instance_types
-    assert_equal ["Ubuntu 18.04 64 bit"], instances.os_names_en_s
+    assert_equal ["Ubuntu 18.04 64 bit"], instances.os_names_en
     assert_equal ["NoSpot"], instances.spot_strategies
     assert_equal [true], instances.deletion_protections
     assert_equal [["test-role-abcdefg"]], instances.ram_roles
