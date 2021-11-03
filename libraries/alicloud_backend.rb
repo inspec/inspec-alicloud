@@ -33,7 +33,12 @@ class AliCloudConnection
     endpoint ||= if %w{sts ram resourcemanager ims rds}.include?(api)
                    "https://#{api}.aliyuncs.com"
                  else
-                   "https://#{api}.#{region}.aliyuncs.com"
+                    # AliCloud VPN endpoints vary between regions, so the following accounts for that variability
+                    if api == 'vpn' && %w{cn-qingdao cn-beijing cn-beijing cn-shanghai cn-shenzhen cn-hongkong ap-southeast-1 us-west-1 us-east-1 cn-shanghai-finance-1 cn-shenzhen-finance-1 cn-north-2-gov-1}.include(region)
+                      "https://#{api}.aliyuncs.com"
+                    else
+                      "https://#{api}.#{region}.aliyuncs.com"
+                    end  
                  end
     client = RPCClient.new(
       access_key_id:     ENV["ALICLOUD_ACCESS_KEY"],
