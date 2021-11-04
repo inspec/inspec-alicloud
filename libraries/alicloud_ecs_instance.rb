@@ -76,7 +76,7 @@ class AliCloudECSInstance < AliCloudResourceBase
         action: "DescribeInstances",
         params: {
           'RegionId': opts[:region],
-          'InstanceIds': [opts[:instance_id]],
+          'InstanceIds': "[\"#{opts[:instance_id]}\"]",
         },
         opts: {
           method: "POST",

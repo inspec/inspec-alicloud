@@ -115,14 +115,14 @@ class AliCloudRamPolicy < AliCloudResourceBase
     @statement_match
   end
 
-  def get_attached_entities(_policy_name)
+  def get_attached_entities(_policy_name, policy_type="Custom")
     catch_alicloud_errors("EntityNotExist.Policy") do
       resp = @alicloud.ram_client.request(
         action: "ListEntitiesForPolicy",
         params: {
           RegionId: opts[:region],
           PolicyName: opts[:policy_name],
-          PolicyType: "Custom",
+          PolicyType: policy_type,
         },
         opts: {
           method: "POST",
