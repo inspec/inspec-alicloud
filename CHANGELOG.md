@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.2.2 -->
+<!-- latest_release 0.3.0 -->
+## [v0.3.0](https://github.com/inspec/inspec-alicloud/tree/v0.3.0) (2021-11-04)
+
+#### Merged Pull Requests
+- Fix ECS instance options and RAM Policy type selection [#69](https://github.com/inspec/inspec-alicloud/pull/69) ([jonlives](https://github.com/jonlives))
+<!-- latest_release -->
+
 ## [v0.2.2](https://github.com/inspec/inspec-alicloud/tree/v0.2.2) (2021-11-04)
 
 #### Merged Pull Requests
 - Add proper API endpoint formats for AliCloud VPN service [#68](https://github.com/inspec/inspec-alicloud/pull/68) ([jonlives](https://github.com/jonlives))
-<!-- latest_release -->
 
 ## [v0.2.1](https://github.com/inspec/inspec-alicloud/tree/v0.2.1) (2021-06-02)
 
