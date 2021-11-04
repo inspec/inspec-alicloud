@@ -115,7 +115,7 @@ class AliCloudRamPolicy < AliCloudResourceBase
     @statement_match
   end
 
-  def get_attached_entities(_policy_name, policy_type="Custom")
+  def get_attached_entities(_policy_name, policy_type = "Custom")
     catch_alicloud_errors("EntityNotExist.Policy") do
       resp = @alicloud.ram_client.request(
         action: "ListEntitiesForPolicy",
