@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.2.1 -->
+<!-- latest_release 0.2.2 -->
+## [v0.2.2](https://github.com/inspec/inspec-alicloud/tree/v0.2.2) (2021-11-04)
+
+#### Merged Pull Requests
+- Add proper API endpoint formats for AliCloud VPN service [#68](https://github.com/inspec/inspec-alicloud/pull/68) ([jonlives](https://github.com/jonlives))
+<!-- latest_release -->
+
 ## [v0.2.1](https://github.com/inspec/inspec-alicloud/tree/v0.2.1) (2021-06-02)
 
 #### Merged Pull Requests
 - Fix some strange pluralizations in alicloud_ecs_instances [#58](https://github.com/inspec/inspec-alicloud/pull/58) ([sandratiffin](https://github.com/sandratiffin))
-<!-- latest_release -->
 
 ## [v0.2.0](https://github.com/inspec/inspec-alicloud/tree/v0.2.0) (2021-06-01)
 
