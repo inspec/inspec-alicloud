@@ -34,9 +34,9 @@ class AliCloudConnection
                    "https://#{api}.aliyuncs.com"
                  else
                    # AliCloud VPN endpoints vary between regions, so the following accounts for that variability
-                   if api == "vpn" && %w{cn-qingdao cn-beijing cn-beijing cn-shanghai cn-shenzhen cn-hongkong ap-southeast-1 us-west-1 us-east-1 cn-shanghai-finance-1 cn-shenzhen-finance-1 cn-north-2-gov-1}.include(region)
+                   if %w{vpc slb}.include(api) && %w{cn-qingdao cn-beijing cn-beijing cn-shanghai cn-shenzhen cn-hongkong ap-southeast-1 us-west-1 us-east-1 cn-shanghai-finance-1 cn-shenzhen-finance-1 cn-north-2-gov-1}.include(region)
                      "https://#{api}.aliyuncs.com"
-                   else
+                   elsif api == "ecs" && %w{cn-hongkong ap-southeast-1 us-west-1 us-east-1 cn-north-2-gov-1}.include(region)
                      "https://#{api}.#{region}.aliyuncs.com"
                    end
                  end
