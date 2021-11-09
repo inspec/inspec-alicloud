@@ -53,7 +53,7 @@ class AliCloudApsaradbRdsInstance < AliCloudResourceBase
 
     opts[:vpc_id] = @vpc_id
     vpc_info = fetch_vpc_info(opts)
-    @in_default_vpc = vpc_info.nil? ? false : vpc_info["IsDefault"]
+    @in_default_vpc = vpc_info["IsDefault"]
   end
 
   def fetch_db_info(opts)
