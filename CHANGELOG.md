@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.3.0 -->
+<!-- latest_release 0.4.0 -->
+## [v0.4.0](https://github.com/inspec/inspec-alicloud/tree/v0.4.0) (2021-11-09)
+
+#### Merged Pull Requests
+- More endpoint fixed and initialiser simplification [#70](https://github.com/inspec/inspec-alicloud/pull/70) ([jonlives](https://github.com/jonlives))
+<!-- latest_release -->
+
 ## [v0.3.0](https://github.com/inspec/inspec-alicloud/tree/v0.3.0) (2021-11-04)
 
 #### Merged Pull Requests
 - Fix ECS instance options and RAM Policy type selection [#69](https://github.com/inspec/inspec-alicloud/pull/69) ([jonlives](https://github.com/jonlives))
-<!-- latest_release -->
 
 ## [v0.2.2](https://github.com/inspec/inspec-alicloud/tree/v0.2.2) (2021-11-04)
 
