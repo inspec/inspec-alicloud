@@ -142,7 +142,7 @@ class AliCloudECSInstances < AliCloudResourceBase
         action: "DescribeInstanceRamRole",
         params: {
           RegionId: region,
-          InstanceIds: "[\"#{instance_id}\"]",
+          InstanceIds: "[\"#{opts[:instance_id]}\"]",
         },
         opts: {
           method: "POST",
