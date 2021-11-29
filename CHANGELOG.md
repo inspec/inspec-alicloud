@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.4.0 -->
+<!-- latest_release 0.5.0 -->
+## [v0.5.0](https://github.com/inspec/inspec-alicloud/tree/v0.5.0) (2021-11-29)
+
+#### Merged Pull Requests
+- Fix instance IDs to preserve JSON array format [#71](https://github.com/inspec/inspec-alicloud/pull/71) ([jonlives](https://github.com/jonlives))
+<!-- latest_release -->
+
 ## [v0.4.0](https://github.com/inspec/inspec-alicloud/tree/v0.4.0) (2021-11-09)
 
 #### Merged Pull Requests
 - More endpoint fixed and initialiser simplification [#70](https://github.com/inspec/inspec-alicloud/pull/70) ([jonlives](https://github.com/jonlives))
-<!-- latest_release -->
 
 ## [v0.3.0](https://github.com/inspec/inspec-alicloud/tree/v0.3.0) (2021-11-04)
 
