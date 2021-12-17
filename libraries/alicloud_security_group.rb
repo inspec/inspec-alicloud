@@ -65,7 +65,7 @@ class AliCloudSecurityGroup < AliCloudResourceBase
       # This block is conditional on 'port' having been passed in, otherwise we only care about the previous two checks
       if port.nil?
         return true
-      else  
+      else
         port_start, port_end = rule["PortRange"].split("/").map(&:to_i)
         return true if (port >= port_start) && (port <= port_end)
       end
