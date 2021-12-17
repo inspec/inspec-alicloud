@@ -27,6 +27,8 @@ control "alicloud-security-group-1.0" do
     it { should allow_in(port: alicloud_security_group_rule_port_in_range, ipv4_range: alicloud_security_group_rule_cidr) }
     it { should_not allow_in(port: alicloud_security_group_rule_port_not_in_range, ipv4_range: alicloud_security_group_rule_cidr) }
     it { should_not allow_in(port: alicloud_security_group_rule_port_in_range, ipv4_range: alicloud_security_group_rule_cidr_not_in) }
+    it { should allow_in(ipv4_range: alicloud_security_group_rule_cidr) }
+    it { should_not allow_in(ipv4_range: alicloud_security_group_rule_cidr_not_in) }
   end
 
   describe alicloud_security_group(group_id: alicloud_security_group_alpha_id, region: "us-west-1") do
