@@ -8,7 +8,7 @@ gem "bundle"
 gem "inspec-bin"
 gem "aliyunsdkcore"
 gem "aliyun-sdk", "~> 0.8.0"
-gem "train-alicloud", "~> 0.0.4"
+gem "train-alicloud"
 
 if Gem.ruby_version.to_s.start_with?("2.5")
   # 16.7.23 required ruby 2.6+
