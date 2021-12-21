@@ -15,6 +15,10 @@ if Gem.ruby_version.to_s.start_with?("2.5")
   gem "chef-utils", "< 16.7.23" # TODO: remove when we drop ruby 2.5
 end
 
+if Gem.ruby_version < Gem::Version.new("2.7.0")
+  gem "activesupport", "6.1.4.4"
+end
+
 group :development do
   gem "pry"
   gem "bundler"
