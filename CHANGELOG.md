@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.8.0 -->
+<!-- latest_release 0.9.0 -->
+## [v0.9.0](https://github.com/inspec/inspec-alicloud/tree/v0.9.0) (2021-12-22)
+
+#### Merged Pull Requests
+- Make &quot;port&quot; param optional for ecs_security_group controls [#75](https://github.com/inspec/inspec-alicloud/pull/75) ([jonlives](https://github.com/jonlives))
+<!-- latest_release -->
+
 ## [v0.8.0](https://github.com/inspec/inspec-alicloud/tree/v0.8.0) (2021-12-17)
 
 #### Merged Pull Requests
 - Sathish was right all along, and this does work! [#74](https://github.com/inspec/inspec-alicloud/pull/74) ([jonlives](https://github.com/jonlives))
-<!-- latest_release -->
 
 ## [v0.7.0](https://github.com/inspec/inspec-alicloud/tree/v0.7.0) (2021-12-14)
 
