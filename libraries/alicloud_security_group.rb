@@ -56,10 +56,10 @@ class AliCloudSecurityGroup < AliCloudResourceBase
     port = criteria[:port] unless criteria[:port].nil?
     ipv4_range = criteria[:ipv4_range]
     @inbound_rules.each do |rule|
-      
+
       # If our rule has a securitygroup ID instead of a CIDR mask as the auth object, skip it...
       next if rule["SourceCidrIp"].empty? && !rule["SourceGroupId"].empty?
-      
+
       policy = rule["Policy"]
       next unless policy == "Accept"
 
