@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.9.0 -->
+<!-- latest_release 0.10.0 -->
+## [v0.10.0](https://github.com/inspec/inspec-alicloud/tree/v0.10.0) (2022-01-18)
+
+#### Merged Pull Requests
+- Add logic to skip rule when securitygroup specified instead of cidr mask [#78](https://github.com/inspec/inspec-alicloud/pull/78) ([jonlives](https://github.com/jonlives))
+<!-- latest_release -->
+
 ## [v0.9.0](https://github.com/inspec/inspec-alicloud/tree/v0.9.0) (2021-12-22)
 
 #### Merged Pull Requests
 - Make &quot;port&quot; param optional for ecs_security_group controls [#75](https://github.com/inspec/inspec-alicloud/pull/75) ([jonlives](https://github.com/jonlives))
-<!-- latest_release -->
 
 ## [v0.8.0](https://github.com/inspec/inspec-alicloud/tree/v0.8.0) (2021-12-17)
 
