@@ -29,7 +29,7 @@ See also the [Alicloud documentation on ApsaraDB RDS](https://www.alibabacloud.c
 | ---                        | --- |
 |db\_instance\_ids           | The unique IDs of the ApsaraDB RDS instances returned. |
 |descriptions                | The display names of the returned instances. |
-|resource\_groups            | The IDs of the resource groups to which read-only instances belong.
+|resource\_groups            | The IDs of the resource groups to which read-only instances belong. |
 |net\_types                  | The network types of the returned instances: one of 'Internet' or 'Intranet' |
 |instance\_types             | The roles of the returned instances: 'Primary'/'Readonly'/'Guard'/'Temp'. |
 |multiple\_zone\_deployments | Boolean values indicating whether the instances are deployed in multiple zones (MutriORsignle API call). |
