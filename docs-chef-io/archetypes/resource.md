@@ -5,10 +5,10 @@ gh_repo = "inspec"
 platform = "alicloud"
 
 [menu]
-  [menu.automate]
+  [menu.inspec]
     title = "{{ .Name | humanize | title }}"
     identifier = "inspec/resources/alicloud/{{ .Name | humanize | title }}"
-    parent = "inspec/"
+    parent = "inspec/resources/alicloud"
 +++
 
 
