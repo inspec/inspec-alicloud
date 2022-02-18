@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.10.0 -->
+<!-- latest_release 0.10.1 -->
+## [v0.10.1](https://github.com/inspec/inspec-alicloud/tree/v0.10.1) (2022-02-18)
+
+#### Merged Pull Requests
+- Munge docs content so we can deploy it on docs.chef.io [#80](https://github.com/inspec/inspec-alicloud/pull/80) ([IanMadd](https://github.com/IanMadd))
+<!-- latest_release -->
+
 ## [v0.10.0](https://github.com/inspec/inspec-alicloud/tree/v0.10.0) (2022-01-18)
 
 #### Merged Pull Requests
 - Add logic to skip rule when securitygroup specified instead of cidr mask [#78](https://github.com/inspec/inspec-alicloud/pull/78) ([jonlives](https://github.com/jonlives))
-<!-- latest_release -->
 
 ## [v0.9.0](https://github.com/inspec/inspec-alicloud/tree/v0.9.0) (2021-12-22)
 
