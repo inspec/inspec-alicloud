@@ -1,5 +1,5 @@
 +++
-title = "{{ .Name | humanize | title }} resource"
+title = "{{ .Name }} resource"
 draft = false
 gh_repo = "inspec"
 platform = "alicloud"
@@ -10,18 +10,56 @@ platform = "alicloud"
     identifier = "inspec/resources/alicloud/{{ .Name | humanize | title }}"
     parent = "inspec/resources/alicloud"
 +++
+{{/* Run `hugo new -k resource inspec/resources/RESOURCE_NAME.md` to generate a new resource page. */}}
 
-
-{{% Run `hugo new -k resource resources/RESOURCE_NAME.md` to generate a new resource page. %}}
+Use the `{{ .Name }}` Chef InSpec audit resource to test...
 
 ## Syntax
 
+```ruby
+describe {{ .Name }} do
+
+end
+```
+
 ## Parameters
+
+`PARAMETER`
+: PARAMETER DESCRIPTION
+
+`PARAMETER`
+: PARAMETER DESCRIPTION
 
 ## Properties
 
+`PROPERTY`
+: PROPERTY DESCRIPTION
+
+`PROPERTY`
+: PROPERTY DESCRIPTION
+
 ## Examples
+
+**EXAMPLE DESCRIPTION**
+
+```ruby
+describe {{ .Name }} do
+
+end
+```
+
+**EXAMPLE DESCRIPTION**
+
+```ruby
+describe {{ .Name }} do
+
+end
+```
 
 ## Matchers
 
-For a full list of available matchers, please visit our [Universal Matchers page](https://docs.chef.io/inspec/matchers/).
+{{% inspec_matchers_link %}}
+
+### AliCloud Permissions
+
+{{% alibaba_access_management_docs %}}
