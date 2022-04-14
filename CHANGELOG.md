@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.10.2 -->
+<!-- latest_release 0.10.3 -->
+## [v0.10.3](https://github.com/inspec/inspec-alicloud/tree/v0.10.3) (2022-04-14)
+
+#### Merged Pull Requests
+- Update readme, shortcodes, local build previews, and netlify [#82](https://github.com/inspec/inspec-alicloud/pull/82) ([IanMadd](https://github.com/IanMadd))
+<!-- latest_release -->
+
 ## [v0.10.2](https://github.com/inspec/inspec-alicloud/tree/v0.10.2) (2022-03-03)
 
 #### Enhancements
 - Resource-203 update ali-cloud tests to use ruby versions 2.7 and 3.0 only [#81](https://github.com/inspec/inspec-alicloud/pull/81) ([soumyo13](https://github.com/soumyo13))
-<!-- latest_release -->
 
 ## [v0.10.1](https://github.com/inspec/inspec-alicloud/tree/v0.10.1) (2022-02-18)
 
