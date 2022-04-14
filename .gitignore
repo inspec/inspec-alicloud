@@ -13,3 +13,4 @@ vendor
 .bundle
 *inspec-output*
 tags
+.DS_Store
