@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.10.3 -->
+<!-- latest_release 0.10.4 -->
+## [v0.10.4](https://github.com/inspec/inspec-alicloud/tree/v0.10.4) (2022-05-24)
+
+#### Merged Pull Requests
+- Remove Hugo version from netlify config [#83](https://github.com/inspec/inspec-alicloud/pull/83) ([IanMadd](https://github.com/IanMadd))
+<!-- latest_release -->
+
 ## [v0.10.3](https://github.com/inspec/inspec-alicloud/tree/v0.10.3) (2022-04-14)
 
 #### Merged Pull Requests
 - Update readme, shortcodes, local build previews, and netlify [#82](https://github.com/inspec/inspec-alicloud/pull/82) ([IanMadd](https://github.com/IanMadd))
-<!-- latest_release -->
 
 ## [v0.10.2](https://github.com/inspec/inspec-alicloud/tree/v0.10.2) (2022-03-03)
 
