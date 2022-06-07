@@ -25,7 +25,7 @@ class AliCloudRamPolicies < AliCloudResourceBase
   def initialize(opts = {})
     opts = { type: opts } if opts.is_a?(String)
     super(opts)
-    validate_parameters(allow: %i[only_attached type], required: %i[region])
+    validate_parameters(allow: %i(only_attached type), required: %i(region))
 
     @type = opts[:type]
     opts[:type] = 'System' unless opts[:type]
@@ -80,8 +80,8 @@ class AliCloudRamPolicies < AliCloudResourceBase
         action: 'ListPolicies',
         params: filters,
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )
       return resp
     end
@@ -95,8 +95,8 @@ class AliCloudRamPolicies < AliCloudResourceBase
         action: 'ListEntitiesForPolicy',
         params: filters,
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )
       return resp
     end

@@ -64,7 +64,7 @@ class AliCloudECSInstances < AliCloudResourceBase
 
   def initialize(opts = {})
     super(opts)
-    validate_parameters(required: %i[region])
+    validate_parameters(required: %i(region))
 
     @instances = fetch_data
     return [] if !@instances || @instances.empty?
@@ -117,7 +117,7 @@ class AliCloudECSInstances < AliCloudResourceBase
         os_names_en: instance['OSNameEn'],
         spot_strategy: instance['SpotStrategy'],
         deletion_protection: instance['DeletionProtection'],
-        ram_role: fetch_instance_ram_roles(opts[:region], instance_id)
+        ram_role: fetch_instance_ram_roles(opts[:region], instance_id),
       }]
     end
 
@@ -129,8 +129,8 @@ class AliCloudECSInstances < AliCloudResourceBase
       resp = @alicloud.ecs_client.request(
         action: 'DescribeInstances',
         params: {
-          'RegionId': opts[:region]
-        }
+          'RegionId': opts[:region],
+        },
       )['Instances']['Instance']
       return resp
     end
@@ -142,11 +142,11 @@ class AliCloudECSInstances < AliCloudResourceBase
         action: 'DescribeInstanceRamRole',
         params: {
           RegionId: region,
-          InstanceIds: [instance_id].to_json
+          InstanceIds: [instance_id].to_json,
         },
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )['InstanceRamRoleSets']['InstanceRamRoleSet'].map { |r| r['RamRoleName'] }
       return resp
     end

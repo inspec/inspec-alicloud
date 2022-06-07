@@ -34,7 +34,7 @@ class AliCloudRamUsers < AliCloudResourceBase
 
   def initialize(opts = {})
     super(opts)
-    validate_parameters(required: %i[region])
+    validate_parameters(required: %i(region))
 
     @users = fetch_users(opt[:region])
     return [] if !@users || @users.empty?
@@ -73,7 +73,7 @@ class AliCloudRamUsers < AliCloudResourceBase
                             end,
         has_active_access_key: active_access_keys.count.positive? ? true : false,
         has_console_and_key_access: !login_profile.nil? && active_access_keys.count.positive?,
-        has_mfa_enabled: mfa.nil? ? false : true
+        has_mfa_enabled: mfa.nil? ? false : true,
       }]
     end
     @table = user_rows
@@ -84,8 +84,8 @@ class AliCloudRamUsers < AliCloudResourceBase
       resp = @alicloud.ram_client.request(
         action: 'ListUsers',
         params: {
-          'RegionId': opts[:region]
-        }
+          'RegionId': opts[:region],
+        },
       )['Users']['User']
       return resp
     end
@@ -97,11 +97,11 @@ class AliCloudRamUsers < AliCloudResourceBase
         action: 'GetLoginProfile',
         params: {
           'RegionId': region,
-          'UserName': user
+          'UserName': user,
         },
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )['LoginProfile']
       return resp
     end
@@ -113,11 +113,11 @@ class AliCloudRamUsers < AliCloudResourceBase
         action: 'ListAccessKeys',
         params: {
           'RegionId': region,
-          'UserName': user
+          'UserName': user,
         },
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )['AccessKeys']['AccessKey']
       return resp
     end
@@ -129,11 +129,11 @@ class AliCloudRamUsers < AliCloudResourceBase
         action: 'GetUserMFAInfo',
         params: {
           'RegionId': region,
-          'UserName': user
+          'UserName': user,
         },
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )['MFADevice']
       return resp
     end

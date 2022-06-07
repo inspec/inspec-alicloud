@@ -35,7 +35,7 @@ class AliCloudRamPoliciesConstructorTest < Minitest::Test
                                                                              'Users' => { 'User' => [{ 'UserName' => 'user-1', 'UserId' => '66666', 'DisplayName' => 'user-1' },
                                                                                                      {
                                                                                                        'UserName' => 'user-2', 'UserId' => '88888', 'DisplayName' => 'user-2'
-                                                                                                     }] }
+                                                                                                     }] },
                                                                            })
   end
 
@@ -45,33 +45,33 @@ class AliCloudRamPoliciesConstructorTest < Minitest::Test
 
   def test_accepts_no_arguments
     policies = AliCloudRamPolicies.new
-    assert_equal %w[system-test-1 system-test-2 system-test-3 test-1 test-2 test-3], policies.policy_names
-    assert_equal %w[v1 v2 v1 v3 v2 v4], policies.default_versions
+    assert_equal %w{system-test-1 system-test-2 system-test-3 test-1 test-2 test-3}, policies.policy_names
+    assert_equal %w{v1 v2 v1 v3 v2 v4}, policies.default_versions
     assert_equal [0, 1, 0, 1, 0, 0], policies.attachment_counts
     assert_equal [[], ['group-1'], [], ['group-1'], [], []], policies.attached_groups
     assert_equal [[], ['role-1'], [], ['role-1'], [], []], policies.attached_roles
-    assert_equal [[], %w[user-1 user-2], [], %w[user-1 user-2], [], []], policies.attached_users
+    assert_equal [[], %w{user-1 user-2}, [], %w{user-1 user-2}, [], []], policies.attached_users
   end
 
   def test_accepts_custom_as_string_argument
     policies = AliCloudRamPolicies.new('Custom')
-    assert_equal %w[test-1 test-2 test-3], policies.policy_names
-    assert_equal %w[v3 v2 v4], policies.default_versions
+    assert_equal %w{test-1 test-2 test-3}, policies.policy_names
+    assert_equal %w{v3 v2 v4}, policies.default_versions
     assert_equal [['group-1'], [], []], policies.attached_groups
     assert_equal [['role-1'], [], []], policies.attached_roles
-    assert_equal [%w[user-1 user-2], [], []], policies.attached_users
+    assert_equal [%w{user-1 user-2}, [], []], policies.attached_users
   end
 
   def test_accepts_system_type_and_region
     policies = AliCloudRamPolicies.new(type: 'System', region: 'eu-west-1')
-    assert_equal %w[system-test-1 system-test-2 system-test-3], policies.policy_names
-    assert_equal %w[v1 v2 v1], policies.default_versions
+    assert_equal %w{system-test-1 system-test-2 system-test-3}, policies.policy_names
+    assert_equal %w{v1 v2 v1}, policies.default_versions
   end
 
   def test_only_attached
     policies = AliCloudRamPolicies.new(only_attached: true)
-    assert_equal %w[system-test-2 test-1], policies.policy_names
-    assert_equal %w[v2 v3], policies.default_versions
+    assert_equal %w{system-test-2 test-1}, policies.policy_names
+    assert_equal %w{v2 v3}, policies.default_versions
     assert_equal [1, 1], policies.attachment_counts
   end
 end

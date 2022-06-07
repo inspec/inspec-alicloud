@@ -100,7 +100,7 @@ module AliCloudInspecConfig
     alicloud_ram_role_name: "test-role-#{add_random_string}",
     alicloud_ram_policy_name: "test-policy-#{add_random_string}",
     alicloud_ram_attached_policy_name_1: "test-attached-policy-#{add_random_string}",
-    alicloud_ram_attached_policy_name_2: "test-attached-policy-#{add_random_string}"
+    alicloud_ram_attached_policy_name_2: "test-attached-policy-#{add_random_string}",
   }
 
   def self.config

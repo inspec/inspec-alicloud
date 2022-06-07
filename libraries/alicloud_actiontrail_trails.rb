@@ -17,7 +17,7 @@ class AliCloudActionTrailTrails < AliCloudResourceBase
     @opts = opts
     # Call the parent class constructor
     super(opts)
-    validate_parameters(required: %i[region])
+    validate_parameters(required: %i(region))
 
     @table = fetch_data
   end
@@ -37,8 +37,8 @@ class AliCloudActionTrailTrails < AliCloudResourceBase
       @actiontrails = @alicloud.actiontrail_client.request(
         action: 'DescribeTrails',
         params: {
-          "RegionId": opts[:region]
-        }
+          "RegionId": opts[:region],
+        },
       )['TrailList']
     end
     return [] if !@actiontrails || @actiontrails.empty?

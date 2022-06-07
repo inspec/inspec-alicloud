@@ -16,7 +16,7 @@ class AliCloudOssBucket < AliCloudResourceBase
   def initialize(opts = {})
     opts = { bucket_name: opts } if opts.is_a?(String)
     super(opts)
-    validate_parameters(required: %i[bucket_name region])
+    validate_parameters(required: %i(bucket_name region))
 
     @bucket_name = opts[:bucket_name]
 

@@ -21,15 +21,15 @@ class AliCloudSlb < AliCloudResourceBase
     opts[:slb_id] = opts.delete(:id) if opts.key?(:id)
     @opts = opts
     super(opts)
-    validate_parameters(required: %i[slb_id region])
+    validate_parameters(required: %i(slb_id region))
 
     catch_alicloud_errors(ignore: 'InvalidLoadBalancerId.NotFound') do
       @resp = @alicloud.slb_client.request(
         action: 'DescribeLoadBalancerAttribute',
         params: {
           'RegionId': opts[:region],
-          'LoadBalancerId': opts[:slb_id]
-        }
+          'LoadBalancerId': opts[:slb_id],
+        },
       )
     end
 

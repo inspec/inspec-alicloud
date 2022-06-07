@@ -41,7 +41,7 @@ class AliCloudSlbs < AliCloudResourceBase
 
   def initialize(opts = {})
     super(opts)
-    validate_parameters(required: %i[region])
+    validate_parameters(required: %i(region))
     @table = fetch_data
   end
 
@@ -52,8 +52,8 @@ class AliCloudSlbs < AliCloudResourceBase
       @load_balancers = @alicloud.slb_client.request(
         action: 'DescribeLoadBalancers',
         params: {
-          'RegionId': opts[:region]
-        }
+          'RegionId': opts[:region],
+        },
       )['LoadBalancers']['LoadBalancer']
     end
 
@@ -77,7 +77,7 @@ class AliCloudSlbs < AliCloudResourceBase
         region_id: load_balancer['RegionId'],
         address_type: load_balancer['AddressType'],
         pay_type: load_balancer['PayType'],
-        load_balancer_status: load_balancer['LoadBalancerStatus']
+        load_balancer_status: load_balancer['LoadBalancerStatus'],
       }]
     end
 

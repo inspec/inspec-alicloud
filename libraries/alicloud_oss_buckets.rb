@@ -19,7 +19,7 @@ class AliCloudOssBuckets < AliCloudResourceBase
 
   def initialize(opts = {})
     super(opts)
-    validate_parameters(required: %i[region])
+    validate_parameters(required: %i(region))
     @table = fetch_data
   end
 

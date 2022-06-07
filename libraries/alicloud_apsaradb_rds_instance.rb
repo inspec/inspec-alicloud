@@ -62,11 +62,11 @@ class AliCloudApsaradbRdsInstance < AliCloudResourceBase
         action: 'DescribeDBInstanceAttribute',
         params: {
           RegionId: opts[:region],
-          DBInstanceId: opts[:db_instance_id]
+          DBInstanceId: opts[:db_instance_id],
         },
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )['Items']['DBInstanceAttribute'][0]
       return resp
     end
@@ -78,8 +78,8 @@ class AliCloudApsaradbRdsInstance < AliCloudResourceBase
         action: 'DescribeVpcAttribute',
         params: {
           'RegionId': opts[:region],
-          'VpcId': opts[:vpc_id]
-        }
+          'VpcId': opts[:vpc_id],
+        },
       )
       return resp
     end

@@ -18,7 +18,7 @@ class AliCloudRamUserMFA < AliCloudResourceBase
   def initialize(opts = {})
     opts = { user_name: opts } if opts.is_a?(String)
     super(opts)
-    validate_parameters(required: %i[user_name region])
+    validate_parameters(required: %i(user_name region))
     @user_name = opts[:user_name]
 
     @resp = fetch_mfa_info(opts)
@@ -38,11 +38,11 @@ class AliCloudRamUserMFA < AliCloudResourceBase
         action: 'GetUserMFAInfo',
         params: {
           'RegionId': opts[:region],
-          'UserName': opts[:user_name]
+          'UserName': opts[:user_name],
         },
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )['MFADevice']
       return resp
     end

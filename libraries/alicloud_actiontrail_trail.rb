@@ -18,7 +18,7 @@ class AliCloudActionTrailTrail < AliCloudResourceBase
     opts = { trail_name: opts } if opts.is_a?(String)
     @opts = opt
     super(opts)
-    validate_parameters(required: %i[trail_name region])
+    validate_parameters(required: %i(trail_name region))
 
     @trail_name = opts[:trail_name]
     catch_alicloud_errors do
@@ -26,8 +26,8 @@ class AliCloudActionTrailTrail < AliCloudResourceBase
         action: 'DescribeTrails',
         params: {
           "RegionId": opts[:region],
-          "NameList": @trail_name
-        }
+          "NameList": @trail_name,
+        },
       )['TrailList']
 
       return if resp.empty?
@@ -51,8 +51,8 @@ class AliCloudActionTrailTrail < AliCloudResourceBase
         action: 'GetTrailStatus',
         params: {
           "RegionId": opts[:region],
-          "Name": @trail_name
-        }
+          "Name": @trail_name,
+        },
       )
       # LatestDeliveryTime is unix time with milliseconds
       # Subtract two datetime objects for difference in days
@@ -72,8 +72,8 @@ class AliCloudActionTrailTrail < AliCloudResourceBase
         action: 'GetTrailStatus',
         params: {
           "RegionId": opts[:region],
-          "Name": @trail_name
-        }
+          "Name": @trail_name,
+        },
       )
       trail_status['IsLogging']
     end

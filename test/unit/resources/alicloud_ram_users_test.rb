@@ -44,14 +44,14 @@ class AliCloudRamUsersConstructorTest < Minitest::Test
 
   def test_accepts_no_arguments_and_resource_works
     users = AliCloudRamUsers.new
-    assert_equal %w[test-user-1 test-user-2 test-user-3], users.user_names
-    assert_equal %w[a-test-user-1 a-test-user-2 a-test-user-2], users.display_names
-    assert_equal %w[12345 67890 55555], users.user_ids
+    assert_equal %w{test-user-1 test-user-2 test-user-3}, users.user_names
+    assert_equal %w{a-test-user-1 a-test-user-2 a-test-user-2}, users.display_names
+    assert_equal %w{12345 67890 55555}, users.user_ids
     assert_equal [true, true, false], users.has_console_access
     assert_equal [true, false, true], users.has_access_key
-    assert_equal [%w[12345 67890], [], %w[55555]], users.access_keys
+    assert_equal [%w{12345 67890}, [], %w{55555}], users.access_keys
     assert_equal [true, false, true], users.has_active_access_key
-    assert_equal [%w[12345], [], %w[55555]], users.active_access_keys
+    assert_equal [%w{12345}, [], %w{55555}], users.active_access_keys
     assert_equal [true, false, false], users.has_console_and_key_access
     assert_equal [true, false, false], users.has_mfa_enabled
   end

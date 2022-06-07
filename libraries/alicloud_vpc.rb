@@ -17,15 +17,15 @@ class AliCloudVpc < AliCloudResourceBase
     opts = { vpc_id: opts } if opts.is_a?(String)
     @opts = opts
     super(opts)
-    validate_parameters(required: %i[vpc_id region])
+    validate_parameters(required: %i(vpc_id region))
 
     catch_alicloud_errors do
       @resp = @alicloud.vpc_client.request(
         action: 'DescribeVpcAttribute',
         params: {
           'RegionId': opts[:region],
-          'VpcId': opts[:vpc_id]
-        }
+          'VpcId': opts[:vpc_id],
+        },
       )
     end
 

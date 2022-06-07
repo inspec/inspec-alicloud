@@ -23,12 +23,12 @@ class AliCloudDisksConstructorTest < Minitest::Test
 
   def test_accepts_no_arguments
     disks = AliCloudDisks.new
-    assert_equal %w[d-123456789 d-987654321 d-555555555], disks.ids
+    assert_equal %w{d-123456789 d-987654321 d-555555555}, disks.ids
     assert_equal ['test disk 1', 'test disk 2', 'test disk 3'], disks.descriptions
-    assert_equal %w[my-first-disk my-second-disk my-third-disk], disks.names
+    assert_equal %w{my-first-disk my-second-disk my-third-disk}, disks.names
     assert_equal [true, true, false], disks.encrypted_disks
-    assert_equal %w[cloud_efficiency cloud_efficiency cloud_efficiency], disks.categories
-    assert_equal %w[akey bkey ckey], disks.kms_key_ids
+    assert_equal %w{cloud_efficiency cloud_efficiency cloud_efficiency}, disks.categories
+    assert_equal %w{akey bkey ckey}, disks.kms_key_ids
     assert_equal [20, 20, 20], disks.sizes
     assert_equal [true, true, true], disks.enable_auto_snapshot
     assert_equal [true, true, true], disks.delete_auto_snapshot

@@ -24,7 +24,7 @@ class AliCloudDisk < AliCloudResourceBase
     opts[:disk_name] = opts.delete(:name) if opts.key?(:name) # name is an alias for disk_name
     @opts = opts
     super(opts)
-    validate_parameters(require_any_of: %i[disk_id disk_name], required: %i[region])
+    validate_parameters(require_any_of: %i(disk_id disk_name), required: %i(region))
 
     if opts[:disk_id] && !opts[:disk_id].empty?
       if opts[:disk_id] !~ /^d-[0-9a-z]+$/
@@ -64,8 +64,8 @@ class AliCloudDisk < AliCloudResourceBase
         action: 'DescribeDisks',
         params: filters,
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )['Disks']['Disk']
 
       disk = if opts.key?(:disk_id)

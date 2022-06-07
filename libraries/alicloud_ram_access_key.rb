@@ -18,7 +18,7 @@ class AliCloudAccessKey < AliCloudResourceBase
     opts = { access_key_id: opts } if opts.is_a?(String)
     @opts = opts
     super(opts)
-    validate_parameters(required: %i[access_key_id], allow: %i[user_name])
+    validate_parameters(required: %i(access_key_id), allow: %i(user_name))
     @opts = opts
 
     catch_alicloud_errors do
@@ -28,8 +28,8 @@ class AliCloudAccessKey < AliCloudResourceBase
         action: 'ListAccessKeys',
         params: params,
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )['AccessKeys']['AccessKey']
 
       @keys.map do |key|
@@ -50,7 +50,7 @@ class AliCloudAccessKey < AliCloudResourceBase
   end
 
   def resource_id
-    "#{@access_key_id|| @opts[:access_key_id]}_#{@opts[:region]}"
+    "#{@access_key_id || @opts[:access_key_id]}_#{@opts[:region]}"
   end
 
   def to_s

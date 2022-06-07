@@ -24,7 +24,7 @@ class AliCloudAccessKeys < AliCloudResourceBase
   def initialize(opts = {})
     opts = { user_name: opts } if opts.is_a?(String)
     super(opts)
-    validate_parameters(allow: %i[user_name], required: %i[region])
+    validate_parameters(allow: %i(user_name), required: %i(region))
     catch_alicloud_errors do
       params = { "RegionId": opts[:region] }
       params[:UserName] = opts[:user_name] if opts.key?(:user_name)
@@ -32,8 +32,8 @@ class AliCloudAccessKeys < AliCloudResourceBase
         action: 'ListAccessKeys',
         params: params,
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )['AccessKeys']['AccessKey']
     end
 
@@ -44,7 +44,7 @@ class AliCloudAccessKeys < AliCloudResourceBase
       keys_rows += [{
         access_key_id: key['AccessKeyId'],
         status: key['Status'],
-        create_date: key['CreateDate']
+        create_date: key['CreateDate'],
       }]
     end
 

@@ -35,7 +35,7 @@ class AliCloudVpcs < AliCloudResourceBase
 
   def initialize(opts = {})
     super(opts)
-    validate_parameters(required: %i[region])
+    validate_parameters(required: %i(region))
     @table = fetch_data
   end
 
@@ -46,8 +46,8 @@ class AliCloudVpcs < AliCloudResourceBase
       @vpcs = @alicloud.vpc_client.request(
         action: 'DescribeVpcs',
         params: {
-          'RegionId': opts[:region]
-        }
+          'RegionId': opts[:region],
+        },
       )['Vpcs']['Vpc']
     end
 
@@ -65,7 +65,7 @@ class AliCloudVpcs < AliCloudResourceBase
         resource_group_id: vpc['ResourceGroupId'],
         cidr_block: vpc['CidrBlock'],
         ipv6_cidr_block: vpc['Ipv6CidrBlock'],
-        vrouter_id: vpc['VRouterId']
+        vrouter_id: vpc['VRouterId'],
       }]
     end
 

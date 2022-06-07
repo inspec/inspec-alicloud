@@ -89,7 +89,7 @@ class AliCloudApsaradbRdsInstances < AliCloudResourceBase
           connection_mode: rds_instance['ConnectionMode'],
           vpc_cloud_instance_id: rds_instance['VpcCloudInstanceId'],
           region_id: rds_instance['RegionId'],
-          expire_time: rds_instance['ExpireTime']
+          expire_time: rds_instance['ExpireTime'],
         }]
       end
 
@@ -103,11 +103,11 @@ class AliCloudApsaradbRdsInstances < AliCloudResourceBase
       resp = @alicloud.rds_client.request(
         action: 'DescribeDBInstances',
         params: {
-          RegionId: opts[:region]
+          RegionId: opts[:region],
         },
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )
       return resp
     end

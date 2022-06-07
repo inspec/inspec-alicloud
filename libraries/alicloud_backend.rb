@@ -30,15 +30,15 @@ class AliCloudConnection
     region ||= ENV['ALICLOUD_REGION']
 
     endpoint = @client_args.fetch(:endpoint, nil) if @client_args
-    endpoint ||= if %w[sts ram resourcemanager ims rds].include?(api)
+    endpoint ||= if %w{sts ram resourcemanager ims rds}.include?(api)
                    "https://#{api}.aliyuncs.com"
-                 elsif %w[vpc
-                          slb].include?(api) && %w[cn-qingdao cn-beijing cn-beijing cn-shanghai cn-shenzhen cn-hongkong ap-southeast-1 us-west-1
-                                                   us-east-1 cn-shanghai-finance-1 cn-shenzhen-finance-1 cn-north-2-gov-1].include?(region)
+                 elsif %w{vpc
+                          slb}.include?(api) && %w{cn-qingdao cn-beijing cn-beijing cn-shanghai cn-shenzhen cn-hongkong ap-southeast-1 us-west-1
+                                                   us-east-1 cn-shanghai-finance-1 cn-shenzhen-finance-1 cn-north-2-gov-1}.include?(region)
                    # AliCloud VPN endpoints vary between regions, so the following accounts for that variability
                    "https://#{api}.aliyuncs.com"
-                 elsif api == 'ecs' && %w[cn-hongkong ap-southeast-1 us-west-1 us-east-1
-                                          cn-north-2-gov-1].include?(region)
+                 elsif api == 'ecs' && %w{cn-hongkong ap-southeast-1 us-west-1 us-east-1
+                                          cn-north-2-gov-1}.include?(region)
                    "https://#{api}.#{region}.aliyuncs.com"
                  else
                    "https://#{api}.#{region}.aliyuncs.com"
@@ -48,7 +48,7 @@ class AliCloudConnection
       access_key_secret: ENV['ALICLOUD_SECRET_KEY'],
       security_token: ENV['ALICLOUD_SECURITY_TOKEN'],
       endpoint: endpoint,
-      api_version: api_version
+      api_version: api_version,
     )
     AliCloudCommonClient.new(client)
   end
@@ -62,7 +62,7 @@ class AliCloudConnection
       endpoint: endpoint,
       access_key_id: ENV['ALICLOUD_ACCESS_KEY'],
       access_key_secret: ENV['ALICLOUD_SECRET_KEY'],
-      sts_token: ENV['ALICLOUD_SECURITY_TOKEN']
+      sts_token: ENV['ALICLOUD_SECURITY_TOKEN'],
     )
   end
 
@@ -130,7 +130,7 @@ class AliCloudCommonClient
       response = @client.request(
         action: action,
         params: params,
-        opts: opts
+        opts: opts,
       )
       if response_total.nil?
         response_total = response
@@ -224,8 +224,8 @@ class AliCloudResourceBase < Inspec.resource(1)
       allow += require_any_of
     end
 
-    allow += %i[region] unless allow.include?(:region)
-    allow += %i[endpoint] unless allow.include?(:endpoint)
+    allow += %i(region) unless allow.include?(:region)
+    allow += %i(endpoint) unless allow.include?(:endpoint)
     @opts.delete(:region) if @opts.is_a?(Hash) && @opts[:region].nil?
 
     raise ArgumentError, 'Scalar arguments not supported' unless defined?(@opts.keys)

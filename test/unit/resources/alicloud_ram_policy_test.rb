@@ -41,7 +41,7 @@ class AliCloudRamPolicyConstructorTest < Minitest::Test
                                                                            'Users' => { 'User' => [{ 'UserName' => 'user-1', 'UserId' => '66666', 'DisplayName' => 'user-1' },
                                                                                                    {
                                                                                                      'UserName' => 'user-2', 'UserId' => '88888', 'DisplayName' => 'user-2'
-                                                                                                   }] }
+                                                                                                   }] },
                                                                          })
   end
 

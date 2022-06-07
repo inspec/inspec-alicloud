@@ -21,7 +21,7 @@ class AliCloudRamUser < AliCloudResourceBase
     opts = { user_name: opts } if opts.is_a?(String)
     super(opts)
     @opts = opts
-    validate_parameters(required: %i[user_name region])
+    validate_parameters(required: %i(user_name region))
 
     @resp = fetch_user_info(opts)
     return if @resp.nil?
@@ -72,11 +72,11 @@ class AliCloudRamUser < AliCloudResourceBase
         action: 'GetUser',
         params: {
           'RegionId': opts[:region],
-          'UserName': opts[:user_name]
+          'UserName': opts[:user_name],
         },
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )['User']
       return resp
     end
@@ -88,11 +88,11 @@ class AliCloudRamUser < AliCloudResourceBase
         action: 'GetLoginProfile',
         params: {
           'RegionId': opts[:region],
-          'UserName': opts[:user_name]
+          'UserName': opts[:user_name],
         },
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )['LoginProfile']
       return resp
     end
@@ -104,11 +104,11 @@ class AliCloudRamUser < AliCloudResourceBase
         action: 'ListAccessKeys',
         params: {
           'RegionId': opts[:region],
-          'UserName': opts[:user_name]
+          'UserName': opts[:user_name],
         },
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )['AccessKeys']['AccessKey']
       return resp
     end

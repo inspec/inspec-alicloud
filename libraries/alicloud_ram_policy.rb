@@ -26,7 +26,7 @@ class AliCloudRamPolicy < AliCloudResourceBase
   def initialize(opts = {})
     opts = { policy_name: opts } if opts.is_a?(String)
     super(opts)
-    validate_parameters(required: %i[policy_name region], allow: %i[type])
+    validate_parameters(required: %i(policy_name region), allow: %i(type))
     @opts = opts
 
     if opts[:type]
@@ -69,8 +69,8 @@ class AliCloudRamPolicy < AliCloudResourceBase
         action: 'GetPolicy',
         params: filters,
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )
 
       return resp
@@ -91,7 +91,7 @@ class AliCloudRamPolicy < AliCloudResourceBase
     criteria = criteria.each_with_object({}) { |(k, v), h| h[k.downcase.to_sym] = v.is_a?(Array) ? v : [v] }
     return false if criteria.empty? || statements.empty?
 
-    allowed_statement_elements = %i[Action Effect Sid Resource NotAction NotResource]
+    allowed_statement_elements = %i(Action Effect Sid Resource NotAction NotResource)
     # downcase keys to eliminate formatting issue
     unless criteria.keys.all? { |k| allowed_statement_elements.map(&:downcase).include?(k) }
       raise ArgumentError,
@@ -122,11 +122,11 @@ class AliCloudRamPolicy < AliCloudResourceBase
         params: {
           RegionId: opts[:region],
           PolicyName: opts[:policy_name],
-          PolicyType: policy_type
+          PolicyType: policy_type,
         },
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )
       return resp
     end

@@ -23,17 +23,17 @@ class AliCloudRam < AliCloudResourceBase
 
   def initialize(opts = {})
     super(opts)
-    validate_parameters(required: %i[region])
+    validate_parameters(required: %i(region))
 
     catch_alicloud_errors do
       @resp = @alicloud.ram_client.request(
         action: 'GetPasswordPolicy',
         params: {
-          'RegionId': opts[:region]
+          'RegionId': opts[:region],
         },
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )['PasswordPolicy']
     end
     if @resp.nil?

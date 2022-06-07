@@ -29,7 +29,7 @@ class AliCloudSecurityGroups < AliCloudResourceBase
 
   def initialize(opts = {})
     super(opts)
-    validate_parameters(required: %i[region])
+    validate_parameters(required: %i(region))
     @table = fetch_data
   end
 
@@ -40,8 +40,8 @@ class AliCloudSecurityGroups < AliCloudResourceBase
       @security_groups = @alicloud.ecs_client.request(
         action: 'DescribeSecurityGroups',
         params: {
-          "RegionId": opts[:region]
-        }
+          "RegionId": opts[:region],
+        },
       )['SecurityGroups']['SecurityGroup']
     end
 
@@ -52,7 +52,7 @@ class AliCloudSecurityGroups < AliCloudResourceBase
         group_id: security_group['SecurityGroupId'],
         group_description: security_group['Description'],
         vpc_id: security_group['VpcId'],
-        tags: security_group['Tags']['Tag']
+        tags: security_group['Tags']['Tag'],
       }]
     end
 

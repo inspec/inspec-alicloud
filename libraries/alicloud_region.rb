@@ -17,7 +17,7 @@ class AliCloudRegion < AliCloudResourceBase
     opts = { region_name: opts } if opts.is_a?(String)
 
     super(opts)
-    validate_parameters(required: %i[region_name region])
+    validate_parameters(required: %i(region_name region))
 
     @region_name = opts[:region_name]
     catch_alicloud_errors do

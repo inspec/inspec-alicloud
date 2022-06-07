@@ -25,7 +25,7 @@ class AliCloudECSInstance < AliCloudResourceBase
     opts[:instance_id] = opts.delete(:id) if opts.key?(:id) # id is an alias for group_id
     @opts = opts
     super(opts)
-    validate_parameters(required: %i[instance_id region])
+    validate_parameters(required: %i(instance_id region))
 
     @instance = fetch_instance(opts)['Instances']['Instance'].first
     return if @instance.nil?
@@ -76,11 +76,11 @@ class AliCloudECSInstance < AliCloudResourceBase
         action: 'DescribeInstances',
         params: {
           'RegionId': opts[:region],
-          'InstanceIds': "[\"#{opts[:instance_id]}\"]"
+          'InstanceIds': "[\"#{opts[:instance_id]}\"]",
         },
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )
       return resp
     end
@@ -92,11 +92,11 @@ class AliCloudECSInstance < AliCloudResourceBase
         action: 'DescribeInstanceAttribute',
         params: {
           'RegionId': opts[:region],
-          'InstanceId': opts[:instance_id]
+          'InstanceId': opts[:instance_id],
         },
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )
       return resp
     end
@@ -108,11 +108,11 @@ class AliCloudECSInstance < AliCloudResourceBase
         action: 'DescribeInstanceRamRole',
         params: {
           RegionId: opts[:region],
-          InstanceIds: "[\"#{opts[:instance_id]}\"]"
+          InstanceIds: "[\"#{opts[:instance_id]}\"]",
         },
         opts: {
-          method: 'POST'
-        }
+          method: 'POST',
+        },
       )['InstanceRamRoleSets']['InstanceRamRoleSet'].map { |r| r['RamRoleName'] }
       return resp
     end

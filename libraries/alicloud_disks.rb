@@ -41,7 +41,7 @@ class AliCloudDisks < AliCloudResourceBase
 
   def initialize(opts = {})
     super(opts)
-    validate_parameters(required: %i[region])
+    validate_parameters(required: %i(region))
 
     @disks = fetch_data
     return [] if !@disks || @disks.empty?
@@ -58,7 +58,7 @@ class AliCloudDisks < AliCloudResourceBase
         kms_key_id: disk['KMSKeyId'],
         enable_auto_snapshot: disk['EnableAutoSnapshot'],
         delete_auto_snapshot: disk['DeleteAutoSnapshot'],
-        delete_with_instance: disk['DeleteWithInstance']
+        delete_with_instance: disk['DeleteWithInstance'],
       }]
     end
 
@@ -70,8 +70,8 @@ class AliCloudDisks < AliCloudResourceBase
       disks = @alicloud.ecs_client.request(
         action: 'DescribeDisks',
         params: {
-          RegionId: opts[:region]
-        }
+          RegionId: opts[:region],
+        },
       )['Disks']['Disk']
       return disks
     end
