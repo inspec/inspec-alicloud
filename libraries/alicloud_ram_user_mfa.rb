@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require "alicloud_backend"
+require 'alicloud_backend'
 
 class AliCloudRamUserMFA < AliCloudResourceBase
-  name "alicloud_ram_user_mfa"
+  name 'alicloud_ram_user_mfa'
   desc "Verifies settings for users' MFA"
 
   example '
@@ -18,38 +18,42 @@ class AliCloudRamUserMFA < AliCloudResourceBase
   def initialize(opts = {})
     opts = { user_name: opts } if opts.is_a?(String)
     super(opts)
-    validate_parameters(required: %i{user_name region})
+    validate_parameters(required: %i[user_name region])
     @user_name = opts[:user_name]
 
     @resp = fetch_mfa_info(opts)
     if @resp.nil?
-      @serial_number = "empty response"
+      @serial_number = 'empty response'
       return
     end
 
     @mfa           = @resp
-    @serial_number = @mfa["SerialNumber"]
-    @type          = @mfa["Type"]
+    @serial_number = @mfa['SerialNumber']
+    @type          = @mfa['Type']
   end
 
   def fetch_mfa_info(opts)
-    catch_alicloud_errors(ignore: "EntityNotExist.User.MFADevice") do
+    catch_alicloud_errors(ignore: 'EntityNotExist.User.MFADevice') do
       resp = @alicloud.ram_client.request(
-        action: "GetUserMFAInfo",
+        action: 'GetUserMFAInfo',
         params: {
           'RegionId': opts[:region],
-          'UserName': opts[:user_name],
+          'UserName': opts[:user_name]
         },
         opts: {
-          method: "POST",
+          method: 'POST'
         }
-      )["MFADevice"]
+      )['MFADevice']
       return resp
     end
   end
 
   def exists?
     !@mfa.nil?
+  end
+
+  def resource_id
+    "#{@user_id || @user_name}_#{@serial_number}"
   end
 
   def to_s

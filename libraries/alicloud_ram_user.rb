@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "alicloud_backend"
+require 'alicloud_backend'
 
 class AliCloudRamUser < AliCloudResourceBase
-  name "alicloud_ram_user"
-  desc "Verifies settings for AliCloud ram users"
+  name 'alicloud_ram_user'
+  desc 'Verifies settings for AliCloud ram users'
 
   example "
   # ensure a user exists
@@ -21,30 +21,36 @@ class AliCloudRamUser < AliCloudResourceBase
     opts = { user_name: opts } if opts.is_a?(String)
     super(opts)
     @opts = opts
-    validate_parameters(required: %i{user_name region})
+    validate_parameters(required: %i[user_name region])
 
     @resp = fetch_user_info(opts)
     return if @resp.nil?
 
     @user            = @resp
-    @user_name       = @user["UserName"]
-    @user_id         = @user["UserId"]
-    @display_name    = @user["DisplayName"]
-    @comments        = @user["Comments"]
-    @email           = @user["Email"]
-    @mobile_phone    = @user["MobilePhone"]
-    @create_date     = @user["CreateDate"]
-    @update_date     = @user["UpdateDate"]
-    @last_login_date = @user["LastLoginDate"]
+    @user_name       = @user['UserName']
+    @user_id         = @user['UserId']
+    @display_name    = @user['DisplayName']
+    @comments        = @user['Comments']
+    @email           = @user['Email']
+    @mobile_phone    = @user['MobilePhone']
+    @create_date     = @user['CreateDate']
+    @update_date     = @user['UpdateDate']
+    @last_login_date = @user['LastLoginDate']
 
     login_profile = fetch_login_profile(opts)
     @has_console_access = login_profile.nil? ? false : true
 
     access_keys = fetch_access_keys(opts)
-    @access_keys = access_keys.nil? ? [] : access_keys.map { |x| x["AccessKeyId"] }
-    @active_access_keys = access_keys.nil? ? [] : access_keys.select { |x| x["Status"] == "Active" }.map { |x| x["AccessKeyId"] }
+    @access_keys = access_keys.nil? ? [] : access_keys.map { |x| x['AccessKeyId'] }
+    @active_access_keys = if access_keys.nil?
+                            []
+                          else
+                            access_keys.select do |x|
+                              x['Status'] == 'Active'
+                            end.map { |x| x['AccessKeyId'] }
+                          end
 
-    @has_active_access_key = @active_access_keys == [] ? false : true
+    @has_active_access_key = @active_access_keys != []
     @has_console_and_key_access = has_console_and_key_access?
   end
 
@@ -61,33 +67,33 @@ class AliCloudRamUser < AliCloudResourceBase
   end
 
   def fetch_user_info(opts)
-    catch_alicloud_errors("EntityNotExist.User") do
+    catch_alicloud_errors('EntityNotExist.User') do
       resp = @alicloud.ram_client.request(
-        action: "GetUser",
+        action: 'GetUser',
         params: {
           'RegionId': opts[:region],
-          'UserName': opts[:user_name],
+          'UserName': opts[:user_name]
         },
         opts: {
-          method: "POST",
+          method: 'POST'
         }
-      )["User"]
+      )['User']
       return resp
     end
   end
 
   def fetch_login_profile(opts)
-    catch_alicloud_errors("EntityNotExist.User.LoginProfile") do
+    catch_alicloud_errors('EntityNotExist.User.LoginProfile') do
       resp = @alicloud.ram_client.request(
-        action: "GetLoginProfile",
+        action: 'GetLoginProfile',
         params: {
           'RegionId': opts[:region],
-          'UserName': opts[:user_name],
+          'UserName': opts[:user_name]
         },
         opts: {
-          method: "POST",
+          method: 'POST'
         }
-      )["LoginProfile"]
+      )['LoginProfile']
       return resp
     end
   end
@@ -95,21 +101,25 @@ class AliCloudRamUser < AliCloudResourceBase
   def fetch_access_keys(opts)
     catch_alicloud_errors do
       resp = @alicloud.ram_client.request(
-        action: "ListAccessKeys",
+        action: 'ListAccessKeys',
         params: {
           'RegionId': opts[:region],
-          'UserName': opts[:user_name],
+          'UserName': opts[:user_name]
         },
         opts: {
-          method: "POST",
+          method: 'POST'
         }
-      )["AccessKeys"]["AccessKey"]
+      )['AccessKeys']['AccessKey']
       return resp
     end
   end
 
   def exists?
     !@user.nil?
+  end
+
+  def resource_id
+    @user_id
   end
 
   def to_s

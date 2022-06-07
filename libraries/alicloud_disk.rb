@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "alicloud_backend"
+require 'alicloud_backend'
 
 class AliCloudDisk < AliCloudResourceBase
-  name "alicloud_disk"
-  desc "Verifies properties for an individual AliCloud disk"
+  name 'alicloud_disk'
+  desc 'Verifies properties for an individual AliCloud disk'
   example "
   describe alicloud_disks('disk-12345678') do
     it { should exist }
@@ -24,10 +24,13 @@ class AliCloudDisk < AliCloudResourceBase
     opts[:disk_name] = opts.delete(:name) if opts.key?(:name) # name is an alias for disk_name
     @opts = opts
     super(opts)
-    validate_parameters(require_any_of: %i{disk_id disk_name}, required: %i{region})
+    validate_parameters(require_any_of: %i[disk_id disk_name], required: %i[region])
 
     if opts[:disk_id] && !opts[:disk_id].empty?
-      raise ArgumentError, "#{@__resource_name__}: disk ID must be in the format 'd- followed by alphanumeric characters." if opts[:disk_id] !~ /^d\-[0-9a-z]+$/
+      if opts[:disk_id] !~ /^d-[0-9a-z]+$/
+        raise ArgumentError,
+              "#{@__resource_name__}: disk ID must be in the format 'd- followed by alphanumeric characters."
+      end
       raise ArgumentError, "#{@__resource_name__}: expected only one of `disk_id` or `disk_name`" if opts[:disk_name]
     elsif !opts[:disk_name] || opts[:disk_name].empty?
       raise ArgumentError, "#{@__resource_name__}: `disk_id` or `disk_name` must be provided"
@@ -40,16 +43,16 @@ class AliCloudDisk < AliCloudResourceBase
     end
 
     @disk                 = @resp
-    @id                   = @disk["DiskId"]
-    @name                 = @disk["DiskName"]
-    @description          = @disk["Description"]
-    @size                 = @disk["Size"]
-    @category             = @disk["Category"]
-    @encrypted            = @disk["Encrypted"]
-    @kms_key_id           = @disk["KMSKeyId"]
-    @enable_auto_snapshot = @disk["EnableAutoSnapshot"]
-    @delete_auto_snapshot = @disk["DeleteAutoSnapshot"]
-    @delete_with_instance = @disk["DeleteWithInstance"]
+    @id                   = @disk['DiskId']
+    @name                 = @disk['DiskName']
+    @description          = @disk['Description']
+    @size                 = @disk['Size']
+    @category             = @disk['Category']
+    @encrypted            = @disk['Encrypted']
+    @kms_key_id           = @disk['KMSKeyId']
+    @enable_auto_snapshot = @disk['EnableAutoSnapshot']
+    @delete_auto_snapshot = @disk['DeleteAutoSnapshot']
+    @delete_with_instance = @disk['DeleteWithInstance']
   end
 
   def fetch_disk_info(opts)
@@ -58,18 +61,18 @@ class AliCloudDisk < AliCloudResourceBase
 
     catch_alicloud_errors do
       resp = @alicloud.ecs_client.request(
-        action: "DescribeDisks",
+        action: 'DescribeDisks',
         params: filters,
-       opts: {
-         method: "POST",
-       }
-      )["Disks"]["Disk"]
+        opts: {
+          method: 'POST'
+        }
+      )['Disks']['Disk']
 
-      if opts.key?(:disk_id)
-        disk = resp.select { |d| d["DiskId"] == opts[:disk_id] }.first
-      else
-        disk = resp.select { |d| d["DiskName"] == opts[:disk_name] }.first
-      end
+      disk = if opts.key?(:disk_id)
+               resp.select { |d| d['DiskId'] == opts[:disk_id] }.first
+             else
+               resp.select { |d| d['DiskName'] == opts[:disk_name] }.first
+             end
       return disk
     end
   end
@@ -80,6 +83,10 @@ class AliCloudDisk < AliCloudResourceBase
 
   def exists?
     !@disk.nil?
+  end
+
+  def resource_id
+    @id
   end
 
   def to_s

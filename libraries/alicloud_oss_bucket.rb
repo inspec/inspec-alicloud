@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "alicloud_backend"
+require 'alicloud_backend'
 
 class AliCloudOssBucket < AliCloudResourceBase
-  name "alicloud_oss_bucket"
-  desc "Verifies settings for an AliCloud OSS Bucket"
+  name 'alicloud_oss_bucket'
+  desc 'Verifies settings for an AliCloud OSS Bucket'
   example "
     describe alicloud_oss_bucket(bucket_name: 'test_bucket') do
       it { should exist }
@@ -16,7 +16,7 @@ class AliCloudOssBucket < AliCloudResourceBase
   def initialize(opts = {})
     opts = { bucket_name: opts } if opts.is_a?(String)
     super(opts)
-    validate_parameters(required: %i{bucket_name region})
+    validate_parameters(required: %i[bucket_name region])
 
     @bucket_name = opts[:bucket_name]
 
@@ -39,7 +39,7 @@ class AliCloudOssBucket < AliCloudResourceBase
     return false unless exists?
 
     catch_alicloud_errors do
-      @bucket_policy_status_public ||= @bucket.acl != "private"
+      @bucket_policy_status_public ||= @bucket.acl != 'private'
     end
   end
 
@@ -60,7 +60,6 @@ class AliCloudOssBucket < AliCloudResourceBase
       false
     rescue StandardError => e
       fail_resource("Unexpected error thrown: #{e}")
-
     end
   end
 
@@ -68,7 +67,7 @@ class AliCloudOssBucket < AliCloudResourceBase
     return false unless exists?
 
     catch_alicloud_errors do
-      @has_versioning_enabled ||= @bucket.versioning.status == "Enabled"
+      @has_versioning_enabled ||= @bucket.versioning.status == 'Enabled'
     end
   end
 
@@ -86,6 +85,10 @@ class AliCloudOssBucket < AliCloudResourceBase
     catch_alicloud_errors do
       @bucket_lifecycle_rules ||= @bucket.lifecycle
     end
+  end
+
+  def resource_id
+    @bucket ? @bucket[:bucket_name] : @bucket_name
   end
 
   def to_s

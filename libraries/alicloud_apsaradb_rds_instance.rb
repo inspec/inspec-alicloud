@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "alicloud_backend"
+require 'alicloud_backend'
 
 class AliCloudApsaradbRdsInstance < AliCloudResourceBase
-  name "alicloud_apsaradb_rds_instance"
-  desc "Verifies settings for an ApsaraDB RDS instance"
+  name 'alicloud_apsaradb_rds_instance'
+  desc 'Verifies settings for an ApsaraDB RDS instance'
 
   example "
     describe alicloud_apsaradb_rds_instance(db_instance_id: 'test-instance-id') do
@@ -32,42 +32,42 @@ class AliCloudApsaradbRdsInstance < AliCloudResourceBase
     @rds_instance = fetch_db_info(opts)
     return if @rds_instance.nil?
 
-    @description       = @rds_instance["DBInstanceDescription"]
-    @instance_type     = @rds_instance["DBInstanceType"] # Primary/Readonly/Guard/Temp
-    @category          = @rds_instance["Category"] # Basic/HighAvailability/AlwaysOn/Finance
-    @engine            = @rds_instance["Engine"]
-    @engine_version    = @rds_instance["EngineVersion"]
-    @allocated_storage = @rds_instance["DBInstanceStorage"]
-    @storage_type      = @rds_instance["DBInstanceStorageType"]
-    @memory            = @rds_instance["DBInstanceMemory"]
-    @cpus              = @rds_instance["DBInstanceCPU"].to_i
-    @instance_class    = @rds_instance["DBInstanceClass"]
-    @pay_type          = @rds_instance["PayType"]
-    @status            = @rds_instance["DBInstanceStatus"] # Running
-    @network_type      = @rds_instance["InstanceNetworkType"] # Classic/VPC
-    @net_type          = @rds_instance["DBInstanceNetType"] # Internet / Intranet
-    @vpc_id            = @rds_instance["VpcId"]
-    @zone_id           = @rds_instance["ZoneId"]
-    @security_ips      = @rds_instance["SecurityIPList"]
-    @security_ip_mode  = @rds_instance["SecurityIPMode"] # normal (standard whitelist mode)/safety (enhanced whitelist mode)
+    @description       = @rds_instance['DBInstanceDescription']
+    @instance_type     = @rds_instance['DBInstanceType'] # Primary/Readonly/Guard/Temp
+    @category          = @rds_instance['Category'] # Basic/HighAvailability/AlwaysOn/Finance
+    @engine            = @rds_instance['Engine']
+    @engine_version    = @rds_instance['EngineVersion']
+    @allocated_storage = @rds_instance['DBInstanceStorage']
+    @storage_type      = @rds_instance['DBInstanceStorageType']
+    @memory            = @rds_instance['DBInstanceMemory']
+    @cpus              = @rds_instance['DBInstanceCPU'].to_i
+    @instance_class    = @rds_instance['DBInstanceClass']
+    @pay_type          = @rds_instance['PayType']
+    @status            = @rds_instance['DBInstanceStatus'] # Running
+    @network_type      = @rds_instance['InstanceNetworkType'] # Classic/VPC
+    @net_type          = @rds_instance['DBInstanceNetType'] # Internet / Intranet
+    @vpc_id            = @rds_instance['VpcId']
+    @zone_id           = @rds_instance['ZoneId']
+    @security_ips      = @rds_instance['SecurityIPList']
+    @security_ip_mode  = @rds_instance['SecurityIPMode'] # normal (standard whitelist mode)/safety (enhanced whitelist mode)
 
     opts[:vpc_id] = @vpc_id
     vpc_info = fetch_vpc_info(opts)
-    @in_default_vpc = vpc_info["IsDefault"]
+    @in_default_vpc = vpc_info['IsDefault']
   end
 
   def fetch_db_info(opts)
-    catch_alicloud_errors("InvalidDBInstanceId.NotFound") do
+    catch_alicloud_errors('InvalidDBInstanceId.NotFound') do
       resp = @alicloud.rds_client.request(
-        action: "DescribeDBInstanceAttribute",
+        action: 'DescribeDBInstanceAttribute',
         params: {
           RegionId: opts[:region],
-          DBInstanceId: opts[:db_instance_id],
+          DBInstanceId: opts[:db_instance_id]
         },
         opts: {
-          method: "POST",
+          method: 'POST'
         }
-      )["Items"]["DBInstanceAttribute"][0]
+      )['Items']['DBInstanceAttribute'][0]
       return resp
     end
   end
@@ -75,10 +75,10 @@ class AliCloudApsaradbRdsInstance < AliCloudResourceBase
   def fetch_vpc_info(opts)
     catch_alicloud_errors do
       resp = @alicloud.vpc_client.request(
-        action: "DescribeVpcAttribute",
+        action: 'DescribeVpcAttribute',
         params: {
           'RegionId': opts[:region],
-          'VpcId': opts[:vpc_id],
+          'VpcId': opts[:vpc_id]
         }
       )
       return resp
@@ -87,6 +87,10 @@ class AliCloudApsaradbRdsInstance < AliCloudResourceBase
 
   def exists?
     !@rds_instance.nil? && !@rds_instance.empty?
+  end
+
+  def resource_id
+    @instance_id
   end
 
   def to_s
