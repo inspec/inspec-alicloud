@@ -33,7 +33,7 @@ end
 # run tests
 #  Disabling inspec check on profile with path dependency due to https://github.com/inspec/inspec/issues/3571 - 'test:check'
 desc "Run robocop linter + unit tests"
-task default: %i{lint test}
+task default: [:lint, :test]
 
 namespace :test do
   task :check do
@@ -77,7 +77,7 @@ namespace :tf do
     sh(cmd)
   end
 
-  task plan_integration_tests: %i{tf_dir init_workspace} do
+  task plan_integration_tests: [:tf_dir, :init_workspace] do
     if File.exist?(TF_VAR_FILE)
       puts "----> Previous run not cleaned up - running cleanup..."
       Rake::Task["tf:cleanup_integration_tests"].execute
@@ -91,7 +91,7 @@ namespace :tf do
     sh(cmd)
   end
 
-  task setup_integration_tests: %i{tf_dir plan_integration_tests} do
+  task setup_integration_tests: [:tf_dir, :plan_integration_tests] do
     puts "----> Applying the plan"
     # Apply the plan on AliCloud
     cmd = format("terraform apply %s", TF_PLAN_FILE)
