@@ -92,6 +92,8 @@ Style/MultilineBlockChain:
   Enabled: false
 Lint/ReturnInVoidContext:
   Enabled: false
+Style/FormatStringToken:
+  Enabled: false
 Style/PercentLiteralDelimiters:
   PreferredDelimiters:
     '%':  '{}'
