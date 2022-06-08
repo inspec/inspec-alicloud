@@ -94,6 +94,8 @@ Lint/ReturnInVoidContext:
   Enabled: false
 Style/FormatStringToken:
   Enabled: false
+Style/StringLiterals:
+  Enabled: false
 Style/PercentLiteralDelimiters:
   PreferredDelimiters:
     '%':  '{}'
