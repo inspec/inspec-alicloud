@@ -1,9 +1,9 @@
 ---
 AllCops:
   Exclude:
-  - bin/**/*
-  - vendor/**/*
-  - dev/**/*
+    - bin/**/*
+    - vendor/**/*
+    - dev/**/*
   SuggestExtensions: false
 Layout/LineLength:
   Enabled: false
@@ -17,7 +17,7 @@ Layout/EndOfLine:
 Layout/ExtraSpacing:
   Enabled: true
   Exclude:
-  - Gemfile
+    - Gemfile
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Layout/SpaceAroundOperators:
@@ -26,7 +26,13 @@ Layout/ParameterAlignment:
   Enabled: true
 Layout/EmptyLinesAroundBlockBody:
   Enabled: false
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+Style/StringLiteralsInInterpolation:
+  Enabled: false
 Lint/MissingSuper:
+  Enabled: false
+Layout/BlockAlignment:
   Enabled: false
 Metrics/MethodLength:
   Max: 60
