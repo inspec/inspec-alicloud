@@ -1,31 +1,37 @@
-require "helper"
-require "alicloud_ram_users"
+# frozen_string_literal: true
+
+require 'helper'
+require 'alicloud_ram_users'
 
 class AliCloudRamUsersConstructorTest < Minitest::Test
   def setup
-    ENV["ALICLOUD_REGION"] = "us-east-1"
+    ENV['ALICLOUD_REGION'] = 'us-east-1'
 
-    AliCloudRamUsers.any_instance.stubs(:fetch_users).returns([{ "UpdateDate" => "2021-01-01:00:00Z", "UserName" => "test-user-1",
-      "Comments" => "A comment", "UserId" => "12345", "DisplayName" => "a-test-user-1", "CreateDate" => "2021-01-01:00:00Z" },
-      { "UpdateDate" => "2021-01-01:00:00Z", "UserName" => "test-user-2", "Comments" => "Another comment", "UserId" => "67890",
-       "DisplayName" => "a-test-user-2", "CreateDate" => "2021-01-01:00:00Z" }, { "UpdateDate" => "2021-01-01:00:00Z",
-       "UserName" => "test-user-3", "Comments" => "A third comment", "UserId" => "55555", "DisplayName" => "a-test-user-2",
-       "CreateDate" => "2021-01-01:00:00Z" }])
+    AliCloudRamUsers.any_instance.stubs(:fetch_users).returns([{ 'UpdateDate' => '2021-01-01:00:00Z', 'UserName' => 'test-user-1',
+                                                                 'Comments' => 'A comment', 'UserId' => '12345', 'DisplayName' => 'a-test-user-1', 'CreateDate' => '2021-01-01:00:00Z' },
+                                                               { 'UpdateDate' => '2021-01-01:00:00Z', 'UserName' => 'test-user-2', 'Comments' => 'Another comment', 'UserId' => '67890',
+                                                                 'DisplayName' => 'a-test-user-2', 'CreateDate' => '2021-01-01:00:00Z' }, { 'UpdateDate' => '2021-01-01:00:00Z',
+                                                                                                                                            'UserName' => 'test-user-3', 'Comments' => 'A third comment', 'UserId' => '55555', 'DisplayName' => 'a-test-user-2',
+                                                                                                                                            'CreateDate' => '2021-01-01:00:00Z' }])
 
-    AliCloudRamUsers.any_instance.stubs(:fetch_login_profile).with("us-east-1", "test-user-1").returns(["UserName" => "test-user-1"])
-    AliCloudRamUsers.any_instance.stubs(:fetch_login_profile).with("us-east-1", "test-user-2").returns(["UserName" => "test-user-2"])
-    AliCloudRamUsers.any_instance.stubs(:fetch_login_profile).with("us-east-1", "test-user-3").returns(nil)
+    AliCloudRamUsers.any_instance.stubs(:fetch_login_profile).with('us-east-1',
+                                                                   'test-user-1').returns(['UserName' => 'test-user-1'])
+    AliCloudRamUsers.any_instance.stubs(:fetch_login_profile).with('us-east-1',
+                                                                   'test-user-2').returns(['UserName' => 'test-user-2'])
+    AliCloudRamUsers.any_instance.stubs(:fetch_login_profile).with('us-east-1', 'test-user-3').returns(nil)
 
-    AliCloudRamUsers.any_instance.stubs(:fetch_access_keys).with("us-east-1", "test-user-1").returns([{ "Status" => "Active",
-      "AccessKeyId" => "12345" }, { "Status" => "Inactive", "AccessKeyId" => "67890" }])
-    AliCloudRamUsers.any_instance.stubs(:fetch_access_keys).with("us-east-1", "test-user-2").returns(nil)
-    AliCloudRamUsers.any_instance.stubs(:fetch_access_keys).with("us-east-1", "test-user-3").returns([{ "Status" => "Active",
-      "AccessKeyId" => "55555" }])
+    AliCloudRamUsers.any_instance.stubs(:fetch_access_keys).with('us-east-1',
+                                                                 'test-user-1').returns([{ 'Status' => 'Active',
+                                                                                           'AccessKeyId' => '12345' }, { 'Status' => 'Inactive', 'AccessKeyId' => '67890' }])
+    AliCloudRamUsers.any_instance.stubs(:fetch_access_keys).with('us-east-1', 'test-user-2').returns(nil)
+    AliCloudRamUsers.any_instance.stubs(:fetch_access_keys).with('us-east-1',
+                                                                 'test-user-3').returns([{ 'Status' => 'Active',
+                                                                                           'AccessKeyId' => '55555' }])
 
-    AliCloudRamUsers.any_instance.stubs(:fetch_user_mfa).with("us-east-1", "test-user-1").returns({ "Type" => "VMFA",
-      "SerialNumber" => "acs:ram::1234:mfa/test-user-1" })
-    AliCloudRamUsers.any_instance.stubs(:fetch_user_mfa).with("us-east-1", "test-user-2").returns(nil)
-    AliCloudRamUsers.any_instance.stubs(:fetch_user_mfa).with("us-east-1", "test-user-3").returns(nil)
+    AliCloudRamUsers.any_instance.stubs(:fetch_user_mfa).with('us-east-1', 'test-user-1').returns({ 'Type' => 'VMFA',
+                                                                                                    'SerialNumber' => 'acs:ram::1234:mfa/test-user-1' })
+    AliCloudRamUsers.any_instance.stubs(:fetch_user_mfa).with('us-east-1', 'test-user-2').returns(nil)
+    AliCloudRamUsers.any_instance.stubs(:fetch_user_mfa).with('us-east-1', 'test-user-3').returns(nil)
   end
 
   def test_rejects_unrecognized_params
@@ -33,7 +39,7 @@ class AliCloudRamUsersConstructorTest < Minitest::Test
   end
 
   def test_rejects_string_argument
-    assert_raises(ArgumentError) { AliCloudRamUsers.new("us-west-1") }
+    assert_raises(ArgumentError) { AliCloudRamUsers.new('us-west-1') }
   end
 
   def test_accepts_no_arguments_and_resource_works

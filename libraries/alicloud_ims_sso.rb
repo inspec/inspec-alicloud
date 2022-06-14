@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "alicloud_backend"
+require 'alicloud_backend'
 
 class AliCloudSsoSettings < AliCloudResourceBase
-  name "alicloud_ims_sso"
-  desc "Verifies settings for AliCloud SSO settings"
+  name 'alicloud_ims_sso'
+  desc 'Verifies settings for AliCloud SSO settings'
   example "
   describe alicloud_ims_sso do
     it { should exist}
@@ -16,25 +16,25 @@ class AliCloudSsoSettings < AliCloudResourceBase
 
   def initialize(opts = {})
     super(opts)
-    validate_parameters(required: %i{region})
+    validate_parameters(required: %i(region))
 
     catch_alicloud_errors do
       @resp = @alicloud.ims_client.request(
-        action: "GetSamlSsoSettings",
+        action: 'GetSamlSsoSettings',
         params: {
           "RegionId": opts[:region],
-        }
+        },
       )
     end
 
-    if @resp.nil? || @resp["SamlSsoSettings"].nil?
+    if @resp.nil? || @resp['SamlSsoSettings'].nil?
       @sso_enabled = false
       @auxiliary_domain = nil
       return
     end
 
-    @sso_enabled = @resp["SamlSsoSettings"]["SsoEnabled"]
-    @auxiliary_domain = @resp["SamlSsoSettings"]["AuxiliaryDomain"]
+    @sso_enabled = @resp['SamlSsoSettings']['SsoEnabled']
+    @auxiliary_domain = @resp['SamlSsoSettings']['AuxiliaryDomain']
   end
 
   def exists?
@@ -46,6 +46,6 @@ class AliCloudSsoSettings < AliCloudResourceBase
   end
 
   def to_s
-    "AliCloud SSO Settings"
+    'AliCloud SSO Settings'
   end
 end

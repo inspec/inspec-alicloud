@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "alicloud_backend"
+require 'alicloud_backend'
 
 class AliCloudRam < AliCloudResourceBase
-  name "alicloud_ram_password_policy"
-  desc "Verifies properties for an individual AliCloud RAM Password Policy"
+  name 'alicloud_ram_password_policy'
+  desc 'Verifies properties for an individual AliCloud RAM Password Policy'
   example "
   describe alicloud_ram_password_policy do
     it { should exist }
@@ -23,41 +23,45 @@ class AliCloudRam < AliCloudResourceBase
 
   def initialize(opts = {})
     super(opts)
-    validate_parameters(required: %i{region})
+    validate_parameters(required: %i(region))
 
     catch_alicloud_errors do
       @resp = @alicloud.ram_client.request(
-        action: "GetPasswordPolicy",
+        action: 'GetPasswordPolicy',
         params: {
           'RegionId': opts[:region],
         },
         opts: {
-          method: "POST",
-        }
-      )["PasswordPolicy"]
+          method: 'POST',
+        },
+      )['PasswordPolicy']
     end
     if @resp.nil?
-      @ram_id = "empty response"
+      @ram_id = 'empty response'
       return
     end
 
     @ram_info                     = @resp
-    @hard_expiry                  = @ram_info["HardExpiry"]
-    @max_login_attempts           = @ram_info["MaxLoginAttemps"]
-    @max_password_age             = @ram_info["MaxPasswordAge"]
-    @minimum_password_length      = @ram_info["MinimumPasswordLength"]
-    @password_reuse_prevention    = @ram_info["PasswordReusePrevention"]
-    @require_lowercase_characters = @ram_info["RequireLowercaseCharacters"]
-    @require_numbers              = @ram_info["RequireNumbers"]
-    @require_symbols              = @ram_info["RequireSymbols"]
-    @require_uppercase_characters = @ram_info["RequireUppercaseCharacters"]
+    @hard_expiry                  = @ram_info['HardExpiry']
+    @max_login_attempts           = @ram_info['MaxLoginAttemps']
+    @max_password_age             = @ram_info['MaxPasswordAge']
+    @minimum_password_length      = @ram_info['MinimumPasswordLength']
+    @password_reuse_prevention    = @ram_info['PasswordReusePrevention']
+    @require_lowercase_characters = @ram_info['RequireLowercaseCharacters']
+    @require_numbers              = @ram_info['RequireNumbers']
+    @require_symbols              = @ram_info['RequireSymbols']
+    @require_uppercase_characters = @ram_info['RequireUppercaseCharacters']
   end
 
   def exists?
     !@ram_info.nil?
   end
 
+  def resource_id
+    "alicloud_ram_password_policy_#{@opts[:region]}"
+  end
+
   def to_s
-    "AliCloud RAM Password Policy"
+    'AliCloud RAM Password Policy'
   end
 end
