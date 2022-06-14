@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.10.4 -->
+<!-- latest_release 0.10.5 -->
+## [v0.10.5](https://github.com/inspec/inspec-alicloud/tree/v0.10.5) (2022-06-14)
+
+#### Merged Pull Requests
+- RESOURCE-386 ali-cloud-manual-implementation-of-resource-id-for-all-the-resources [#84](https://github.com/inspec/inspec-alicloud/pull/84) ([sa-progress](https://github.com/sa-progress))
+<!-- latest_release -->
+
 ## [v0.10.4](https://github.com/inspec/inspec-alicloud/tree/v0.10.4) (2022-05-24)
 
 #### Merged Pull Requests
 - Remove Hugo version from netlify config [#83](https://github.com/inspec/inspec-alicloud/pull/83) ([IanMadd](https://github.com/IanMadd))
-<!-- latest_release -->
 
 ## [v0.10.3](https://github.com/inspec/inspec-alicloud/tree/v0.10.3) (2022-04-14)
 
