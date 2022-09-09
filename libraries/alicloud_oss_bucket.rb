@@ -88,7 +88,7 @@ class AliCloudOssBucket < AliCloudResourceBase
   end
 
   def resource_id
-    @bucket ? @bucket[:bucket_name] : @bucket_name
+    @bucket ? @bucket.name : @bucket_name
   end
 
   def to_s
