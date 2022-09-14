@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.10.6 -->
+<!-- latest_release 0.10.7 -->
+## [v0.10.7](https://github.com/inspec/inspec-alicloud/tree/v0.10.7) (2022-09-14)
+
+#### Merged Pull Requests
+- fixed error from oss bucket resource id [#86](https://github.com/inspec/inspec-alicloud/pull/86) ([Jiaming1826](https://github.com/Jiaming1826))
+<!-- latest_release -->
+
 ## [v0.10.6](https://github.com/inspec/inspec-alicloud/tree/v0.10.6) (2022-09-02)
 
 #### Merged Pull Requests
 - added IPv6 support to security group [#85](https://github.com/inspec/inspec-alicloud/pull/85) ([Jiaming1826](https://github.com/Jiaming1826))
-<!-- latest_release -->
 
 ## [v0.10.5](https://github.com/inspec/inspec-alicloud/tree/v0.10.5) (2022-06-14)
 
