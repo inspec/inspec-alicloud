@@ -51,34 +51,42 @@ class AliCloudSecurityGroup < AliCloudResourceBase
   end
 
   def allow_in?(criteria = {})
-    return false unless @inbound_rules.count.positive? && ( criteria.key?(:ipv4_range) || criteria.key?(:ipv6_range) )
+    return false unless @inbound_rules.count.positive? && ( criteria.key?(:ipv4_range) || criteria.key?(:ipv6_range) || \
+    criteria.key?(:port) )
 
     # Port is an optional parameter so we can write controls against CIDR masks only
     port = criteria[:port] unless criteria[:port].nil?
     ipv4_range = criteria[:ipv4_range] unless criteria[:ipv4_range].nil?
     ipv6_range = criteria[:ipv6_range] unless criteria[:ipv6_range].nil?
 
-    @inbound_rules.each do |rule|
-      # If our rule has a securitygroup ID or IP address familiy does not match the one in criteria, skip it...
-      next if !rule['SourceGroupId'].empty? || ( criteria.key?(:ipv4_range) && rule['SourceCidrIp'].empty? ) \
-      || ( criteria.key?(:ipv6_range) && rule['Ipv6SourceCidrIp'].empty? )
-
-      policy = rule['Policy']
-      next unless policy == 'Accept'
-
-      cidr = IPAddr.new(rule['SourceCidrIp'], Socket::AF_INET) unless rule['SourceCidrIp'].empty?
-      cidr_6 = IPAddr.new(rule['Ipv6SourceCidrIp'], Socket::AF_INET6) unless rule['Ipv6SourceCidrIp'].empty?
-
-      # If the authorized source address does not include IP range in the criteria, skip it...
-      next if ( !rule['SourceCidrIp'].empty? && !cidr.include?(IPAddr.new(ipv4_range, Socket::AF_INET)) ) || \
-        ( !rule['Ipv6SourceCidrIp'].empty? && !cidr_6.include?(IPAddr.new(ipv6_range, Socket::AF_INET6)) )
-
-      # This block is conditional on 'port' having been passed in, otherwise we only care about the previous two checks
-      if port.nil?
-        return true
-      else
+    if ipv4_range.nil? && ipv6_range.nil? && !port.nil?
+      @inbound_rules.each do |rule|
         port_start, port_end = rule['PortRange'].split('/').map(&:to_i)
         return true if (port >= port_start) && (port <= port_end)
+      end
+    else
+      @inbound_rules.each do |rule|
+        # If our rule has a securitygroup ID or IP address familiy does not match the one in criteria, skip it...
+        next if !rule['SourceGroupId'].empty? || ( criteria.key?(:ipv4_range) && rule['SourceCidrIp'].empty? ) \
+        || ( criteria.key?(:ipv6_range) && rule['Ipv6SourceCidrIp'].empty? )
+
+        policy = rule['Policy']
+        next unless policy == 'Accept'
+
+        cidr = IPAddr.new(rule['SourceCidrIp'], Socket::AF_INET) unless rule['SourceCidrIp'].empty?
+        cidr_6 = IPAddr.new(rule['Ipv6SourceCidrIp'], Socket::AF_INET6) unless rule['Ipv6SourceCidrIp'].empty?
+
+        # If the authorized source address does not include IP range in the criteria, skip it...
+        next if ( !rule['SourceCidrIp'].empty? && !cidr.include?(IPAddr.new(ipv4_range, Socket::AF_INET)) ) || \
+          ( !rule['Ipv6SourceCidrIp'].empty? && !cidr_6.include?(IPAddr.new(ipv6_range, Socket::AF_INET6)) )
+
+        # This block is conditional on 'port' having been passed in, otherwise we only care about the previous two checks
+        if port.nil?
+          return true
+        else
+          port_start, port_end = rule['PortRange'].split('/').map(&:to_i)
+          return true if (port >= port_start) && (port <= port_end)
+        end
       end
     end
     false
