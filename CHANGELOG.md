@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.10.7 -->
+<!-- latest_release 0.10.8 -->
+## [v0.10.8](https://github.com/inspec/inspec-alicloud/tree/v0.10.8) (2022-09-29)
+
+#### Merged Pull Requests
+- support port checks for a security group [#87](https://github.com/inspec/inspec-alicloud/pull/87) ([Jiaming1826](https://github.com/Jiaming1826))
+<!-- latest_release -->
+
 ## [v0.10.7](https://github.com/inspec/inspec-alicloud/tree/v0.10.7) (2022-09-14)
 
 #### Merged Pull Requests
 - fixed error from oss bucket resource id [#86](https://github.com/inspec/inspec-alicloud/pull/86) ([Jiaming1826](https://github.com/Jiaming1826))
-<!-- latest_release -->
 
 ## [v0.10.6](https://github.com/inspec/inspec-alicloud/tree/v0.10.6) (2022-09-02)
 
