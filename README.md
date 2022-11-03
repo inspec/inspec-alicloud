@@ -6,54 +6,125 @@ This InSpec resource pack uses the AliCloud SDK v0.8.0 and provides the required
 
 ## Prerequisites
 
-### AliCloud Credentials
+- Ruby
+- Bundler installed
+- AliCloud Cloud Account
+
+### AliCloud Cloud Account
+
+Your AliCloud Service Principal Account must have a minimum of `reader` role of the [AliCloud roles](https://www.alibabacloud.com/help/en/elastic-compute-service/latest/use-ram-roles-to-access-other-alibaba-cloud-services)
+
+#### Setup the AliCloud account
+
+1. [Install the AliCloud CLI](https://www.alibabacloud.com/help/en/alibaba-cloud-cli/latest/installation-guide)
+2. [Configure the AliCloud credentials](https://www.alibabacloud.com/help/en/alibaba-cloud-cli/latest/configure-credential)
+
+You must have the following pieces of information:
+
+#### AliCloud Credentials
 
 Valid AliCloud credentials are required.
 
+- ALICLOUD_ACCESS_KEY
+- ALICLOUD_SECRET_KEY
+- ALICLOUD_REGION
+
+#### Find the AliCloud credentials
+
+- ALICLOUD_ACCESS_KEY and ALICLOUD_SECRET_KEY
+
+1. Log in to the **AliCloud portal**.
+2. Go to the **Products and Services**.
+3. Search for **Resource Access Management**.
+4. Click on the **Resource Access Management**.
+5. Click on the **Users**.
+6. Search for your **User Logon Name** (For Example: sam@1234567890.onaliyun.com)
+7. Click for your **User Logon Name**
+8. Click on **Create AccessKey**.
+9. On a popup you will get the **AccessKey ID** and the **AccessKey Secret**.
+10. CLick on **Download CSV File**. A file will get downloaded.
+11. Click on **OK**.
+
+- ALICLOUD_REGION
+
+To see the list of regions, use this [Regions and Zones](https://www.alibabacloud.com/help/en/basics-for-beginners/latest/regions-and-zones)
+
+For example, if you are using the Region `Singapore`, then use the Region ID `ap-southeast-1`.
+
 #### Environment Variables
+
+To know how to setup the alicloud credentials please use this [Installation Guide of AliCloud](https://www.alibabacloud.com/help/en/alibaba-cloud-cli/latest/installation-guide)
 
 Set your AliCloud credentials in an `.envrc` file or export them in your shell. (See example [.envrc file](.envrc_example))
     
 ```bash
-    # Example configuration
-    export ALICLOUD_ACCESS_KEY="anaccesskey"
-    export ALICLOUD_SECRET_KEY="asecretkey"
+    # Example AliCloud Configuration
+    export ALICLOUD_ACCESS_KEY="ABCAabcP1234SLS9ABCQ"
+    export ALICLOUD_SECRET_KEY="vD2lfoNvPdwsofqyuO9jRuWU"
     export ALICLOUD_REGION="eu-west-1"
 ```
 
+#### Test whether the setup is successful.
+
+```bash
+aliyun ecs DescribeInstances --output cols=RequestId
+```
+
+This will return the output: The RequestId will vary.
+
+```bash
+RequestId
+---------
+2A76BCCD-A123-123E-CD12-1234567U890
+```
+
+If it returns the result in your terminal then the setup is successful.
+
+### Run the a custom test from your profile.
+
+1. Create a Custom AliCloud Profile.
+2. Add the test in the control.
+3. Run the profile with the below command.
+
+```bash
+inspec exec <sample-alicloud-profile> -t alicloud://
+```
+
+Output:
+```
+Profile:   Ali Cloud InSpec Profile (my-alicloud-profile)
+Version:   0.1.0
+Target:    alicloud://eu-west-1
+
+  ActionTrail testtrial
+     ✔  is expected to exist
+
+Test Summary: 1 successful, 0 failures, 0 skipped
+```
+
 ## Resources
+
 This resource pack allows the testing of the following AliCloud resources. If a resource you wish to test is not listed, please feel free to open an [Issue](https://github.com/chef-customers/inspec-alicloud/issues). As an open source project, we also welcome public contributions via [Pull Request](https://github.com/chef-customers/inspec-alicloud/pulls).
 
-- [alicloud_actiontrail_trail](libraries/alicloud_actiontrail_trail.rb)
-- [alicloud_actiontrail_trails](libraries/alicloud_actiontrail_trails.rb)
-- [alicloud_apsaradb_rds_instance](libraries/alicloud_apsaradb_rds_instance.rb)
-- [alicloud_backend](libraries/alicloud_backend.rb)
-- [alicloud_disk](libraries/alicloud_disk.rb)
-- [alicloud_disks](libraries/alicloud_disks.rb)
-- [alicloud_ecs_instance](libraries/alicloud_ecs_instance.rb)
-- [alicloud_ecs_instances](libraries/alicloud_ecs_instances.rb)
-- [alicloud_ims_sso](libraries/alicloud_ims_sso.rb)
-- [alicloud_oss_bucket](libraries/alicloud_oss_bucket.rb)
-- [alicloud_oss_buckets](libraries/alicloud_oss_buckets.rb)
-- [alicloud_ram_access_key](libraries/alicloud_ram_access_key.rb)
-- [alicloud_ram_access_keys](libraries/alicloud_ram_access_keys.rb)
-- [alicloud_ram_password_policy](libraries/alicloud_ram_password_policy.rb)
-- [alicloud_ram_policy](libraries/alicloud_ram_policy.rb)
-- [alicloud_ram_policies](libraries/alicloud_ram_policies.rb)
-- [alicloud_ram_user](libraries/alicloud_ram_user.rb)
-- [alicloud_ram_user_mfa](libraries/alicloud_ram_user_mfa.rb)
-- [alicloud_ram_users](libraries/alicloud_ram_users.rb)
-- [alicloud_rd](libraries/alicloud_rd.rb)
-- [alicloud_region](libraries/alicloud_region.rb)
-- [alicloud_regions](libraries/alicloud_regions.rb)
-- [alicloud_security_group](libraries/alicloud_security_group.rb)
-- [alicloud_security_groups](libraries/alicloud_security_groups.rb)
-- [alicloud_slb](libraries/alicloud_slb.rb)
-- [alicloud_slb_https_listener](libraries/alicloud_slb_https_listener.rb)
-- [alicloud_slbs](libraries/alicloud_slbs.rb)
-- [alicloud_sts_caller_identity](libraries/alicloud_sts_caller_identity.rb)
-- [alicloud_vpc](libraries/alicloud_vpc.rb)
-- [alicloud_vpcs](libraries/alicloud_vpcs.rb)
+|        Module Name        | Singular Resource                                                              | Plural Resource                                                                 |
+|:-------------------------:|--------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+|         Security          | [alicloud_actiontrail_trail](libraries/alicloud_actiontrail_trail.rb)          | [alicloud_actiontrail_trails](libraries/alicloud_actiontrail_trails.rb)         |
+|         Database          | [alicloud_apsaradb_rds_instance](libraries/alicloud_apsaradb_rds_instance.rb)  | [alicloud_apsaradb_rds_instances](libraries/alicloud_apsaradb_rds_instances.rb) |
+|     Elastic Computing     | [alicloud_disk](libraries/alicloud_disk.rb)                                    | [alicloud_disks](libraries/alicloud_disks.rb)                                   |
+|                           | [alicloud_ecs_instance](libraries/alicloud_ecs_instance.rb)                    | [alicloud_ecs_instances](libraries/alicloud_ecs_instances.rb)                   |
+|                           | [alicloud_security_group](libraries/alicloud_security_group.rb)                | [alicloud_security_groups](libraries/alicloud_security_groups.rb)               |
+|                           | [alicloud_vpc](libraries/alicloud_vpc.rb)                                      | [alicloud_vpcs](libraries/alicloud_vpcs.rb)                                     |
+| Management and Governance | [alicloud_ims_sso](libraries/alicloud_ims_sso.rb)                              | No Plural Resource                                                              |
+|                           | [alicloud_rd](libraries/alicloud_rd.rb)                                        | No Plural Resource                                                              |
+|          Storage          | [alicloud_oss_bucket](libraries/alicloud_oss_bucket.rb)                        | [alicloud_oss_buckets](libraries/alicloud_oss_buckets.rb)                       |
+|            RAM            | [alicloud_ram_access_key](libraries/alicloud_ram_access_key.rb)                | [alicloud_ram_access_keys](libraries/alicloud_ram_access_keys.rb)               |
+|                           | [alicloud_ram_password_policy](libraries/alicloud_ram_password_policy.rb)      | No Plural Resource                                                              |
+|                           | [alicloud_ram_policy](libraries/alicloud_ram_policy.rb)                        | [alicloud_ram_policies](libraries/alicloud_ram_policies.rb)                     |
+|                           | [alicloud_ram_user](libraries/alicloud_ram_user.rb)                            | [alicloud_ram_users](libraries/alicloud_ram_users.rb)                           |
+|                           | [alicloud_sts_caller_identity](libraries/alicloud_sts_caller_identity.rb)      | No Plural Resource                                                              |
+|     Networking & CDN      | [alicloud_slb](libraries/alicloud_slb.rb)                                      | [alicloud_slbs](libraries/alicloud_slbs.rb)                                     |
+|                           | [alicloud_slb_https_listener](libraries/alicloud_slb_https_listener.rb)        | No Plural Resource                                                              |
+|          Others           | [alicloud_region](libraries/alicloud_region.rb)                                | [alicloud_regions](libraries/alicloud_regions.rb)                               |
 
 ## Environment and Setup Notes
 
@@ -64,20 +135,28 @@ InSpec AliCloud depends on version 0.0.4 of the AliCloud SDK that is provided vi
 ### Running the unit and integration tests
 
 Run the linting ~and unit tests~ via the below:
+
+```bash
+bundle exec rake
 ```
-$ bundle exec rake
+
+```
 Running RuboCop...
-Inspecting 16 files
+Inspecting 19 files
 ................
 
-16 files inspected, no offenses detected
+19 files inspected, no offenses detected
 ```
 
 To keep things simple the AliCloud credentials can either be supplied via environmental variables.
 
 Running the integration tests requires resources so first `setup_integration_tests` which uses Terraform:
+
+```bash
+bundle exec rake test:setup_integration_tests
 ```
-$ bundle exec rake test:setup_integration_tests
+
+```
 ----> Initializing Terraform
 terraform init
 
@@ -110,8 +189,12 @@ Apply complete! Resources: 24 added, 0 changed, 0 destroyed.
 ```
 
 Next, run the integration tests themselves with `run_integration_tests`
+
+```bash
+bundle exec rake test:run_integration_tests
 ```
-$ bundle exec rake test:run_integration_tests
+
+```
 ----> Running InSpec tests
 bundle exec inspec exec test/integration/verify -t alicloud:// --input-file test/integration/build/alicloud-inspec-attributes.yaml --reporter cli json:inspec-output.json html:inspec-output.html --chef-license=accept-silent; rc=$?; if [ $rc -eq 0 ] || [ $rc -eq 101 ]; then exit 0; else exit 1; fi
 
@@ -241,8 +324,12 @@ Test Summary: 94 successful, 0 failure, 0 skipped
 
 You should also clean up your Terraform created resources once you are done testing.
 
+```bash
+bundle exec rake test:cleanup_integration_tests
 ```
-$ bundle exec rake test:cleanup_integration_tests
+
+
+```
 ----> Cleanup
 terraform destroy -force -var-file=inspec-alicloud.tfvars.json
 ...
