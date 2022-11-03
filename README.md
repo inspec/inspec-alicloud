@@ -31,7 +31,7 @@ Valid AliCloud credentials are required.
 
 #### Find the AliCloud credentials
 
-- ALICLOUD_ACCESS_KEY and ALICLOUD_SECRET_KEY
+- **ALICLOUD_ACCESS_KEY** and **ALICLOUD_SECRET_KEY**
 
 1. Log in to the **AliCloud portal**.
 2. Go to the **Products and Services**.
@@ -45,15 +45,15 @@ Valid AliCloud credentials are required.
 10. CLick on **Download CSV File**. A file will get downloaded.
 11. Click on **OK**.
 
-- ALICLOUD_REGION
+- **ALICLOUD_REGION**
 
-To see the list of regions, use this [Regions and Zones](https://www.alibabacloud.com/help/en/basics-for-beginners/latest/regions-and-zones)
+To see the list of regions, use this [Regions and Zones](https://www.alibabacloud.com/help/en/basics-for-beginners/latest/regions-and-zones) link.
 
 For example, if you are using the Region `Singapore`, then use the Region ID `ap-southeast-1`.
 
 #### Environment Variables
 
-To know how to setup the alicloud credentials please use this [Installation Guide of AliCloud](https://www.alibabacloud.com/help/en/alibaba-cloud-cli/latest/installation-guide)
+To know how to setup the AliCloud credentials please use this [Installation Guide of AliCloud](https://www.alibabacloud.com/help/en/alibaba-cloud-cli/latest/installation-guide)
 
 Set your AliCloud credentials in an `.envrc` file or export them in your shell. (See example [.envrc file](.envrc_example))
     
