@@ -4,14 +4,13 @@ require 'alicloud_backend'
 
 class AliCloudRamUsers < AliCloudResourceBase
   name 'alicloud_ram_users'
-  desc 'Verifies settings for AliCloud ram users'
-
-  example "
+  desc 'Verifies settings for AliCloud ram users.'
+  example <<-EXAMPLE
     # ensure there's more than 1 users
     describe alicloud_ram_users do
-    its('entries.count') { should be > 1 }
+      its('entries.count') { should be > 1 }
     end
-    "
+  EXAMPLE
 
   attr_reader :table
 

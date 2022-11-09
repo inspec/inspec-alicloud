@@ -4,17 +4,18 @@ require 'alicloud_backend'
 
 class AliCloudDisk < AliCloudResourceBase
   name 'alicloud_disk'
-  desc 'Verifies properties for an individual AliCloud disk'
-  example "
-  describe alicloud_disks('disk-12345678') do
-    it { should exist }
-    its('encrypted') { should eq true }
-    its('size')      { should cmp 100 }
-    its('delete_with_instance') { should eq false }
-    its('enable_auto_snapshot') { should eq true }
-    its('delete_auto_snapshot') { should eq false }
-  end
-  "
+  desc 'Verifies properties for an individual AliCloud disk.'
+  example <<-EXAMPLE
+    describe alicloud_disks('disk-12345678') do
+      it { should exist }
+      its('encrypted') { should eq true }
+      its('size')      { should cmp 100 }
+      its('delete_with_instance') { should eq false }
+      its('enable_auto_snapshot') { should eq true }
+      its('delete_auto_snapshot') { should eq false }
+    end
+  EXAMPLE
+
   attr_reader :id, :name, :description, :size, :category, :encrypted, :kms_key_id,
               :enable_auto_snapshot, :delete_auto_snapshot, :delete_with_instance
 

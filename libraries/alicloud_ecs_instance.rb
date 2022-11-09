@@ -4,14 +4,13 @@ require 'alicloud_backend'
 
 class AliCloudECSInstance < AliCloudResourceBase
   name 'alicloud_ecs_instance'
-  desc 'Verifies settings for an individual ecs instance'
-
-  example '
-  # verify an instance exists
-  describe alicloud_ecs_instance(instance_id: alicloud_instance_id) do
-    it { should exist }
-  end
-  '
+  desc 'Verifies settings for an individual ECS instance.'
+  example <<-EXAMPLE
+    # verify an instance exists
+    describe alicloud_ecs_instance(instance_id: 'INSTANCE_ID') do
+      it { should exist }
+    end
+  EXAMPLE
 
   attr_reader :instance_id, :description, :memory, :instance_charge_type, :cpu, :instance_network_type, :public_ip_address,
               :inner_ip_address, :expired_time, :image_id, :eip_address, :instance_type, :host_name, :vlan_id, :status,

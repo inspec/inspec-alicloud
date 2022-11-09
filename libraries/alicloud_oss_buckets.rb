@@ -4,12 +4,12 @@ require 'alicloud_backend'
 
 class AliCloudOssBuckets < AliCloudResourceBase
   name 'alicloud_oss_buckets'
-  desc 'Verifies settings for AliCloud OSS Buckets in bulk'
-  example "
+  desc 'Verifies settings for AliCloud OSS Buckets in bulk.'
+  example <<-EXAMPLE
     describe alicloud_oss_buckets do
       its('bucket_names') { should eq ['my_bucket'] }
     end
-  "
+  EXAMPLE
 
   attr_reader :table
 

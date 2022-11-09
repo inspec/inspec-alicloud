@@ -4,14 +4,15 @@ require 'alicloud_backend'
 
 class AliCloudSsoSettings < AliCloudResourceBase
   name 'alicloud_ims_sso'
-  desc 'Verifies settings for AliCloud SSO settings'
-  example "
-  describe alicloud_ims_sso do
-    it { should exist}
-    it { have_sso_enabled }
-    its('idp_domain') { should cmp 'mydomain.com' }
-  end
-  "
+  desc 'Verifies settings for AliCloud SSO settings.'
+  example <<-EXAMPLE
+    describe alicloud_ims_sso do
+      it { should exist}
+      it { have_sso_enabled }
+      its('idp_domain') { should cmp 'mydomain.com' }
+    end
+  EXAMPLE
+
   attr_reader :sso_enabled, :auxiliary_domain
 
   def initialize(opts = {})

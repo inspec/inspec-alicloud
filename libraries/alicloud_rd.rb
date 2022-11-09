@@ -4,14 +4,15 @@ require 'alicloud_backend'
 
 class AliCloudResourceDirectory < AliCloudResourceBase
   name 'alicloud_resource_directory'
-  desc 'Verifies settings for AliCloud resource management'
-  example "
-  describe alicloud_resource_directory do
-    it { should exist}
-    its( 'resource_directory_id' ) {should eq 'rd_id'}
-    its( 'master_account_name' ) {should eq 'master_acct_name'}
-  end
-  "
+  desc 'Verifies settings for an AliCloud resource management.'
+  example <<-EXAMPLE
+    describe alicloud_resource_directory do
+      it { should exist}
+      its('resource_directory_id') {should eq 'rd_id'}
+      its('master_account_name') {should eq 'master_acct_name'}
+    end
+  EXAMPLE
+
   attr_reader :resource_directory_id, :master_account_name, :master_account_id
 
   def initialize(opts = {})

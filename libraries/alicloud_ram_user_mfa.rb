@@ -4,14 +4,13 @@ require 'alicloud_backend'
 
 class AliCloudRamUserMFA < AliCloudResourceBase
   name 'alicloud_ram_user_mfa'
-  desc "Verifies settings for users' MFA"
-
-  example '
-  # make sure MFA exists
-  describe alicloud_ram_user_mfa(<user name>) do
-    it { should exist }
-  end
-  '
+  desc "Verifies settings for users' MFA."
+  example <<-EXAMPLE
+    # make sure MFA exists
+    describe alicloud_ram_user_mfa(<user name>) do
+      it { should exist }
+    end
+  EXAMPLE
 
   attr_reader :user_name, :serial_number, :type
 

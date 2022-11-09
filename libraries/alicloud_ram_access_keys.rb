@@ -4,13 +4,13 @@ require 'alicloud_backend'
 
 class AliCloudAccessKeys < AliCloudResourceBase
   name 'alicloud_access_keys'
-  desc 'Verifies properties of AliCloud access keys'
-  example '
-    # ensure no keys exist
+  desc 'Verifies properties of AliCloud access keys.'
+  example <<-EXAMPLE
+    # Ensure no access keys exist
     describe alicloud_access_keys do
-        its("entries.count")  { should eq 0 }
+      its('entries.count')  { should eq 0 }
     end
-    '
+  EXAMPLE
 
   attr_reader :table
 

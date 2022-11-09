@@ -4,12 +4,12 @@ require 'alicloud_backend'
 
 class AliCloudRamPolicies < AliCloudResourceBase
   name 'alicloud_ram_policies'
-  desc 'Verifies settings for a collection of AliCloud RAM Policies'
-  example '
+  desc 'Verifies settings for a collection of AliCloud RAM Policies.'
+  example <<-EXAMPLE
     describe alicloud_ram_policies do
       it { should exist }
     end
-  '
+  EXAMPLE
 
   attr_reader :table
 
