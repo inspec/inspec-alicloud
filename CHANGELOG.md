@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.10.8 -->
+<!-- latest_release 0.10.9 -->
+## [v0.10.9](https://github.com/inspec/inspec-alicloud/tree/v0.10.9) (2022-11-11)
+
+#### Merged Pull Requests
+- RESOURCE-526 Add the missing Integration test in inspec-alicloud [#91](https://github.com/inspec/inspec-alicloud/pull/91) ([soumyo13](https://github.com/soumyo13))
+<!-- latest_release -->
+
 ## [v0.10.8](https://github.com/inspec/inspec-alicloud/tree/v0.10.8) (2022-09-29)
 
 #### Merged Pull Requests
 - support port checks for a security group [#87](https://github.com/inspec/inspec-alicloud/pull/87) ([Jiaming1826](https://github.com/Jiaming1826))
-<!-- latest_release -->
 
 ## [v0.10.7](https://github.com/inspec/inspec-alicloud/tree/v0.10.7) (2022-09-14)
 
