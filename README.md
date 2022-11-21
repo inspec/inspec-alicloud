@@ -33,12 +33,12 @@ Valid AliCloud credentials are required.
 
 - **ALICLOUD_ACCESS_KEY** and **ALICLOUD_SECRET_KEY**
 
-1. Log in to the **AliCloud portal**.
+1. Log in to the **AliCloud Portal**.
 2. Go to the **Products and Services**.
 3. Search for **Resource Access Management**.
 4. Click on the **Resource Access Management**.
 5. Click on the **Users**.
-6. Search for your **User Logon Name** (For Example: sam@1234567890.onaliyun.com)
+6. Search for your **User Logon Name** (For Example: test@1234567890.onaliyun.com)
 7. Click for your **User Logon Name**
 8. Click on **Create AccessKey**.
 9. On a popup you will get the **AccessKey ID** and the **AccessKey Secret**.
@@ -59,8 +59,8 @@ Set your AliCloud credentials in an `.envrc` file or export them in your shell. 
     
 ```bash
     # Example AliCloud Configuration
-    export ALICLOUD_ACCESS_KEY="ABCAabcP1234SLS9ABCQ"
-    export ALICLOUD_SECRET_KEY="vD2lfoNvPdwsofqyuO9jRuWU"
+    export ALICLOUD_ACCESS_KEY="<ALICLOUD_ACCESS_KEY>"
+    export ALICLOUD_SECRET_KEY="<ALICLOUD_SECRET_KEY>"
     export ALICLOUD_REGION="eu-west-1"
 ```
 
@@ -70,7 +70,7 @@ Set your AliCloud credentials in an `.envrc` file or export them in your shell. 
 aliyun ecs DescribeInstances --output cols=RequestId
 ```
 
-This will return the output: The RequestId will vary.
+This will return the output in a tabular format. The RequestId will vary.
 
 ```bash
 RequestId
@@ -80,7 +80,36 @@ RequestId
 
 If it returns the result in your terminal then the setup is successful.
 
-### Run the a custom test from your profile.
+### Use the Resources
+
+Since this is an InSpec resource pack, it only defines InSpec resources. To use these resources in your controls, you should create your profile:
+
+#### Create a new profile
+
+```bash
+inspec init profile --platform alicloud my-alicloud-profile
+```
+
+Example `inspec.yml`:
+
+```yaml
+name: my-alicloud-profile
+title: Ali Cloud InSpec Profile
+maintainer: The Authors
+copyright: The Authors
+copyright_email: you@example.com
+license: Apache-2.0
+summary: An InSpec Compliance Profile For Ali CLoud
+version: 0.1.0
+inspec_version: '~> 5'
+depends:
+  - name: inspec-alicloud
+    url: https://github.com/inspec/inspec-alicloud/archive/main.tar.gz
+supports:
+  - platform: alicloud
+```
+
+#### Running the AliCloud Sample Profile Test
 
 1. Create a Custom AliCloud Profile.
 2. Add the test in the control.
@@ -106,25 +135,106 @@ Test Summary: 1 successful, 0 failures, 0 skipped
 
 This resource pack allows the testing of the following AliCloud resources. If a resource you wish to test is not listed, please feel free to open an [Issue](https://github.com/chef-customers/inspec-alicloud/issues). As an open source project, we also welcome public contributions via [Pull Request](https://github.com/chef-customers/inspec-alicloud/pulls).
 
-|        Module Name        | Singular Resource                                                              | Plural Resource                                                                 |
-|:-------------------------:|--------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-|         Security          | [alicloud_actiontrail_trail](libraries/alicloud_actiontrail_trail.rb)          | [alicloud_actiontrail_trails](libraries/alicloud_actiontrail_trails.rb)         |
-|         Database          | [alicloud_apsaradb_rds_instance](libraries/alicloud_apsaradb_rds_instance.rb)  | [alicloud_apsaradb_rds_instances](libraries/alicloud_apsaradb_rds_instances.rb) |
-|     Elastic Computing     | [alicloud_disk](libraries/alicloud_disk.rb)                                    | [alicloud_disks](libraries/alicloud_disks.rb)                                   |
-|                           | [alicloud_ecs_instance](libraries/alicloud_ecs_instance.rb)                    | [alicloud_ecs_instances](libraries/alicloud_ecs_instances.rb)                   |
-|                           | [alicloud_security_group](libraries/alicloud_security_group.rb)                | [alicloud_security_groups](libraries/alicloud_security_groups.rb)               |
-|                           | [alicloud_vpc](libraries/alicloud_vpc.rb)                                      | [alicloud_vpcs](libraries/alicloud_vpcs.rb)                                     |
-| Management and Governance | [alicloud_ims_sso](libraries/alicloud_ims_sso.rb)                              | No Plural Resource                                                              |
-|                           | [alicloud_rd](libraries/alicloud_rd.rb)                                        | No Plural Resource                                                              |
-|          Storage          | [alicloud_oss_bucket](libraries/alicloud_oss_bucket.rb)                        | [alicloud_oss_buckets](libraries/alicloud_oss_buckets.rb)                       |
-|            RAM            | [alicloud_ram_access_key](libraries/alicloud_ram_access_key.rb)                | [alicloud_ram_access_keys](libraries/alicloud_ram_access_keys.rb)               |
-|                           | [alicloud_ram_password_policy](libraries/alicloud_ram_password_policy.rb)      | No Plural Resource                                                              |
-|                           | [alicloud_ram_policy](libraries/alicloud_ram_policy.rb)                        | [alicloud_ram_policies](libraries/alicloud_ram_policies.rb)                     |
-|                           | [alicloud_ram_user](libraries/alicloud_ram_user.rb)                            | [alicloud_ram_users](libraries/alicloud_ram_users.rb)                           |
-|                           | [alicloud_sts_caller_identity](libraries/alicloud_sts_caller_identity.rb)      | No Plural Resource                                                              |
-|     Networking & CDN      | [alicloud_slb](libraries/alicloud_slb.rb)                                      | [alicloud_slbs](libraries/alicloud_slbs.rb)                                     |
-|                           | [alicloud_slb_https_listener](libraries/alicloud_slb_https_listener.rb)        | No Plural Resource                                                              |
-|          Others           | [alicloud_region](libraries/alicloud_region.rb)                                | [alicloud_regions](libraries/alicloud_regions.rb)                               |
+|        Module Name        | Singular Resource                                                               | Plural Resource                                                                 |
+|:-------------------------:|:--------------------------------------------------------------------------------|:--------------------------------------------------------------------------------|
+|         Security          | [alicloud_actiontrail_trail](libraries/alicloud_actiontrail_trail.rb)           | [alicloud_actiontrail_trails](libraries/alicloud_actiontrail_trails.rb)         |
+|         Database          | [alicloud_apsaradb_rds_instance](libraries/alicloud_apsaradb_rds_instance.rb)   | [alicloud_apsaradb_rds_instances](libraries/alicloud_apsaradb_rds_instances.rb) |
+|     Elastic Computing     | [alicloud_disk](libraries/alicloud_disk.rb)                                     | [alicloud_disks](libraries/alicloud_disks.rb)                                   |
+|                           | [alicloud_ecs_instance](libraries/alicloud_ecs_instance.rb)                     | [alicloud_ecs_instances](libraries/alicloud_ecs_instances.rb)                   |
+|                           | [alicloud_security_group](libraries/alicloud_security_group.rb)                 | [alicloud_security_groups](libraries/alicloud_security_groups.rb)               |
+|                           | [alicloud_vpc](libraries/alicloud_vpc.rb)                                       | [alicloud_vpcs](libraries/alicloud_vpcs.rb)                                     |
+| Management and Governance | [alicloud_ims_sso](libraries/alicloud_ims_sso.rb)                               | No Plural Resource                                                              |
+|                           | [alicloud_rd](libraries/alicloud_rd.rb)                                         | No Plural Resource                                                              |
+|          Storage          | [alicloud_oss_bucket](libraries/alicloud_oss_bucket.rb)                         | [alicloud_oss_buckets](libraries/alicloud_oss_buckets.rb)                       |
+|            RAM            | [alicloud_ram_access_key](libraries/alicloud_ram_access_key.rb)                 | [alicloud_ram_access_keys](libraries/alicloud_ram_access_keys.rb)               |
+|                           | [alicloud_ram_password_policy](libraries/alicloud_ram_password_policy.rb)       | No Plural Resource                                                              |
+|                           | [alicloud_ram_policy](libraries/alicloud_ram_policy.rb)                         | [alicloud_ram_policies](libraries/alicloud_ram_policies.rb)                     |
+|                           | [alicloud_ram_user](libraries/alicloud_ram_user.rb)                             | [alicloud_ram_users](libraries/alicloud_ram_users.rb)                           |
+|                           | [alicloud_sts_caller_identity](libraries/alicloud_sts_caller_identity.rb)       | No Plural Resource                                                              |
+|     Networking & CDN      | [alicloud_slb](libraries/alicloud_slb.rb)                                       | [alicloud_slbs](libraries/alicloud_slbs.rb)                                     |
+|                           | [alicloud_slb_https_listener](libraries/alicloud_slb_https_listener.rb)         | No Plural Resource                                                              |
+|          Others           | [alicloud_region](libraries/alicloud_region.rb)                                 | [alicloud_regions](libraries/alicloud_regions.rb)                               |
+
+## Examples
+
+### Ensure AliCloud Action Trail has the correct properties
+
+```ruby
+describe alicloud_actiontrail_trail(trail_name: 'ACTION_TRAIL_NAME') do
+  it { should exist }
+  its('oss_bucket_name') { should eq 'OSS_BUCKET_NAME' }
+  its('status') { should cmp 'Enable' }
+  its('trail_region') { should cmp 'All' }
+end
+```
+
+### Ensure AliCloud ApsaraDB RDS Instance has the correct properties
+
+```ruby
+describe alicloud_apsaradb_rds_instance(db_instance_id: 'DB_INSTANCE_ID') do
+  it { should exist }
+  its('instance_id') { should eq 'DB_INSTANCE_ID' }
+  its('description') { should eq 'DB_INSTANCE_NAME' }
+  its('instance_type') { should eq 'Primary' }
+  its('category') { should eq 'Basic' }
+  its('engine') { should eq 'DB_ENGINE_NAME' }
+  its('engine_version') { should eq 'DB_ENGINE_VERSION' }
+  its('storage_type') { should eq 'cloud_ssd' }
+  its('memory') { should cmp '1024' }
+  its('cpus') { should cmp '1' }
+  its('network_type') { should eq 'VPC' }
+  its('net_type') { should eq 'Intranet' }
+  its('in_default_vpc') { should be false }
+  its('security_ips') { should_not cmp '' }
+  its('security_ips') { should_not include '0.0.0.0/0' }
+  its('security_ip_mode') { should eq 'normal' }
+  its('status') { should eq 'Running' }
+  its('pay_type') { should eq 'Postpaid' }
+end
+```
+
+### Verify you have more than 1 disk in the `alicloud_disks` resource
+
+```ruby
+describe alicloud_disks do
+  its('entries.count') { should be > 1 }
+end
+```
+
+### Test a collection of AliCloud RAM Policies
+
+```ruby
+describe alicloud_ram_policies(type: 'System') do
+  it { should exist }
+  its('policy_names') { should_not include 'AdministratorAccess' }
+  
+  # Ensure multiple truncated responses are returned
+  its('entries.count') { should be > 200 }
+  its('policy_names.count') { should be > 200 }
+end
+```
+
+### Ensure AliCloud regions plural resource has the correct properties
+
+```ruby
+describe alicloud_regions do
+  it { should exist }
+  its('count') { should be >= 1 }
+  its('region_names') { should include 'eu-west-1' }
+  its('endpoints') { should include 'ecs.eu-west-1.aliyuncs.com' }
+end
+```
+
+### Verifies settings for ApsaraDB RDS instances in bulk
+
+```ruby
+alicloud_apsaradb_rds_instances.db_instance_ids.each do |db_instance_id|
+  describe alicloud_apsaradb_rds_instance(db_instance_id) do
+    its ('engine') { should eq 'MySQL' }
+    its ('engine_version') { should eq '8.0' }
+  end
+end
+```
 
 ## Environment and Setup Notes
 
