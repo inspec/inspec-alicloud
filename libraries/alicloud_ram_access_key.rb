@@ -1,13 +1,11 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudAccessKey < AliCloudResourceBase
   name 'alicloud_access_key'
   desc 'Verifies properties of an AliCloud Access Key.'
   example <<-EXAMPLE
-    # check key is active
-    describe alicloud_access_key(<access key id>) do
+    # Check if the AccessKey is active
+    describe alicloud_access_key("ACCESS_KEY_ID") do
       its('status') { should eq 'Active' }
     end
   EXAMPLE
@@ -54,6 +52,6 @@ class AliCloudAccessKey < AliCloudResourceBase
   end
 
   def to_s
-    "Alicloud Access Key #{@opts[:access_key_id]}"
+    "AliCloud Access Key #{@opts[:access_key_id]}"
   end
 end

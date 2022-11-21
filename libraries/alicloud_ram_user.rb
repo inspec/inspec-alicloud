@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudRamUser < AliCloudResourceBase
@@ -122,6 +120,6 @@ class AliCloudRamUser < AliCloudResourceBase
   end
 
   def to_s
-    "RAM User #{@opts[:user_name]}"
+    "AliCloud RAM User #{@opts[:user_name]}"
   end
 end

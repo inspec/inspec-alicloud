@@ -71,6 +71,6 @@ class AliCloudVpc < AliCloudResourceBase
   end
 
   def to_s
-    "Virtual Private Cloud #{@opts[:vpc_id]}"
+    "AliCloud Virtual Private Cloud #{@opts[:vpc_id]}"
   end
 end

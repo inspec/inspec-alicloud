@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudRamPolicy < AliCloudResourceBase
@@ -160,6 +158,6 @@ class AliCloudRamPolicy < AliCloudResourceBase
   end
 
   def to_s
-    "Alicloud RAM Policy #{@opts[:policy_name]}"
+    "AliCloud RAM Policy #{@opts[:policy_name]}"
   end
 end

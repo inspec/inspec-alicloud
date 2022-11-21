@@ -1,12 +1,10 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudApsaradbRdsInstance < AliCloudResourceBase
   name 'alicloud_apsaradb_rds_instance'
   desc 'Verifies settings for an ApsaraDB RDS instance.'
   example <<-EXAMPLE
-    describe alicloud_apsaradb_rds_instance(db_instance_id: 'test-instance-id') do
+    describe alicloud_apsaradb_rds_instance(db_instance_id: 'test-db-instance-id') do
       it { should exist }
       its ('engine') { should eq 'MySQL' }
       its ('engine_version') { should eq '8.0' }

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudActionTrailTrails < AliCloudResourceBase

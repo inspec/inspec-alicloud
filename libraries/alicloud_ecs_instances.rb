@@ -1,12 +1,10 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudECSInstances < AliCloudResourceBase
   name 'alicloud_ecs_instances'
   desc 'Verifies settings for AliCloud instances in bulk.'
   example <<-EXAMPLE
-    # verify more than 1 instance exists
+    # Verify more than 1 instance exists
     describe alicloud_ecs_instances do
       its('entries.count') { should be > 1 }
     end

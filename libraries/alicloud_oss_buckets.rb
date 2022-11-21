@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudOssBuckets < AliCloudResourceBase
@@ -7,7 +5,7 @@ class AliCloudOssBuckets < AliCloudResourceBase
   desc 'Verifies settings for AliCloud OSS Buckets in bulk.'
   example <<-EXAMPLE
     describe alicloud_oss_buckets do
-      its('bucket_names') { should eq ['my_bucket'] }
+      its('bucket_names') { should eq ['test-oss-bucket''] }
     end
   EXAMPLE
 

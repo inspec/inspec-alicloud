@@ -1,12 +1,10 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudSecurityGroup < AliCloudResourceBase
   name 'alicloud_security_group'
   desc 'Verifies settings for an individual AliCloud Security Group.'
   example <<-EXAMPLE
-    describe alicloud_security_group('sg-12345678') do
+    describe alicloud_security_group('sg-1234567890') do
       it { should exist }
       it { should_not allow_in(port: 443, ipv4_range: '0.0.0.0/0')}
     end
@@ -105,12 +103,12 @@ class AliCloudSecurityGroup < AliCloudResourceBase
 
   def to_s
     if @group_id
-      sg = " ID: #{@group_id}"
-      sg += " Name: #{@group_name}" if @group_name
-      sg += " VPC ID: #{@vpc_id}" if @vpc_id
+      sg = "AliCloud Security GroupId: #{@group_id}"
+      sg += "AliCloud Security GroupName: #{@group_name}" if @group_name
+      sg += "AliCloud Security VPC ID: #{@vpc_id}" if @vpc_id
     else
-      sg = " #{opts[:group_id]}"
+      sg = "AliCloud Security GroupId #{opts[:group_id]}"
     end
-    opts.key?(:region) ? "ECS Security Group:#{sg} in #{opts[:region]}" : "ECS Security Group#{sg}"
+    opts.key?(:region) ? "AliCloud ECS Security Group:#{sg} in #{opts[:region]}" : "ECS Security Group#{sg}"
   end
 end

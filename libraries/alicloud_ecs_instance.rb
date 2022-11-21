@@ -1,12 +1,10 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudECSInstance < AliCloudResourceBase
   name 'alicloud_ecs_instance'
   desc 'Verifies settings for an individual ECS instance.'
   example <<-EXAMPLE
-    # verify an instance exists
+    # Verify an instance exists
     describe alicloud_ecs_instance(instance_id: 'INSTANCE_ID') do
       it { should exist }
     end

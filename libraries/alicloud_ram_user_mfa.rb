@@ -1,12 +1,10 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudRamUserMFA < AliCloudResourceBase
   name 'alicloud_ram_user_mfa'
   desc "Verifies settings for users' MFA."
   example <<-EXAMPLE
-    # make sure MFA exists
+    # Ensure that MFA exists
     describe alicloud_ram_user_mfa(<user name>) do
       it { should exist }
     end
@@ -56,6 +54,6 @@ class AliCloudRamUserMFA < AliCloudResourceBase
   end
 
   def to_s
-    "MFA #{@serial_number} for #{@user_name}"
+    "AliCloud MFA #{@serial_number} for #{@user_name}"
   end
 end

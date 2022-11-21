@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudResourceDirectory < AliCloudResourceBase
@@ -8,8 +6,8 @@ class AliCloudResourceDirectory < AliCloudResourceBase
   example <<-EXAMPLE
     describe alicloud_resource_directory do
       it { should exist}
-      its('resource_directory_id') {should eq 'rd_id'}
-      its('master_account_name') {should eq 'master_acct_name'}
+      its('resource_directory_id') { should eq 'rd-directory-id' }
+      its('master_account_name') { should eq 'master-account-name' }
     end
   EXAMPLE
 
@@ -49,6 +47,6 @@ class AliCloudResourceDirectory < AliCloudResourceBase
   end
 
   def to_s
-    "Resource Directory: #{@resource_directory_id}, Master Account: #{@master_account_name}(#{@master_account_id})"
+    "AliCloud Resource Directory: #{@resource_directory_id}, Master Account: #{@master_account_name}(#{@master_account_id})"
   end
 end

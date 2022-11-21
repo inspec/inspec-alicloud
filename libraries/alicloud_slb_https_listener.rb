@@ -1,14 +1,12 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudSlbHttpsListener < AliCloudResourceBase
   name 'alicloud_slb_https_listener'
   desc 'Verifies properties for an individual AliCloud Application Load Balancers https listener.'
   example <<-EXAMPLE
-  describe alicloud_slb_https_listener(slb_id: 'slb-123456', listener_port: 443) do
-    it { should exist }
-  end
+    describe alicloud_slb_https_listener(slb_id: 'slb-123456', listener_port: 443) do
+      it { should exist }
+    end
   EXAMPLE
 
   attr_reader :load_balancer_id, :tls_cipher_policy, :listener_port

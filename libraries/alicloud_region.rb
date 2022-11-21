@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudRegion < AliCloudResourceBase
@@ -39,6 +37,6 @@ class AliCloudRegion < AliCloudResourceBase
   end
 
   def to_s
-    "Region #{@region_name}"
+    "AliCloud Region #{@region_name}"
   end
 end

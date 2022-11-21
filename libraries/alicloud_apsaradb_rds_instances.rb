@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudApsaradbRdsInstances < AliCloudResourceBase
@@ -11,11 +9,11 @@ class AliCloudApsaradbRdsInstances < AliCloudResourceBase
       its('entries.count') { should be > 1 }
     end
 
-    # Iterate through all instances
+    # Iterate through all instances and checking the properties
     alicloud_apsaradb_rds_instances.db_instance_ids.each do |db_instance_id|
       describe alicloud_apsaradb_rds_instance(db_instance_id) do
-        its ('engine') { should eq 'MySQL' }
-        its ('engine_version') { should eq '8.0' }
+        its('engine') { should eq 'MySQL' }
+        its('engine_version') { should eq '8.0' }
       end
     end
   EXAMPLE

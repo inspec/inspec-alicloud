@@ -1,10 +1,8 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudSlbs < AliCloudResourceBase
   name 'alicloud_slbs'
-  desc 'Verifies settings for AliCloud Application Loadbalancers in bulk.'
+  desc 'Verifies settings for AliCloud Application Load Balancers in bulk.'
   example <<-EXAMPLE
     # Verify that you have slbs defined
     describe alicloud_slbs do

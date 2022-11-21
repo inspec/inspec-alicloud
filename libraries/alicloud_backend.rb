@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'aliyunsdkcore'
 require 'aliyun/oss'
 require 'rspec/expectations'
