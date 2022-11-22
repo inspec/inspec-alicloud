@@ -1,16 +1,14 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudActionTrailTrail < AliCloudResourceBase
   name 'alicloud_actiontrail_trail'
-  desc 'Verifies settings for an individual AliCloud ActionTrail'
-
-  example "
-    describe alicloud_actiontrail_trail('trail-name') do
+  desc 'Verifies settings for an individual AliCloud ActionTrail.'
+  example <<-EXAMPLE
+    describe alicloud_actiontrail_trail('TRIAL_NAME') do
       it { should exist }
     end
-  "
+  EXAMPLE
+
   attr_reader :trail_name, :oss_bucket_name, :oss_key_prefix, :role_name, :sls_project_arn, :sls_write_role_arn,
               :status, :trail_region
 

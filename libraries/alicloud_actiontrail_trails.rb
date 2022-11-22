@@ -1,15 +1,13 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudActionTrailTrails < AliCloudResourceBase
   name 'alicloud_actiontrail_trails'
-  desc 'Verifies settings for AliCloud Audit Trails in bulk'
-  example '
+  desc 'Verifies settings for AliCloud Audit Trails in bulk.'
+  example <<-EXAMPLE
     describe alicloud_actiontrail_trails do
       it { should exist }
     end
-  '
+  EXAMPLE
 
   attr_reader :table
 

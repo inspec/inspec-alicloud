@@ -1,11 +1,9 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudDisks < AliCloudResourceBase
   name 'alicloud_disks'
-  desc 'Verifies settings for AliCloud disks in bulk'
-  example "
+  desc 'Verifies settings for AliCloud disks in bulk.'
+  example <<-EXAMPLE
     # Verify that you have disks defined
     describe alicloud_disks do
       it { should exist }
@@ -21,7 +19,7 @@ class AliCloudDisks < AliCloudResourceBase
       it { should_not exist }
       its('ids') { should cmp [] }
     end
-  "
+  EXAMPLE
 
   attr_reader :table
 

@@ -1,15 +1,13 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudStsCallerIdentity < AliCloudResourceBase
   name 'alicloud_sts_caller_identity'
-  desc 'Verifies settings for an AliCloud STS Caller Identity'
-  example '
+  desc 'Verifies settings for an AliCloud STS Caller Identity.'
+  example <<-EXAMPLE
     describe alicloud_sts_caller_identity do
       its("arn") { should match "acs:ram::.*:user/service-account-inspec" }
     end
-  '
+  EXAMPLE
 
   attr_reader :arn
 
