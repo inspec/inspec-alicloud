@@ -15,4 +15,10 @@ control 'alicloud-disks-1.0' do
   describe alicloud_disks do
     its('entries.count') { should be > 1 }
   end
+
+  # Ensure auto snapshot is turned on for all disks
+  describe alicloud_disks.where(enable_auto_snapshot: false) do
+    it { should_not exist }
+    its('ids') { should cmp [] }
+  end
 end

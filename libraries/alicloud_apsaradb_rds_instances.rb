@@ -1,27 +1,22 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudApsaradbRdsInstances < AliCloudResourceBase
   name 'alicloud_apsaradb_rds_instances'
-  desc 'Verifies settings for ApsaraDB RDS instances in bulk'
-  example "
+  desc 'Verifies settings for ApsaraDB RDS instances in bulk.'
+  example <<-EXAMPLE
     describe alicloud_apsaradb_rds_instances do
       it { should exist }
-    end
-
-    describe alicloud_apsaradb_rds_instances do
       its('entries.count') { should be > 1 }
     end
 
-    # Iterate through all instances
+    # Iterate through all instances and checking the properties
     alicloud_apsaradb_rds_instances.db_instance_ids.each do |db_instance_id|
       describe alicloud_apsaradb_rds_instance(db_instance_id) do
-        its ('engine') { should eq 'MySQL' }
-        its ('engine_version') { should eq '8.0' }
+        its('engine') { should eq 'MySQL' }
+        its('engine_version') { should eq '8.0' }
       end
     end
-  "
+  EXAMPLE
 
   attr_reader :table
 

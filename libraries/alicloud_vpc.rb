@@ -4,12 +4,13 @@ require 'alicloud_backend'
 
 class AliCloudVpc < AliCloudResourceBase
   name 'alicloud_vpc'
-  desc 'Verifies properties for an individual AliCloud Virtual Private Network'
-  example "
-  describe alicloud_vpc('vpc-1234567890') do
-    it { should exist }
-  end
-  "
+  desc 'Verifies properties for an individual AliCloud Virtual Private Network.'
+  example <<-EXAMPLE
+    describe alicloud_vpc('vpc-1234567890') do
+      it { should exist }
+    end
+  EXAMPLE
+
   attr_reader :vpc_id, :vpc_name, :description, :status, :created_time_stamp, :is_default, :resource_group_id,
               :cidr_block, :ipv6_cidr_block, :vrouter_id, :vswitch_ids, :user_cidrs, :attached_cens
 
@@ -70,6 +71,6 @@ class AliCloudVpc < AliCloudResourceBase
   end
 
   def to_s
-    "Virtual Private Cloud #{@opts[:vpc_id]}"
+    "AliCloud Virtual Private Cloud #{@opts[:vpc_id]}"
   end
 end

@@ -1,13 +1,10 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudApsaradbRdsInstance < AliCloudResourceBase
   name 'alicloud_apsaradb_rds_instance'
-  desc 'Verifies settings for an ApsaraDB RDS instance'
-
-  example "
-    describe alicloud_apsaradb_rds_instance(db_instance_id: 'test-instance-id') do
+  desc 'Verifies settings for an ApsaraDB RDS instance.'
+  example <<-EXAMPLE
+    describe alicloud_apsaradb_rds_instance(db_instance_id: 'test-db-instance-id') do
       it { should exist }
       its ('engine') { should eq 'MySQL' }
       its ('engine_version') { should eq '8.0' }
@@ -17,7 +14,8 @@ class AliCloudApsaradbRdsInstance < AliCloudResourceBase
       its ('security_ips') { should_not include '0.0.0.0/0' }
       its ('pay_type') { should eq 'Postpaid' }
     end
-  "
+  EXAMPLE
+
   attr_reader :instance_id, :description, :instance_type, :category, :engine, :engine_version,
               :allocated_storage, :storage_type, :memory, :cpus, :instance_class, :pay_type, :status,
               :network_type, :net_type, :vpc_id, :in_default_vpc, :zone_id, :security_ips, :security_ip_mode

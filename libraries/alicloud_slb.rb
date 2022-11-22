@@ -1,15 +1,14 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudSlb < AliCloudResourceBase
   name 'alicloud_slb'
-  desc 'Verifies properties for an individual AliCloud Application Load Balancer'
-  example "
-  describe alicloud_slb('slb-123456') do
-    it { should exist }
-  end
-  "
+  desc 'Verifies properties for an individual AliCloud Application Load Balancer.'
+  example <<-EXAMPLE
+    describe alicloud_slb('slb-123456') do
+      it { should exist }
+    end
+  EXAMPLE
+
   attr_reader :load_balancer_id, :load_balancer_name, :status, :resource_group_id, :address, :listener_ports_and_protocol, :backend_servers,
               :has_reserved_info, :business_status, :listener_ports, :vswitch_id, :pay_type, :internet_charge_type,
               :vpc_id, :delete_protection, :end_time_stamp, :end_time, :support_private_link, :address_ip_version,

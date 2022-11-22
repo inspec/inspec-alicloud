@@ -1,20 +1,19 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudSlbs < AliCloudResourceBase
   name 'alicloud_slbs'
-  desc 'Verifies settings for AliCloud Application Loadbalancers in bulk'
-  example "
+  desc 'Verifies settings for AliCloud Application Load Balancers in bulk.'
+  example <<-EXAMPLE
     # Verify that you have slbs defined
     describe alicloud_slbs do
       it { should exist }
     end
+
     # Verify you have more than the 1 load balancer
     describe alicloud_slbs do
       its('entries.count') { should be > 1 }
     end
-  "
+  EXAMPLE
 
   attr_reader :table
 

@@ -1,22 +1,21 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudRam < AliCloudResourceBase
   name 'alicloud_ram_password_policy'
-  desc 'Verifies properties for an individual AliCloud RAM Password Policy'
-  example "
-  describe alicloud_ram_password_policy do
-    it { should exist }
-    its('require_uppercase_characters') { should eq true }
-    its('require_lowercase_characters') { should eq true }
-    its('require_symbols') { should eq true }
-    its('require_numbers') { should eq true }
-    its('password_reuse_prevention') { should be >= 5 }
-    its('minimum_password_length') { should be >= 8 }
-    its('max_password_age') { should eq 180 }
-  end
-  "
+  desc 'Verifies properties for an individual AliCloud RAM Password Policy.'
+  example <<-EXAMPLE
+    describe alicloud_ram_password_policy do
+      it { should exist }
+      its('require_uppercase_characters') { should eq true }
+      its('require_lowercase_characters') { should eq true }
+      its('require_symbols') { should eq true }
+      its('require_numbers') { should eq true }
+      its('password_reuse_prevention') { should be >= 5 }
+      its('minimum_password_length') { should be >= 8 }
+      its('max_password_age') { should eq 180 }
+    end
+  EXAMPLE
+
   attr_reader :hard_expiry, :max_login_attempts, :max_password_age, :minimum_password_length,
               :password_reuse_prevention, :require_lowercase_characters, :require_numbers,
               :require_symbols, :require_uppercase_characters

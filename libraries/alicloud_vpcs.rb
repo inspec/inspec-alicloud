@@ -4,17 +4,18 @@ require 'alicloud_backend'
 
 class AliCloudVpcs < AliCloudResourceBase
   name 'alicloud_vpcs'
-  desc 'Verifies settings for AliCloud Virtual Private Cloud in bulk'
-  example "
-    # Verify that you have vpcs defined
+  desc 'Verifies settings for AliCloud Virtual Private Cloud in bulk.'
+  example <<-EXAMPLE
+    # Verify that you have VPCs defined
     describe alicloud_vpcs do
       it { should exist }
     end
-    # Verify you have more than the 1 vpc
+
+    # Verify you have more than the 1 VPC
     describe alicloud_vpcs do
       its('entries.count') { should be > 1 }
     end
-  "
+  EXAMPLE
 
   attr_reader :table
 

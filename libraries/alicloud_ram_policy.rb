@@ -1,12 +1,9 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudRamPolicy < AliCloudResourceBase
   name 'alicloud_ram_policy'
-  desc 'Verifies settings for a RAM Policy'
-
-  example "
+  desc 'Verifies settings for a RAM Policy.'
+  example <<-EXAMPLE
     describe alicloud_ram_policy('policy-1') do
       it { should exist }
       its('default_version') { should be 'v1' }
@@ -16,7 +13,7 @@ class AliCloudRamPolicy < AliCloudResourceBase
       it { should be_attached_to_role('acs:ram::12345:role/role-1') }
       its('attachment_count') { should be > 1 }
     end
-  "
+  EXAMPLE
 
   attr_reader :policy_name, :default_version, :policy_document,
               :attached_users, :attached_roles, :attached_groups,
@@ -161,6 +158,6 @@ class AliCloudRamPolicy < AliCloudResourceBase
   end
 
   def to_s
-    "Alicloud RAM Policy #{@opts[:policy_name]}"
+    "AliCloud RAM Policy #{@opts[:policy_name]}"
   end
 end
