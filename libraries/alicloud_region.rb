@@ -1,16 +1,14 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudRegion < AliCloudResourceBase
   name 'alicloud_region'
-  desc 'Verifies settings for an AliCloud region'
-
-  example "
+  desc 'Verifies settings for an AliCloud region.'
+  example <<-EXAMPLE
     describe alicloud_region('eu-west-1') do
       it { should exist }
     end
-  "
+  EXAMPLE
+
   attr_reader :region_name, :endpoint, :region_local_name
 
   def initialize(opts = {})
@@ -39,6 +37,6 @@ class AliCloudRegion < AliCloudResourceBase
   end
 
   def to_s
-    "Region #{@region_name}"
+    "AliCloud Region #{@region_name}"
   end
 end

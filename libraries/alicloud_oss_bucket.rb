@@ -1,15 +1,13 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudOssBucket < AliCloudResourceBase
   name 'alicloud_oss_bucket'
-  desc 'Verifies settings for an AliCloud OSS Bucket'
-  example "
-    describe alicloud_oss_bucket(bucket_name: 'test_bucket') do
+  desc 'Verifies settings for an AliCloud OSS Bucket.'
+  example <<-EXAMPLE
+    describe alicloud_oss_bucket(bucket_name: 'test-oss-bucket') do
       it { should exist }
     end
-  "
+  EXAMPLE
 
   attr_reader :region, :bucket_name
 

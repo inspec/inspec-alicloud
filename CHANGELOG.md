@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.10.11 -->
+<!-- latest_release 0.10.12 -->
+## [v0.10.12](https://github.com/inspec/inspec-alicloud/tree/v0.10.12) (2022-11-22)
+
+#### Merged Pull Requests
+- RESOURCE-521 Fixing the lint errors [#92](https://github.com/inspec/inspec-alicloud/pull/92) ([soumyo13](https://github.com/soumyo13))
+<!-- latest_release -->
+
 ## [v0.10.11](https://github.com/inspec/inspec-alicloud/tree/v0.10.11) (2022-11-11)
 
 #### Merged Pull Requests
 - RESOURCE-522 adding the .idea dir in gitignore  [#90](https://github.com/inspec/inspec-alicloud/pull/90) ([soumyo13](https://github.com/soumyo13))
-<!-- latest_release -->
 
 ## [v0.10.10](https://github.com/inspec/inspec-alicloud/tree/v0.10.10) (2022-11-11)
 

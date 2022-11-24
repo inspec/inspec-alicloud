@@ -1,11 +1,9 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudSecurityGroups < AliCloudResourceBase
   name 'alicloud_security_groups'
-  desc 'Verifies settings for AliCloud Security Groups in bulk'
-  example "
+  desc 'Verifies settings for AliCloud Security Groups in bulk.'
+  example <<-EXAMPLE
     # Verify that you have security groups defined
     describe alicloud_security_groups do
       it { should exist }
@@ -15,7 +13,7 @@ class AliCloudSecurityGroups < AliCloudResourceBase
     describe alicloud_security_groups do
       its('entries.count') { should be > 1 }
     end
-  "
+  EXAMPLE
 
   attr_reader :table
 

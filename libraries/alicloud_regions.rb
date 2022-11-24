@@ -1,16 +1,13 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudRegions < AliCloudResourceBase
   name 'alicloud_regions'
-  desc 'Verifies settings for AliCloud Regions in bulk'
-
-  example '
+  desc 'Verifies settings for AliCloud Regions in bulk.'
+  example <<-EXAMPLE
     describe alicloud_regions do
       it { should exist }
     end
-  '
+  EXAMPLE
 
   attr_reader :table
 

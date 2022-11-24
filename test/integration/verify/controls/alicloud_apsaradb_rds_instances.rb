@@ -19,4 +19,11 @@ control 'alicloud-apsaradb-rds-instances-1.0' do
       its('security_ips') { should_not include '0.0.0.0/0' }
     end
   end
+
+  alicloud_apsaradb_rds_instances.db_instance_ids.each do |db_instance_id|
+    describe alicloud_apsaradb_rds_instance(db_instance_id) do
+      its('engine') { should eq 'MySQL' }
+      its('engine_version') { should eq '8.0' }
+    end
+  end
 end

@@ -1,17 +1,14 @@
-# frozen_string_literal: true
-
 require 'alicloud_backend'
 
 class AliCloudRamUser < AliCloudResourceBase
   name 'alicloud_ram_user'
-  desc 'Verifies settings for AliCloud ram users'
-
-  example "
-  # ensure a user exists
-  describe alicloud_ram_user(alicloud_ram_user_name) do
-    it {should exist}
-  end
-  "
+  desc 'Verifies settings for AliCloud ram users.'
+  example <<-EXAMPLE
+    # Ensure a user exists
+    describe alicloud_ram_user('ALICLOUD_USER_NAME') do
+      it {should exist}
+    end
+  EXAMPLE
 
   attr_reader :user_name, :user_id, :display_name, :comments, :email,
               :mobile_phone, :create_date, :update_date, :last_login_date,
@@ -123,6 +120,6 @@ class AliCloudRamUser < AliCloudResourceBase
   end
 
   def to_s
-    "RAM User #{@opts[:user_name]}"
+    "AliCloud RAM User #{@opts[:user_name]}"
   end
 end
