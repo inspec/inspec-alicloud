@@ -11,7 +11,7 @@ class AliCloudSsoSettingsConstructorTest < Minitest::Test
   end
   
   def test_accepts_key_value_argument_and_resource_works
-    ss = AliCloudSsoSettings.new()
+    ss = AliCloudSsoSettings.new
     assert_equal false, ss.sso_enabled
     assert_equal nil, ss.auxiliary_domain
   end
