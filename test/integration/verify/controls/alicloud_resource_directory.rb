@@ -6,7 +6,7 @@ control 'alicloud_resource_directory-1.0' do
 
   describe alicloud_resource_directory do
     it { should exist }
-    its( 'resource_directory_id' ) { should_not eq 'rd_id' }
-    its( 'master_account_name' ) { should_not eq 'master_acct_name' }
+    its('resource_directory_id') { should_not eq 'rd_id' }
+    its('master_account_name') { should_not eq 'master_acct_name' }
   end
 end

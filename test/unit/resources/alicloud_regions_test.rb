@@ -10,17 +10,13 @@ class AliCloudRegionsConstructorTest < Minitest::Test
                                                                     { 'Regions' =>
                                                                         [{ 'RegionEndpoint' => 'vpc.aliyuncs.com',
                                                                            'LocalName' => '华北 1',
-                                                                           'RegionId' => 'cn-qingdao',
-                                                                         }]
-                                                                    }
-                                                                }
-                                                            })
+                                                                           'RegionId' => 'cn-qingdao' }] } } })
   end
-  
+
   def test_rejects_unrecognized_params
     assert_raises(ArgumentError) { AliCloudRegions.new(rubbish: 9) }
   end
-  
+
   def test_rejects_string_argument
     assert_raises(ArgumentError) { AliCloudRegions.new('not-there') }
   end
