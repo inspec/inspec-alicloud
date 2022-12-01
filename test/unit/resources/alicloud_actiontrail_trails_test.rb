@@ -4,11 +4,14 @@ require 'alicloud_actiontrail_trails'
 class AliCloudActionTrailTrailsConstructorTest < Minitest::Test
   def setup
     ENV['ALICLOUD_REGION'] = 'us-east-1'
+  end
 
-    AliCloudActionTrailTrails.any_instance.stubs(:fetch_data).returns({ 'Name' => 'trail-name',
-                                                                        'OssBucketName' => 'bucket-name',
-                                                                        'OssKeyPrefix' => 'bucket-name-prefix',
-                                                                        'RoleName' => 'role-name' })
+  def test_empty_params_not_ok
+    assert_raises(ArgumentError) { AliCloudActionTrailTrails.new(client_args: { stub_responses: true }) }
+  end
+
+  def test_empty_param_arg_not_ok
+    assert_raises(ArgumentError) { AliCloudActionTrailTrails.new(client_args: { stub_responses: true }) }
   end
 
   def test_rejects_unrecognized_params

@@ -4,10 +4,6 @@ require 'alicloud_region'
 class AliCloudRegionConstructorTest < Minitest::Test
   def setup
     ENV['ALICLOUD_REGION'] = 'us-east-1'
-
-    AliCloudRegion.any_instance.stubs(:fetch_db_info).returns({ 'RegionEndpoint' => 'test-region1',
-                                                                'LocalName' => 'test-region2',
-                                                                'RegionId' => 'test-region3' })
   end
 
   def test_empty_params_not_ok
