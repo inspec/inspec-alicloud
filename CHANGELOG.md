@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.10.12 -->
+<!-- latest_release 0.10.13 -->
+## [v0.10.13](https://github.com/inspec/inspec-alicloud/tree/v0.10.13) (2022-12-02)
+
+#### Merged Pull Requests
+- RESOURCE-518 Add the missing Unit tests in inspec-alicloud [#94](https://github.com/inspec/inspec-alicloud/pull/94) ([soumyo13](https://github.com/soumyo13))
+<!-- latest_release -->
+
 ## [v0.10.12](https://github.com/inspec/inspec-alicloud/tree/v0.10.12) (2022-11-22)
 
 #### Merged Pull Requests
 - RESOURCE-521 Fixing the lint errors [#92](https://github.com/inspec/inspec-alicloud/pull/92) ([soumyo13](https://github.com/soumyo13))
-<!-- latest_release -->
 
 ## [v0.10.11](https://github.com/inspec/inspec-alicloud/tree/v0.10.11) (2022-11-11)
 
