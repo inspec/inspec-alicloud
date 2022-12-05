@@ -80,6 +80,37 @@ RequestId
 
 If it returns the result in your terminal then the setup is successful.
 
+#### List of AliCloud Regions
+
+| Region                  | Location       | Region ID       |
+|:------------------------|:---------------|:----------------|
+| China (Hangzhou)        | Hangzhou       | cn-hangzhou     |
+| China (Shanghai)        | Shanghai       | cn-shanghai     |
+| China (Qingdao)         | Qingdao        | cn-qingdao      |
+| China (Beijing)         | Beijing        | cn-beijing      |
+| China (Zhangjiakou)     | Zhangjiakou    | cn-zhangjiakou  |
+| China (Hohhot)          | Hohhot         | cn-huhehaote    |
+| China (Ulanqab)         | Ulanqab        | cn-wulanchabu   |
+| China (Shenzhen)        | Shenzhen       | cn-shenzhen     |
+| China (Heyuan)          | Heyuan         | cn-heyuan       |
+| China (Guangzhou)       | Guangzhou      | cn-guangzhou    |
+| China (Chengdu)         | Chengdu        | cn-chengdu      |
+| China (Nanjing)         | Nanjing        | cn-nanjing      |
+| China (Hong Kong)       | Hongkong       | cn-hongkong     |
+| Japan (Tokyo)           | Tokyo          | ap-northeast-1  |
+| Singapore               | Singapore      | ap-southeast-1  |
+| Australia (Sydney)      | Sydney         | ap-southeast-2  |
+| Malaysia (Kuala Lumpur) | Kuala Lumpur   | ap-southeast-3  |
+| Indonesia (Jakarta)     | Jakarta        | ap-southeast-5  |
+| Philippines (Manila)    | Manila         | ap-southeast-6  |
+| India (Mumbai)          | Mumbai         | ap-south-1      |
+| South Korea (Seoul)     | Seoul          | ap-northeast-2  |
+| Thailand (Bangkok)      | Bangkok        | ap-southeast-7  |
+| US (Silicon Valley)     | Silicon Valley | us-west-1       |
+| US (Virginia)           | Virginia       | us-east-1       |
+| UK (London)             | London         | eu-west-1       |
+| Germany (Frankfurt)     | Frankfurt      | eu-central-1    |
+
 ### Use the Resources
 
 Since this is an InSpec resource pack, it only defines InSpec resources. To use these resources in your controls, you should create your profile:
@@ -120,7 +151,7 @@ inspec exec <sample-alicloud-profile> -t alicloud://
 ```
 
 Output:
-```
+```bash
 Profile:   Ali Cloud InSpec Profile (my-alicloud-profile)
 Version:   0.1.0
 Target:    alicloud://eu-west-1
