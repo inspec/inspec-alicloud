@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 title 'Test AliCloud Security Groups in bulk'
 
 control 'alicloud-security-groups-1.0' do

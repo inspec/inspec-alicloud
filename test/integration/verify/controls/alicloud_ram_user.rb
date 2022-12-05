@@ -1,21 +1,14 @@
-# frozen_string_literal: true
+alicloud_ram_user_name = input(:alicloud_ram_user_name, value: '', description: "AliCloud RAM User's name.")
+alicloud_ram_user_display_name = input(:alicloud_ram_user_display_name, value: '', description: "AliCloud RAM User's display name.")
+alicloud_ram_user_mobile = input(:alicloud_ram_user_mobile, value: '', description: "AliCloud RAM User's mobile.")
+alicloud_ram_user_email = input(:alicloud_ram_user_email, value: '', description: "AliCloud RAM User's Email.")
+alicloud_ram_user_name_2 = input(:alicloud_ram_user_name_2, value: '', description: "AliCloud RAM Second User's name.")
 
-alicloud_ram_user_name = input(:alicloud_ram_user_name, value: '',
-                                                        description: "AliCloud RAM User's name.")
-alicloud_ram_user_display_name = input(:alicloud_ram_user_display_name, value: '',
-                                                                        description: "AliCloud RAM User's display name.")
-alicloud_ram_user_mobile = input(:alicloud_ram_user_mobile, value: '',
-                                                            description: "AliCloud RAM User's mobile.")
-alicloud_ram_user_email = input(:alicloud_ram_user_email, value: '',
-                                                          description: "AliCloud RAM User's Email.")
-alicloud_ram_user_name_2 = input(:alicloud_ram_user_name_2, value: '',
-                                                            description: "AliCloud RAM Second User's name.")
-
-title 'Test single Alicloud RAM user'
+title 'Test single AliCloud RAM user'
 
 control 'alicloud-ram-user-1.0' do
   impact 1.0
-  title 'Ensure RAM user library has correct properties'
+  title 'Ensure AliCloud RAM user library has correct properties'
 
   describe alicloud_ram_user(alicloud_ram_user_name) do
     it { should exist }

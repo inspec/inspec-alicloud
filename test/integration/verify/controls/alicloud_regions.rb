@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 title 'Test AliCloud Regions in bulk'
 
 control 'alicloud-regions-1.0' do

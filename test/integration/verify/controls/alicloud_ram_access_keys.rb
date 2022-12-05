@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 alicloud_ram_user_name = input(:alicloud_ram_user_name, value: '', description: "AliCloud RAM User's name.")
 alicloud_ram_access_key_id = input(:alicloud_ram_access_key_id, value: '', description: 'AliCloud Access Key ID')
 
@@ -7,7 +5,7 @@ title 'Test AliCloud access keys group'
 
 control 'alicloud-access-keys-1.0' do
   impact 1.0
-  title 'Ensure Alicloud access key library has correct properties'
+  title 'Ensure AliCloud access key library has correct properties'
 
   describe alicloud_access_keys do
     it { should exist }
