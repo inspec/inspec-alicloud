@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 title 'Test Alicloud RAM Password Policy'
 
 control 'alicloud-ram-1.0' do

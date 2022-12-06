@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 alicloud_slb_http_id = input(:alicloud_slb_http_id, value: '', description: 'AliCloud slb http ID.')
 alicloud_slb_https_id = input(:alicloud_slb_https_id, value: '', description: 'AliCloud slb https ID.')
 

@@ -1,19 +1,15 @@
-# frozen_string_literal: true
+title 'Test single AliCloud RAM Policy'
 
-title 'Test single Alicloud RAM Policy'
-
-alicloud_ram_policy_name = attribute(:alicloud_ram_policy_name, value: '', description: 'The Alicloud RAM Policy name.')
-alicloud_ram_attached_policy_name_1 = attribute(:alicloud_ram_attached_policy_name_1, value: '',
-                                                                                      description: 'The Attached Alicloud RAM Policy 1 name.')
-alicloud_ram_attached_policy_name_2 = attribute(:alicloud_ram_attached_policy_name_2, value: '',
-                                                                                      description: 'The Attached Alicloud RAM Policy 2 name.')
-alicloud_ram_user_name = attribute(:alicloud_ram_user_name, value: '', description: 'The Alicloud RAM User name.')
-alicloud_ram_group_name = attribute(:alicloud_ram_group_name, value: '', description: 'The Alicloud RAM Group name.')
-alicloud_ram_role_arn = attribute(:alicloud_ram_role_arn, value: '', description: 'The Alicloud RAM Role ARN.')
+alicloud_ram_policy_name = input(:alicloud_ram_policy_name, value: '', description: 'The AliCloud RAM Policy name.')
+alicloud_ram_attached_policy_name_1 = input(:alicloud_ram_attached_policy_name_1, value: '', description: 'The Attached AliCloud RAM Policy 1 name.')
+alicloud_ram_attached_policy_name_2 = input(:alicloud_ram_attached_policy_name_2, value: '', description: 'The Attached AliCloud RAM Policy 2 name.')
+alicloud_ram_user_name = input(:alicloud_ram_user_name, value: '', description: 'The AliCloud RAM User name.')
+alicloud_ram_group_name = input(:alicloud_ram_group_name, value: '', description: 'The AliCloud RAM Group name.')
+alicloud_ram_role_arn = input(:alicloud_ram_role_arn, value: '', description: 'The AliCloud RAM Role ARN.')
 
 control 'alicloud-ram-policy-1.0' do
   impact 1.0
-  title 'Ensure Alicloud RAM Policy has the correct properties.'
+  title 'Ensure AliCloud RAM Policy has the correct properties.'
 
   describe alicloud_ram_policy(policy_name: 'DoesNotExist') do
     it { should_not exist }

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 title 'Test AliCloud VPC in bulk'
 
 control 'alicloud-vpcs-1.0' do

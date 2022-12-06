@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 title 'Test single AliCloud VPC'
 
 alicloud_vpc_id = input(:alicloud_vpc_id, value: '', description: 'AliCloud VPC ID')

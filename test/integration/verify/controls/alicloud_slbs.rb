@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 title 'Test AliCloud Server Load Balancers in bulk'
 
 control 'alicloud-slbs-1.0' do

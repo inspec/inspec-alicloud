@@ -1,20 +1,11 @@
-# frozen_string_literal: true
-
 alicloud_vpc_id = input(:alicloud_vpc_id, value: '', description: 'AliCloud VPC ID.')
-alicloud_security_group_alpha_id = input(:alicloud_security_group_alpha_id, value: '',
-                                                                            description: 'AliCloud Security Group ID.')
-alicloud_security_group_name = input(:alicloud_security_group_name, value: '',
-                                                                    description: 'AliCloud Security Group name.')
-alicloud_security_group_description = input(:alicloud_security_group_description, value: '',
-                                                                                  description: 'AliCloud Security Group name.')
-alicloud_security_group_rule_port_in_range = input(:alicloud_security_group_rule_port_in_range, value: '',
-                                                                                                description: 'a port in AliCloud Security Group ingress rule port range')
-alicloud_security_group_rule_port_not_in_range = input(:alicloud_security_group_rule_port_not_in_range, value: '',
-                                                                                                        description: 'a port not in AliCloud Security Group ingress rule port range')
-alicloud_security_group_rule_cidr = input(:alicloud_security_group_rule_cidr, value: '',
-                                                                              description: 'AliCloud Security Group ingress rule IPv4 range')
-alicloud_security_group_rule_cidr_not_in = input(:alicloud_security_group_rule_cidr_not_in, value: '',
-                                                                                            description: 'a CIDR not in AliCloud Security Group ingress rule IPv4 range')
+alicloud_security_group_alpha_id = input(:alicloud_security_group_alpha_id, value: '', description: 'AliCloud Security Group ID.')
+alicloud_security_group_name = input(:alicloud_security_group_name, value: '', description: 'AliCloud Security Group name.')
+alicloud_security_group_description = input(:alicloud_security_group_description, value: '', description: 'AliCloud Security Group name.')
+alicloud_security_group_rule_port_in_range = input(:alicloud_security_group_rule_port_in_range, value: '', description: 'A port in AliCloud Security Group ingress rule port range.')
+alicloud_security_group_rule_port_not_in_range = input(:alicloud_security_group_rule_port_not_in_range, value: '', description: 'A port not in AliCloud Security Group ingress rule port range.')
+alicloud_security_group_rule_cidr = input(:alicloud_security_group_rule_cidr, value: '', description: 'AliCloud Security Group ingress rule IPv4 range.')
+alicloud_security_group_rule_cidr_not_in = input(:alicloud_security_group_rule_cidr_not_in, value: '', description: 'A CIDR not in AliCloud Security Group ingress rule IPv4 range.')
 
 title 'Test single AliCloud Security Groups'
 
