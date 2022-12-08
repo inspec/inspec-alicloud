@@ -1,5 +1,5 @@
 require 'alicloud_backend'
-
+require 'oss/bucket'
 class AliCloudOssBucket < AliCloudResourceBase
   name 'alicloud_oss_bucket'
   desc 'Verifies settings for an AliCloud OSS Bucket.'
@@ -18,8 +18,13 @@ class AliCloudOssBucket < AliCloudResourceBase
 
     @bucket_name = opts[:bucket_name]
 
+    # catch_alicloud_errors do
+    #   @bucket = @alicloud.aliyun_oss_client.get_bucket(opts[:bucket_name])
+    # end
+
     catch_alicloud_errors do
-      @bucket = @alicloud.oss_client.get_bucket(opts[:bucket_name])
+      @bucket = @alicloud.aliyun_oss_client_custom.get_bucket(opts[:bucket_name])
+      @bucket.tagging
     end
   end
 

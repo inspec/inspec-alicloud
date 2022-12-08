@@ -9,6 +9,6 @@ version: 0.1.0
 inspec_version: '~> 5'
 depends:
   - name: inspec-alicloud
-    url: https://github.com/inspec/inspec-alicloud/archive/main.tar.gz
+    path: ../
 supports:
   - platform: alicloud
