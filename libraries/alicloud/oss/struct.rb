@@ -4,7 +4,7 @@ require 'base64'
 require 'json'
 require 'uri'
 
-module Aliyun
+module AliCloud
   module OSS
 
     ##

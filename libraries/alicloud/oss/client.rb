@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
-require 'oss/protocol'
-require 'oss/util'
-module Aliyun
+require 'alicloud/oss/protocol'
+require 'alicloud/oss/util'
+
+module AliCloud
   module OSS
 
     ##

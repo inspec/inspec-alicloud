@@ -5,7 +5,7 @@ require 'base64'
 require 'openssl'
 require 'digest/md5'
 
-module Aliyun
+module AliCloud
   module OSS
 
     ##
@@ -19,7 +19,7 @@ module Aliyun
 
       class << self
 
-        include Common::Logging
+        include AliCloud::Common::Logging
 
         # Calculate request signatures
         def get_signature(key, verb, headers, resources)

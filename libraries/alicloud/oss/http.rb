@@ -4,32 +4,9 @@ require 'rest-client'
 require 'resolv'
 require 'fiber'
 
-module Aliyun
+module AliCloud
   module OSS
 
-    ##
-    # HTTP wraps the HTTP functionalities for accessing OSS RESTful
-    # API. It handles the OSS-specific protocol elements, and
-    # rest-client details for the user, which includes:
-    # * automatically generate signature for every request
-    # * parse response headers/body
-    # * raise exceptions and capture the request id
-    # * encapsulates streaming upload/download
-    # @example simple get
-    #   headers, body = http.get({:bucket => 'bucket'})
-    # @example streaming download
-    #   http.get({:bucket => 'bucket', :object => 'object'}) do |chunk|
-    #     # handle chunk
-    #   end
-    # @example streaming upload
-    #   def streaming_upload(&block)
-    #     http.put({:bucket => 'bucket', :object => 'object'},
-    #              {:body => HTTP::StreamPlayload.new(block)})
-    #   end
-    #
-    #   streaming_upload do |stream|
-    #     stream << "hello world"
-    #   end
     class HTTP
 
       DEFAULT_CONTENT_TYPE = 'application/octet-stream'
@@ -113,7 +90,7 @@ module Aliyun
         end
       end
 
-      include Common::Logging
+      include AliCloud::Common::Logging
 
       def initialize(config)
         @config = config
@@ -221,7 +198,7 @@ module Aliyun
       def do_request(verb, resources = {}, http_options = {}, &block)
         bucket = resources[:bucket]
         object = resources[:object]
-        sub_res = {"tagging"=>nil}#resources[:sub_res]
+        sub_res = resources[:sub_res]
 
         headers = http_options[:headers] || {}
         headers['user-agent'] = get_user_agent

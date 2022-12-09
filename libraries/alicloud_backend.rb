@@ -1,12 +1,14 @@
-require 'aliyunsdkcore'
+# require 'aliyunsdkcore'
 require 'rspec/expectations'
-require 'oss/client'
+require 'alicloud/oss/client'
 
 # AliCloud Inspec Backend Classes
 #
 # Class to manage the AliCloud connection, instantiates all required clients for inspec resources
 #
 class AliCloudConnection
+  include AliCloud::OSS
+
   def initialize(params)
     params = {} if params.nil?
     if params.is_a?(Hash)
@@ -69,7 +71,7 @@ class AliCloudConnection
     region ||= ENV['ALICLOUD_REGION']
 
     endpoint = "https://oss-#{region}.aliyuncs.com"
-    Aliyun::OSS::Client.new(
+    AliCloud::OSS::Client.new(
       endpoint: endpoint,
       access_key_id: ENV['ALICLOUD_ACCESS_KEY'],
       access_key_secret: ENV['ALICLOUD_SECRET_KEY'],

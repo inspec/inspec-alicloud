@@ -1,6 +1,8 @@
 # -*- encoding: utf-8 -*-
 
-module Aliyun
+require 'alicloud/common/struct'
+
+module AliCloud
   module OSS
 
     ##

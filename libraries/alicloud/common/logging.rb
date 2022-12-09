@@ -2,7 +2,7 @@
 
 require 'logger'
 
-module Aliyun
+module AliCloud
   module Common
     ##
     # Logging support

@@ -3,7 +3,7 @@
 require 'json'
 require 'digest/md5'
 
-module Aliyun
+module AliCloud
   module OSS
 
     ##

@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
-require 'common/struct'
-require 'oss/protocol'
+require 'alicloud/common/struct'
+require 'alicloud/oss/protocol'
 
-module Aliyun
+
+module AliCloud
   module OSS
     ##
     # Bucket是用户的Object相关的操作的client，主要包括三部分功能：
@@ -27,6 +28,10 @@ module Aliyun
         @protocol.get_bucket_acl(name)
       end
 
+      def tagging
+        @protocol.get_bucket_tagging(name)
+      end
+
       # 设置Bucket的ACL
       # @param acl [String] Bucket的{OSS::ACL ACL}
       def acl=(acl)
@@ -49,11 +54,6 @@ module Aliyun
         end
       end
 
-      def tagging
-        require 'pry';binding.pry
-        @protocol.get_bucket_tagging(name)
-      end
-
       # 获取Bucket的versioning配置
       # @return [BucketVersioning] Bucket的versioning配置
       def versioning
@@ -63,7 +63,7 @@ module Aliyun
       # 设置Bucket的versioning配置
       # @param versioning [BucketVersioning] versioning配置
       def versioning=(versioning)
-          @protocol.put_bucket_versioning(name, versioning)
+        @protocol.put_bucket_versioning(name, versioning)
       end
 
       # 获取Bucket的encryption配置
@@ -637,7 +637,7 @@ module Aliyun
             'date' => expires.to_s,
           }
 
-          #query 
+          #query
           if @protocol.get_sts_token
             query['security-token'] = @protocol.get_sts_token
           end
@@ -651,7 +651,7 @@ module Aliyun
           query['Expires'] = expires.to_s
           query['OSSAccessKeyId'] = @protocol.get_access_key_id
           query['Signature'] = signature
-        end  
+        end
 
         query_string = query.map { |k, v| v ? [k, CGI.escape(v)].join("=") : k }.join("&")
         link_char = query_string.empty? ? '' : '?'

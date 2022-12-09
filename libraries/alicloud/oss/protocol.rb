@@ -3,10 +3,11 @@
 require 'rest-client'
 require 'nokogiri'
 require 'time'
-require 'common/logging'
-require 'oss/http'
+require 'alicloud/common/logging'
+require 'alicloud/oss/http'
+require 'alicloud/oss/config'
 
-module Aliyun
+module AliCloud
   module OSS
 
 
@@ -19,7 +20,7 @@ module Aliyun
       STREAM_CHUNK_SIZE = 16 * 1024
       CALLBACK_HEADER = 'x-oss-callback'
 
-      include Common::Logging
+      include AliCloud::Common::Logging
 
       def initialize(config)
         @config = config
@@ -144,6 +145,19 @@ module Aliyun
         doc = parse_xml(r.body)
         acl = get_node_text(doc.at_css("AccessControlList"), 'Grant')
         logger.info("Done get bucket acl")
+
+        acl
+      end
+
+      def get_bucket_tagging(name)
+        logger.info("Begin get bucket acl, name: #{name}")
+
+        sub_res = {'tagging' => nil}
+        r = @http.get({:bucket => name, :sub_res => sub_res})
+
+        doc = parse_xml(r.body)
+        acl = get_node_text(doc.at_css("AccessControlList"), 'Grant')
+        logger.info("Done get bucket tags")
 
         acl
       end
