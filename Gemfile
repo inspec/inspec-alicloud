@@ -9,6 +9,7 @@ gem "inspec-bin"
 gem "aliyunsdkcore"
 gem "aliyun-sdk", "~> 0.8.0"
 gem "train-alicloud"
+gem "rest-client"
 
 group :development do
   gem "pry"

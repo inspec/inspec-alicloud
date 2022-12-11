@@ -235,6 +235,7 @@ module AliCloud
         headers[:params] = (sub_res || {}).merge(http_options[:query] || {})
 
         block_response = ->(r) { handle_response(r, &block) } if block
+
         request = RestClient::Request.new(
           :method => verb,
           :url => get_request_url(bucket, object),
@@ -244,6 +245,7 @@ module AliCloud
           :open_timeout => @config.open_timeout || OPEN_TIMEOUT,
           :read_timeout => @config.read_timeout || READ_TIMEOUT
         )
+
 
         response = request.execute do |resp, &blk|
           if resp.code >= 300
@@ -285,15 +287,15 @@ module AliCloud
   end # OSS
 end # Aliyun
 
-# Monkey patch rest-client to exclude the 'Content-Length' header when
-# 'Transfer-Encoding' is set to 'chuncked'. This may be a problem for
-# some http servers like tengine.
-module RestClient
-  module Payload
-    class Base
-      def headers
-        ({'content-length' => size.to_s} if size) || {}
-      end
-    end
-  end
-end
+# # Monkey patch rest-client to exclude the 'Content-Length' header when
+# # 'Transfer-Encoding' is set to 'chuncked'. This may be a problem for
+# # some http servers like tengine.
+# module RestClient
+#   module Payload
+#     class Base
+#       def headers
+#         ({'content-length' => size.to_s} if size) || {}
+#       end
+#     end
+#   end
+# end

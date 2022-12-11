@@ -74,6 +74,10 @@ module AliCloud
       end
     end
 
+    class BucketTagging < Common::Struct::Base
+      attrs :key, :value
+    end
+
     ##
     # Bucket Versioning setting. See: {http://help.aliyun.com/document_detail/oss/product-documentation/function/versioning.html OSS Bucket versioning}
     # Attributes:
@@ -85,7 +89,7 @@ module AliCloud
     class BucketVersioning < Common::Struct::Base
       attrs :status
     end
-    
+
     ##
     # Bucket Encryption setting. See: {http://help.aliyun.com/document_detail/oss/product-documentation/function/encryption.html OSS Bucket encryption}
     # Attributes:

@@ -66,7 +66,7 @@ class AliCloudConnection
     )
   end
 
-  def aliyun_oss_client_custom
+  def alicloud_oss_client_custom
     region = @client_args.fetch(:region, nil) || ENV['ALICLOUD_REGION'] if @client_args
     region ||= ENV['ALICLOUD_REGION']
 

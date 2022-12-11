@@ -18,14 +18,8 @@ class AliCloudOssBucket < AliCloudResourceBase
 
     @bucket_name = opts[:bucket_name]
 
-    # catch_alicloud_errors do
-    #   @bucket = @alicloud.aliyun_oss_client.get_bucket(opts[:bucket_name])
-    # end
-
     catch_alicloud_errors do
-      @bucket = @alicloud.aliyun_oss_client_custom.get_bucket(opts[:bucket_name])
-      require 'pry';binding.pry
-      @bucket.tagging
+      @bucket = @alicloud.aliyun_oss_client.get_bucket(opts[:bucket_name])
     end
   end
 
@@ -89,6 +83,13 @@ class AliCloudOssBucket < AliCloudResourceBase
     catch_alicloud_errors do
       @bucket_lifecycle_rules ||= @bucket.lifecycle
     end
+  end
+
+  def tagging
+    catch_alicloud_errors do
+      @bucket_custom = @alicloud.alicloud_oss_client_custom.get_bucket(opts[:bucket_name])
+    end
+    @bucket_custom.tagging
   end
 
   def resource_id

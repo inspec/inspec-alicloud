@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-module Aliyun
+module AliCloud
   module Common
 
     ##

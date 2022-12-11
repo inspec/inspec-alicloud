@@ -6,6 +6,7 @@ require 'time'
 require 'alicloud/common/logging'
 require 'alicloud/oss/http'
 require 'alicloud/oss/config'
+require 'alicloud/oss/struct'
 
 module AliCloud
   module OSS
@@ -51,7 +52,7 @@ module AliCloud
         params = {
           'prefix' => opts[:prefix],
           'marker' => opts[:marker],
-          'max-keys' => opts[:limit]
+          'max-keys' => opts[:limit],
         }.reject { |_, v| v.nil? }
 
         r = @http.get( {}, {:query => params})
@@ -63,7 +64,7 @@ module AliCloud
               :name => get_node_text(node, "Name"),
               :location => get_node_text(node, "Location"),
               :creation_time =>
-                get_node_text(node, "CreationDate") { |t| Time.parse(t) }
+                get_node_text(node, "CreationDate") { |t| Time.parse(t) },
             }, self
           )
         end
@@ -73,7 +74,7 @@ module AliCloud
           :limit => 'MaxKeys',
           :marker => 'Marker',
           :next_marker => 'NextMarker',
-          :truncated => 'IsTruncated'
+          :truncated => 'IsTruncated',
         }.reduce({}) { |h, (k, v)|
           value = get_node_text(doc.root, v)
           value.nil?? h : h.merge(k => value)
@@ -82,7 +83,7 @@ module AliCloud
         update_if_exists(
           more, {
             :limit => ->(x) { x.to_i },
-            :truncated => ->(x) { x.to_bool }
+            :truncated => ->(x) { x.to_bool },
           }
         )
 
@@ -138,7 +139,6 @@ module AliCloud
       # @return [String] the acl of this bucket
       def get_bucket_acl(name)
         logger.info("Begin get bucket acl, name: #{name}")
-
         sub_res = {'acl' => nil}
         r = @http.get({:bucket => name, :sub_res => sub_res})
 
@@ -150,16 +150,18 @@ module AliCloud
       end
 
       def get_bucket_tagging(name)
-        logger.info("Begin get bucket acl, name: #{name}")
+        logger.info("Begin get bucket tagging, name: #{name}")
 
         sub_res = {'tagging' => nil}
         r = @http.get({:bucket => name, :sub_res => sub_res})
-
         doc = parse_xml(r.body)
-        acl = get_node_text(doc.at_css("AccessControlList"), 'Grant')
-        logger.info("Done get bucket tags")
+        opts = {
+          :key => get_node_text(doc.at_css("Tagging TagSet Tag"), "Key"),
+          :value => get_node_text(doc.at_css("Tagging TagSet Tag"), "Value"),
+        }
 
-        acl
+        logger.info("Done get bucket tags")
+        BucketTagging.new(opts)
       end
 
       # Put bucket logging settings
@@ -262,7 +264,7 @@ module AliCloud
 
         versioning_node = doc.at_css("VersioningConfiguration")
         opts = {
-          :status => get_node_text(versioning_node, 'Status')
+          :status => get_node_text(versioning_node, 'Status'),
         }
 
         logger.info("Done get bucket versioning")
@@ -308,7 +310,7 @@ module AliCloud
         encryption_node = doc.at_css("ApplyServerSideEncryptionByDefault")
         opts = {
           :sse_algorithm => get_node_text(encryption_node, 'SSEAlgorithm'),
-          :kms_master_key_id => get_node_text(encryption_node, 'KMSMasterKeyID')
+          :kms_master_key_id => get_node_text(encryption_node, 'KMSMasterKeyID'),
         }
 
         logger.info("Done get bucket encryption")
@@ -430,7 +432,7 @@ module AliCloud
         opts = {
           :allow_empty =>
             get_node_text(doc.root, 'AllowEmptyReferer', &:to_bool),
-          :whitelist => doc.css("RefererList Referer").map(&:text)
+          :whitelist => doc.css("RefererList Referer").map(&:text),
         }
 
         logger.info("Done get bucket referer")
@@ -772,7 +774,7 @@ module AliCloud
           'delimiter' => opts[:delimiter],
           'marker' => opts[:marker],
           'max-keys' => opts[:limit],
-          'encoding-type' => opts[:encoding]
+          'encoding-type' => opts[:encoding],
         }.reject { |_, v| v.nil? }
 
         r = @http.get({:bucket => bucket_name}, {:query => params})
@@ -797,7 +799,7 @@ module AliCloud
           :marker => 'Marker',
           :next_marker => 'NextMarker',
           :truncated => 'IsTruncated',
-          :encoding => 'EncodingType'
+          :encoding => 'EncodingType',
         }.reduce({}) { |h, (k, v)|
           value = get_node_text(doc.root, v)
           value.nil?? h : h.merge(k => value)
@@ -809,7 +811,7 @@ module AliCloud
             :truncated => ->(x) { x.to_bool },
             :delimiter => ->(x) { decode_key(x, encoding) },
             :marker => ->(x) { decode_key(x, encoding) },
-            :next_marker => ->(x) { decode_key(x, encoding) }
+            :next_marker => ->(x) { decode_key(x, encoding) },
           }
         )
 
@@ -1007,14 +1009,14 @@ module AliCloud
         headers = {
           'x-oss-copy-source' =>
             @http.get_resource_path(src_bucket, src_object_name),
-          'content-type' => opts[:content_type]
+          'content-type' => opts[:content_type],
         }
         (opts[:metas] || {})
           .each { |k, v| headers["x-oss-meta-#{k.to_s}"] = v.to_s }
 
         {
           :acl => 'x-oss-object-acl',
-          :meta_directive => 'x-oss-metadata-directive'
+          :meta_directive => 'x-oss-metadata-directive',
         }.each { |k, v| headers[v] = opts[k] if opts[k] }
 
         headers.merge!(get_copy_conditions(opts[:condition])) if opts[:condition]
@@ -1027,7 +1029,7 @@ module AliCloud
         copy_result = {
           :last_modified => get_node_text(
             doc.root, 'LastModified') { |x| Time.parse(x) },
-          :etag => get_node_text(doc.root, 'ETag')
+          :etag => get_node_text(doc.root, 'ETag'),
         }.reject { |_, v| v.nil? }
 
         logger.debug("Done copy object")
@@ -1151,7 +1153,7 @@ module AliCloud
         h = {
           'origin' => origin,
           'access-control-request-method' => method,
-          'access-control-request-headers' => headers.join(',')
+          'access-control-request-headers' => headers.join(','),
         }
 
         r = @http.options(
@@ -1273,7 +1275,7 @@ module AliCloud
         src_bucket = opts[:src_bucket] || bucket_name
         headers = {
           'x-oss-copy-source' =>
-            @http.get_resource_path(src_bucket, source_object)
+            @http.get_resource_path(src_bucket, source_object),
         }
         headers['range'] = get_bytes_range(range) if range
         headers.merge!(get_copy_conditions(conditions)) if conditions
@@ -1392,7 +1394,7 @@ module AliCloud
           'upload-id-marker' => opts[:id_marker],
           'key-marker' => opts[:key_marker],
           'max-uploads' => opts[:limit],
-          'encoding-type' => opts[:encoding]
+          'encoding-type' => opts[:encoding],
         }.reject { |_, v| v.nil? }
 
         r = @http.get(
@@ -1419,7 +1421,7 @@ module AliCloud
           :key_marker => 'KeyMarker',
           :next_key_marker => 'NextKeyMarker',
           :truncated => 'IsTruncated',
-          :encoding => 'EncodingType'
+          :encoding => 'EncodingType',
         }.reduce({}) { |h, (k, v)|
           value = get_node_text(doc.root, v)
           value.nil?? h : h.merge(k => value)
@@ -1430,7 +1432,7 @@ module AliCloud
             :limit => ->(x) { x.to_i },
             :truncated => ->(x) { x.to_bool },
             :key_marker => ->(x) { decode_key(x, encoding) },
-            :next_key_marker => ->(x) { decode_key(x, encoding) }
+            :next_key_marker => ->(x) { decode_key(x, encoding) },
           }
         )
 
@@ -1461,7 +1463,7 @@ module AliCloud
         params = {
           'part-number-marker' => opts[:marker],
           'max-parts' => opts[:limit],
-          'encoding-type' => opts[:encoding]
+          'encoding-type' => opts[:encoding],
         }.reject { |_, v| v.nil? }
 
         r = @http.get(
@@ -1483,7 +1485,7 @@ module AliCloud
           :marker => 'PartNumberMarker',
           :next_marker => 'NextPartNumberMarker',
           :truncated => 'IsTruncated',
-          :encoding => 'EncodingType'
+          :encoding => 'EncodingType',
         }.reduce({}) { |h, (k, v)|
           value = get_node_text(doc.root, v)
           value.nil?? h : h.merge(k => value)
@@ -1492,7 +1494,7 @@ module AliCloud
         update_if_exists(
           more, {
             :limit => ->(x) { x.to_i },
-            :truncated => ->(x) { x.to_bool }
+            :truncated => ->(x) { x.to_bool },
           }
         )
 
@@ -1614,7 +1616,7 @@ module AliCloud
         }.merge(
           {
             :if_match_etag => 'if-match',
-            :if_unmatch_etag => 'if-none-match'
+            :if_unmatch_etag => 'if-none-match',
           }.reduce({}) { |h, (k, v)|
             conditions.key?(k)? h.merge(v => conditions[k]) : h
           }
@@ -1633,7 +1635,7 @@ module AliCloud
         }.merge(
           {
             :if_match_etag => 'x-oss-copy-source-if-match',
-            :if_unmatch_etag => 'x-oss-copy-source-if-none-match'
+            :if_unmatch_etag => 'x-oss-copy-source-if-none-match',
           }.reduce({}) { |h, (k, v)|
             conditions.key?(k)? h.merge(v => conditions[k]) : h
           }
