@@ -90,7 +90,7 @@ module AliCloud
         end
       end
 
-      include AliCloud::Common::Logging
+      include Aliyun::Common::Logging
 
       def initialize(config)
         @config = config
@@ -283,19 +283,6 @@ module AliCloud
         "aliyun-sdk-ruby/#{VERSION} ruby-#{RUBY_VERSION}/#{RUBY_PLATFORM}"
       end
 
-    end # HTTP
-  end # OSS
-end # Aliyun
-
-# # Monkey patch rest-client to exclude the 'Content-Length' header when
-# # 'Transfer-Encoding' is set to 'chuncked'. This may be a problem for
-# # some http servers like tengine.
-# module RestClient
-#   module Payload
-#     class Base
-#       def headers
-#         ({'content-length' => size.to_s} if size) || {}
-#       end
-#     end
-#   end
-# end
+    end
+  end
+end

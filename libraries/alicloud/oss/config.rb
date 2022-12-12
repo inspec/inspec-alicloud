@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-
 require 'alicloud/common/struct'
 
 module AliCloud
@@ -39,6 +38,6 @@ module AliCloud
         @endpoint = uri
       end
 
-    end # Config
-  end # OSS
-end # Aliyun
+    end
+  end
+end

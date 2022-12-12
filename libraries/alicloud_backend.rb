@@ -1,4 +1,5 @@
-# require 'aliyunsdkcore'
+require 'aliyunsdkcore'
+require 'aliyun/oss'
 require 'rspec/expectations'
 require 'alicloud/oss/client'
 
@@ -7,7 +8,7 @@ require 'alicloud/oss/client'
 # Class to manage the AliCloud connection, instantiates all required clients for inspec resources
 #
 class AliCloudConnection
-  include AliCloud::OSS
+  # include AliCloud::OSS
 
   def initialize(params)
     params = {} if params.nil?

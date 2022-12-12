@@ -69,6 +69,6 @@ module AliCloud
 
       end # Part
 
-    end # Multipart
-  end # OSS
-end # Aliyun
+    end
+  end
+end

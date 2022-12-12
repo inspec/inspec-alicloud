@@ -19,7 +19,7 @@ module AliCloud
 
       class << self
 
-        include AliCloud::Common::Logging
+        include Aliyun::Common::Logging
 
         # Calculate request signatures
         def get_signature(key, verb, headers, resources)
@@ -99,10 +99,10 @@ module AliCloud
           end
         end  
 
-      end # self
-    end # Util
-  end # OSS
-end # Aliyun
+      end
+    end
+  end
+end
 
 # Monkey patch to support #to_bool
 class String
