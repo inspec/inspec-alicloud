@@ -11,7 +11,6 @@ alicloud_disk_delete_auto_snapshot = input(:alicloud_disk_delete_auto_snapshot, 
 title 'Test single AliCloud Disk'
 
 control 'alicloud-disk-1.0' do
-  impact 1.0
   title 'Ensure AliCloud Disk has the correct properties.'
 
   describe alicloud_disk(disk_id: 'd-nosuchdisk') do

@@ -3,7 +3,6 @@ alicloud_rds_db_id = input(:alicloud_rds_db_id, value: '', description: 'The Ali
 title 'Test multiple AliCloud ApsaraDB RDS Instances'
 
 control 'alicloud-apsaradb-rds-instances-1.0' do
-  impact 1.0
   title 'Ensure AliCloud ApsaraDB RDS Instances have the correct properties.'
 
   describe alicloud_apsaradb_rds_instances do

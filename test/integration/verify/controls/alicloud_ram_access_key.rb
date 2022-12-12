@@ -4,7 +4,6 @@ alicloud_ram_access_key_id = input(:alicloud_ram_access_key_id, value: '', descr
 title 'Test AliCloud access key'
 
 control 'alicloud-access-key-1.0' do
-  impact 1.0
   title 'Ensure AliCloud access key library has correct properties'
 
   describe alicloud_access_key(ENV['ALICLOUD_ACCESS_KEY']) do

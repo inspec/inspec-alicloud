@@ -4,7 +4,6 @@ alicloud_ram_policy_name = attribute(:alicloud_ram_policy_name, value: '', descr
 alicloud_ram_attached_policy_name_1 = attribute(:alicloud_ram_attached_policy_name_1, value: '', description: 'The AliCloud RAM Attached Policy 1 name.')
 
 control 'alicloud-ram-policies-1.0' do
-  impact 1.0
   title 'Ensure AliCloud RAM Policies have the correct properties.'
 
   describe alicloud_ram_policies do

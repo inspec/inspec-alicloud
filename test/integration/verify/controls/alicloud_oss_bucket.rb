@@ -11,7 +11,6 @@ alicloud_bucket_versioning_name = input(:alicloud_bucket_versioning_name, value:
 alicloud_bucket_website_name = input(:alicloud_bucket_website_name, value: '', description: '')
 
 control 'alicloud-ossbucket-1.0' do
-  impact 1.0
   title 'Ensure AliCloud OSS Bucket has the correct properties.'
 
   describe alicloud_oss_bucket('not-there-bucket') do

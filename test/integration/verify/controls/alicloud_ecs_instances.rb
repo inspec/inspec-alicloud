@@ -3,7 +3,6 @@ alicloud_instance_id = input(:alicloud_instance_id, value: '', description: 'Ali
 title 'Test AliCloud ECS Group resource'
 
 control 'alicloud-instances-1.0' do
-  impact 1.0
   title 'Ensure AliCloud ECS Instances Class has correct attributes'
 
   describe alicloud_ecs_instances do  # gets region from env var

@@ -3,7 +3,6 @@ alicloud_slb_https_id = input(:alicloud_slb_https_id, value: '', description: 'A
 title 'Test single AliCloud Server Load Balance HTTPS Listener'
 
 control 'alicloud_slb_https_listener-1.0' do
-  impact 1.0
   title 'Ensure AliCloud Server Load Balancer has the correct properties.'
 
   describe alicloud_slb_https_listener(slb_id: alicloud_slb_https_id, listener_port: 443) do

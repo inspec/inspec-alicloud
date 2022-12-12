@@ -3,7 +3,6 @@ title 'Test AliCloud ActionTrails in bulk'
 alicloud_action_trail_name = input(:alicloud_action_trail_name, value: '', description: 'Action trail name')
 
 control 'alicloud-actiontrails-1.0' do
-  impact 1.0
   title 'Ensure AliCloud ActionTrail plural resource has the correct properties.'
 
   describe alicloud_actiontrail_trails do

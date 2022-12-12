@@ -4,7 +4,6 @@ alicloud_ram_role_name = input(:alicloud_ram_role_name, value: '', description: 
 title 'Test single AliCloud ECS Instance'
 
 control 'alicloud-instance-1.0' do
-  impact 1.0
   title 'Ensure AliCloud ECS Instance Class has correct attributes'
 
   describe alicloud_ecs_instance(instance_id: alicloud_instance_id) do # gets region from env var

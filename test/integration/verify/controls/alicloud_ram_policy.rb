@@ -8,7 +8,6 @@ alicloud_ram_group_name = input(:alicloud_ram_group_name, value: '', description
 alicloud_ram_role_arn = input(:alicloud_ram_role_arn, value: '', description: 'The AliCloud RAM Role ARN.')
 
 control 'alicloud-ram-policy-1.0' do
-  impact 1.0
   title 'Ensure AliCloud RAM Policy has the correct properties.'
 
   describe alicloud_ram_policy(policy_name: 'DoesNotExist') do
