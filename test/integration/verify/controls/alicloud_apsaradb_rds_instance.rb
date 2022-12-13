@@ -9,7 +9,6 @@ alicloud_rds_security_ips = input(:alicloud_vpc_cidr, value: '', description: 'T
 
 title 'Test single AliCloud ApsaraDB RDS Instance'
 control 'alicloud-apsaradb-rds-instance-1.0' do
-  impact 1.0
   title 'Ensure AliCloud ApsaraDB RDS Instance has the correct properties.'
 
   describe alicloud_apsaradb_rds_instance(db_instance_id: alicloud_rds_db_id) do

@@ -1,7 +1,6 @@
 title 'Test AliCloud Server Load Balancers in bulk'
 
 control 'alicloud-slbs-1.0' do
-  impact 1.0
   title 'Ensure AliCloud server load balancers plural resource has the correct properties.'
 
   # Verify that you have server load balancers defined

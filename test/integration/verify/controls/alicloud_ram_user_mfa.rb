@@ -5,7 +5,6 @@
 title 'Test AliCloud RAM User MFA'
 
 control 'alicloud-ram-user-mfa-1.0' do
-  impact 1.0
   title 'Ensure AliCloud RAM user MFA library has correct properties'
 
   # describe alicloud_ram_user_mfa(alicloud_ram_user_name) do

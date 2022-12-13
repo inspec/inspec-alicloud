@@ -1,7 +1,6 @@
 title 'Test AliCloud Regions in bulk'
 
 control 'alicloud-regions-1.0' do
-  impact 1.0
   title 'Ensure AliCloud regions plural resource has the correct properties.'
 
   describe alicloud_regions do

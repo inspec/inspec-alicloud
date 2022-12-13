@@ -7,7 +7,6 @@ alicloud_ram_user_name_2 = input(:alicloud_ram_user_name_2, value: '', descripti
 title 'Test single AliCloud RAM user'
 
 control 'alicloud-ram-user-1.0' do
-  impact 1.0
   title 'Ensure AliCloud RAM user library has correct properties'
 
   describe alicloud_ram_user(alicloud_ram_user_name) do

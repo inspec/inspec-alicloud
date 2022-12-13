@@ -4,7 +4,6 @@ alicloud_region_exists = input(:alicloud_region_exists, value: '', description: 
 alicloud_region_endpoint_exists = input(:alicloud_region_endpoint_exists, value: '', description: 'An AliCloud region endpoint.')
 
 control 'alicloud-region-1.0' do
-  impact 1.0
   title 'Ensure AliCloud region has the correct properties.'
 
   describe alicloud_region(region_name: alicloud_region_exists) do

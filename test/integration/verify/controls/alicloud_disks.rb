@@ -1,7 +1,6 @@
 title 'Test AliCloud Disk in bulk'
 
 control 'alicloud-disks-1.0' do
-  impact 1.0
   title 'Ensure AliCloud disk plural resource has the correct properties.'
 
   # Verify that you have disks defined

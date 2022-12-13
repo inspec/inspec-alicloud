@@ -4,7 +4,6 @@ alicloud_ram_user_name_2 = input(:alicloud_ram_user_name_2, value: '', descripti
 title 'Test AliCloud RAM plural users'
 
 control 'AliCloud-ram-users-1.0' do
-  impact 1.0
   title 'Ensure AliCloud RAM user list library has correct properties'
 
   describe alicloud_ram_users do

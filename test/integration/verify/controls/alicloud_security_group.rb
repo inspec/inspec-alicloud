@@ -10,7 +10,6 @@ alicloud_security_group_rule_cidr_not_in = input(:alicloud_security_group_rule_c
 title 'Test single AliCloud Security Groups'
 
 control 'alicloud-security-group-1.0' do
-  impact 1.0
   title 'Ensure AliCloud security group has the correct properties.'
 
   describe alicloud_security_group(group_id: 'no-such-security-group') do
