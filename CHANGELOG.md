@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.10.14 -->
+<!-- latest_release 0.10.15 -->
+## [v0.10.15](https://github.com/inspec/inspec-alicloud/tree/v0.10.15) (2022-12-13)
+
+#### Merged Pull Requests
+- RESOURCE-560 Remove the impact from the controls in inspec-alicloud [#96](https://github.com/inspec/inspec-alicloud/pull/96) ([soumyo13](https://github.com/soumyo13))
+<!-- latest_release -->
+
 ## [v0.10.14](https://github.com/inspec/inspec-alicloud/tree/v0.10.14) (2022-12-06)
 
 #### Merged Pull Requests
 - RESOURCE-542 Remove frozen string literal from inspec alicloud [#95](https://github.com/inspec/inspec-alicloud/pull/95) ([soumyo13](https://github.com/soumyo13))
-<!-- latest_release -->
 
 ## [v0.10.13](https://github.com/inspec/inspec-alicloud/tree/v0.10.13) (2022-12-02)
 
