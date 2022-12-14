@@ -89,7 +89,7 @@ class AliCloudOssBucket < AliCloudResourceBase
     catch_alicloud_errors do
       @bucket_custom = @alicloud.alicloud_oss_client_custom.get_bucket(opts[:bucket_name])
     end
-    @bucket_custom.tagging
+    @bucket_custom.tagging.to_s
   end
 
   def resource_id

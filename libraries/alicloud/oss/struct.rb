@@ -8,7 +8,10 @@ module AliCloud
   module OSS
     class BucketTagging < Common::Struct::Base
       attrs :key, :value
-    end
 
+      def to_s
+        {"#{@key}":"#{@value}"}
+      end
+    end
   end
 end
