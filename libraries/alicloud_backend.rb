@@ -67,6 +67,10 @@ class AliCloudConnection
     )
   end
 
+  # Get AliCloud custom client for providing additional support
+  # for the apis not provided under AliCloud sdk
+  # This client use rest api's to make a request.
+  # @return instance of [AliCloud::OSS::Client]
   def alicloud_oss_client_custom
     region = @client_args.fetch(:region, nil) || ENV['ALICLOUD_REGION'] if @client_args
     region ||= ENV['ALICLOUD_REGION']

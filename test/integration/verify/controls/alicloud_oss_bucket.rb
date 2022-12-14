@@ -25,7 +25,7 @@ control 'alicloud-ossbucket-1.0' do
   describe alicloud_oss_bucket(bucket_name: alicloud_action_trail_bucket_id) do
     it { should exist }
     it { should_not be_public }
-    its("tagging") { should eq "{:Name=>'soumyo'}" }
+    its("tags") { should eq "{:Name=>'soumyo'}" }
   end
 
   describe alicloud_oss_bucket(bucket_name: alicloud_bucket_acl_name) do
