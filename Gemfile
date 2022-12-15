@@ -1,22 +1,20 @@
-# frozen_string_literal: true
-
 source "https://rubygems.org"
 
 gem "bundle"
 
 # Use Latest Inspec
-gem "inspec-bin"
-gem "aliyunsdkcore"
 gem "aliyun-sdk", "~> 0.8.0"
+gem "aliyunsdkcore"
+gem "inspec-bin"
 gem "train-alicloud"
 
 group :development do
-  gem "pry"
   gem "bundler"
   gem "byebug"
+  gem "chefstyle"
+  gem "m"
   gem "minitest"
   gem "mocha"
-  gem "m"
+  gem "pry"
   gem "rake"
-  gem "chefstyle"
 end

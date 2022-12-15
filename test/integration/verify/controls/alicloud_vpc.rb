@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 title 'Test single AliCloud VPC'
 
 alicloud_vpc_id = input(:alicloud_vpc_id, value: '', description: 'AliCloud VPC ID')
@@ -10,7 +8,6 @@ alicloud_vpc_vswitch_id = input(:alicloud_vswitch_id, value: '', description: 'A
 alicloud_vpc_vrouter_id = input(:alicloud_vrouter_id, value: '', description: 'AliCloud VRouter ID')
 
 control 'alicloud-vpc-1.0' do
-  impact 1.0
   title 'Ensure AliCloud VPC has the correct properties.'
 
   describe alicloud_vpc(alicloud_vpc_id) do

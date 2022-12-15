@@ -1,14 +1,10 @@
-# frozen_string_literal: true
-
 title 'Test a collection of AliCloud RAM Policies'
 
-alicloud_ram_policy_name = attribute(:alicloud_ram_policy_name, value: '', description: 'The Alicloud RAM Policy name.')
-alicloud_ram_attached_policy_name_1 = attribute(:alicloud_ram_attached_policy_name_1, value: '',
-                                                                                      description: 'The Alicloud RAM Attached Policy 1 name.')
+alicloud_ram_policy_name = attribute(:alicloud_ram_policy_name, value: '', description: 'The AliCloud RAM Policy name.')
+alicloud_ram_attached_policy_name_1 = attribute(:alicloud_ram_attached_policy_name_1, value: '', description: 'The AliCloud RAM Attached Policy 1 name.')
 
 control 'alicloud-ram-policies-1.0' do
-  impact 1.0
-  title 'Ensure AliCLoud RAM Policies have the correct properties.'
+  title 'Ensure AliCloud RAM Policies have the correct properties.'
 
   describe alicloud_ram_policies do
     it { should exist }

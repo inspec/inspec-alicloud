@@ -1,9 +1,6 @@
-# frozen_string_literal: true
-
 title 'Test AliCloud Security Groups in bulk'
 
 control 'alicloud-security-groups-1.0' do
-  impact 1.0
   title 'Ensure AliCloud security group plural resource has the correct properties.'
 
   # Verify that you have security groups defined

@@ -1,20 +1,15 @@
-# frozen_string_literal: true
+alicloud_rds_db_id = input(:alicloud_rds_db_id, value: '', description: 'The AliCloud RDS DB identifier.')
+alicloud_rds_db_name = input(:alicloud_rds_db_name, value: '', description: 'The AliCloud RDS DB name.')
+alicloud_rds_db_engine = input(:alicloud_rds_db_engine, value: '', description: 'The AliCloud RDS DB engine.')
+alicloud_rds_db_engine_version = input(:alicloud_rds_db_engine_version, value: '', description: 'The AliCloud RDS DB engine version.')
+alicloud_rds_storage = input(:alicloud_rds_storage, value: '', description: 'The AliCloud RDS allocated storage.')
+alicloud_rds_instance_type = input(:alicloud_rds_instance_type, value: '', description: 'The AliCloud RDS instance type.')
+alicloud_rds_vpc_id = input(:alicloud_vpc_id, value: '', description: 'The AliCloud VPC ID for the DB.')
+alicloud_rds_security_ips = input(:alicloud_vpc_cidr, value: '', description: 'The AliCloud RDS security IPs.')
 
-alicloud_rds_db_id = attribute(:alicloud_rds_db_id, value: '', description: 'The Alicloud RDS DB identifier.')
-alicloud_rds_db_name = attribute(:alicloud_rds_db_name, value: '', description: 'The Alicloud RDS DB name.')
-alicloud_rds_db_engine = attribute(:alicloud_rds_db_engine, value: '', description: 'The Alicloud RDS DB engine.')
-alicloud_rds_db_engine_version = attribute(:alicloud_rds_db_engine_version, value: '',
-                                                                            description: 'The Alicloud RDS DB engine version.')
-alicloud_rds_storage = attribute(:alicloud_rds_storage, value: '', description: 'The Alicloud RDS allocated storage.')
-alicloud_rds_instance_type = attribute(:alicloud_rds_instance_type, value: '',
-                                                                    description: 'The Alicloud RDS instance type.')
-alicloud_rds_vpc_id = attribute(:alicloud_vpc_id, value: '', description: 'The Alicloud VPC ID for the DB.')
-alicloud_rds_security_ips = attribute(:alicloud_vpc_cidr, value: '', description: 'The Alicloud RDS security IPs.')
-
-title 'Test single Alicloud ApsaraDB RDS Instance'
+title 'Test single AliCloud ApsaraDB RDS Instance'
 control 'alicloud-apsaradb-rds-instance-1.0' do
-  impact 1.0
-  title 'Ensure Alicloud ApsaraDB RDS Instance has the correct properties.'
+  title 'Ensure AliCloud ApsaraDB RDS Instance has the correct properties.'
 
   describe alicloud_apsaradb_rds_instance(db_instance_id: alicloud_rds_db_id) do
     it { should exist }

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Configuration helper for AliCloud & Inspec
 # - Terraform expects a JSON variable file
 # - Inspec expects a YAML attribute file

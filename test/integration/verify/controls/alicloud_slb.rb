@@ -1,12 +1,9 @@
-# frozen_string_literal: true
-
 alicloud_slb_http_id = input(:alicloud_slb_http_id, value: '', description: 'AliCloud slb http ID.')
 alicloud_slb_https_id = input(:alicloud_slb_https_id, value: '', description: 'AliCloud slb https ID.')
 
 title 'Test single AliCloud Server Load Balancer'
 
 control 'alicloud-slb-1.0' do
-  impact 1.0
   title 'Ensure AliCloud Server Load Balancer has the correct properties.'
 
   describe alicloud_slb(slb_id: 'no-such-slb') do
