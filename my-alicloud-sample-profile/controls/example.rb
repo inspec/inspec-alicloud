@@ -10,7 +10,7 @@ control 'ali-cloud-instances-1.0' do
 
   describe alicloud_oss_bucket(bucket_name: 'soumyo') do
     it { should exist }
-    its("tagging") { should eq "{\"name\":\"soumyo\"}"}
+    its("tagging") { should eq "{\"name\":\"soumyo\"}" }
   end
 end
 

@@ -25,13 +25,14 @@ module AliCloud
         end
 
         private
+
         # Persist transaction states to file
         def write_checkpoint(states, file)
           md5= Util.get_content_md5(states.to_json)
 
           @mutex.synchronize {
-            File.open(file, 'wb') {
-              |f| f.write(states.merge(md5: md5).to_json)
+            File.open(file, 'wb') { |f|
+              f.write(states.merge(md5: md5).to_json)
             }
           }
         end
@@ -46,9 +47,9 @@ module AliCloud
           states = Util.symbolize(states)
           md5 = states.delete(:md5)
 
-          fail CheckpointBrokenError, "Missing MD5 in checkpoint." unless md5
+          raise CheckpointBrokenError, "Missing MD5 in checkpoint." unless md5
           unless md5 == Util.get_content_md5(states.to_json)
-            fail CheckpointBrokenError, "Unmatched checkpoint MD5."
+            raise CheckpointBrokenError, "Unmatched checkpoint MD5."
           end
 
           states

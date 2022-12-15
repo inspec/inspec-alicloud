@@ -7,16 +7,15 @@ module AliCloud
 
     class Client
 
-
       def initialize(opts)
-        fail ClientError, "Endpoint must be provided" unless opts[:endpoint]
+        raise ClientError, "Endpoint must be provided" unless opts[:endpoint]
         @config = Config.new(opts)
         @protocol = Protocol.new(@config)
       end
 
       def get_bucket(name)
         Util.ensure_bucket_name_valid(name)
-        Bucket.new({:name => name}, @protocol)
+        Bucket.new({ name: name }, @protocol)
       end
 
     end

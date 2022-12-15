@@ -24,7 +24,7 @@ module AliCloud
       class Base
         module AttrHelper
           def attrs(*s)
-            define_method(:attrs) {s}
+            define_method(:attrs) { s }
             attr_reader(*s)
           end
         end
@@ -34,7 +34,7 @@ module AliCloud
         def initialize(opts = {})
           extra_keys = opts.keys - attrs
           unless extra_keys.empty?
-            fail Common::Exception,
+            raise Common::Exception,
                  "Unexpected extra keys: #{extra_keys.join(', ')}"
           end
 
@@ -46,7 +46,7 @@ module AliCloud
         def to_s
           attrs.map do |attr|
             v = instance_variable_get("@#{attr}")
-            "#{attr.to_s}: #{v}"
+            "#{attr}: #{v}"
           end.join(", ")
         end
       end # Base

@@ -15,7 +15,7 @@ module AliCloud
     module Util
 
       # Prefix for OSS specific HTTP headers
-      HEADER_PREFIX = "x-oss-"
+      HEADER_PREFIX = "x-oss-".freeze
 
       class << self
 
@@ -53,7 +53,8 @@ module AliCloud
           logger.debug("String to sign: #{string_to_sign}")
 
           Base64.strict_encode64(
-            OpenSSL::HMAC.digest('sha1', key, string_to_sign))
+            OpenSSL::HMAC.digest('sha1', key, string_to_sign),
+          )
         end
 
         # Calculate content md5
@@ -78,26 +79,26 @@ module AliCloud
 
         # Get a crc value of the data
         def crc(data, init_crc = 0)
-          CrcX::crc64(init_crc, data, data.size)
+          CrcX.crc64(init_crc, data, data.size)
         end
 
-        # Calculate a value of the crc1 combine with crc2. 
+        # Calculate a value of the crc1 combine with crc2.
         def crc_combine(crc1, crc2, len2)
-          CrcX::crc64_combine(crc1, crc2, len2)
+          CrcX.crc64_combine(crc1, crc2, len2)
         end
 
         def crc_check(crc_a, crc_b, operation)
           if crc_a.nil? || crc_b.nil? || crc_a.to_i != crc_b.to_i
             logger.error("The crc of #{operation} between client and oss is not inconsistent. crc_a=#{crc_a} crc_b=#{crc_b}")
-            fail CrcInconsistentError.new("The crc of #{operation} between client and oss is not inconsistent.")
+            raise CrcInconsistentError.new("The crc of #{operation} between client and oss is not inconsistent.")
           end
         end
 
         def ensure_bucket_name_valid(name)
-          unless (name =~ %r|^[a-z0-9][a-z0-9-]{1,61}[a-z0-9]$|)
-            fail ClientError, "The bucket name is invalid."
+          unless name =~ /^[a-z0-9][a-z0-9-]{1,61}[a-z0-9]$/
+            raise ClientError, "The bucket name is invalid."
           end
-        end  
+        end
 
       end
     end

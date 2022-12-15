@@ -10,7 +10,6 @@ require 'alicloud/oss/struct'
 module AliCloud
   module OSS
 
-
     ##
     # Protocol implement the OSS Open API which is low-level. User
     # should refer to {OSS::Client} for normal use.
@@ -18,7 +17,7 @@ module AliCloud
     class Protocol
 
       STREAM_CHUNK_SIZE = 16 * 1024
-      CALLBACK_HEADER = 'x-oss-callback'
+      CALLBACK_HEADER = 'x-oss-callback'.freeze
 
       include Aliyun::Common::Logging
 
@@ -30,12 +29,12 @@ module AliCloud
       def get_bucket_tagging(name)
         logger.info("Begin get bucket tagging, name: #{name}")
 
-        sub_res = {'tagging' => nil}
-        r = @http.get({:bucket => name, :sub_res => sub_res})
+        sub_res = { 'tagging' => nil }
+        r = @http.get({ bucket: name, sub_res: sub_res })
         doc = parse_xml(r.body)
         opts = {
-          :key => get_node_text(doc.at_css("Tagging TagSet Tag"), "Key"),
-          :value => get_node_text(doc.at_css("Tagging TagSet Tag"), "Value"),
+          key: get_node_text(doc.at_css("Tagging TagSet Tag"), "Key"),
+          value: get_node_text(doc.at_css("Tagging TagSet Tag"), "Value"),
         }
 
         logger.info("Done get bucket tags")
@@ -68,7 +67,7 @@ module AliCloud
       # @return [String] the access key secret
       def get_access_key_secret
         @config.access_key_secret
-      end  
+      end
 
       # Get user's STS token
       # @return [String] the STS token
@@ -115,11 +114,11 @@ module AliCloud
         return key unless encoding
 
         unless KeyEncoding.include?(encoding)
-          fail ClientError, "Unsupported key encoding: #{encoding}"
+          raise ClientError, "Unsupported key encoding: #{encoding}"
         end
 
         if encoding == KeyEncoding::URL
-          return CGI.unescape(key)
+          CGI.unescape(key)
         end
       end
 
@@ -136,17 +135,17 @@ module AliCloud
       # @return [Hash] conditions for HTTP headers
       def get_conditions(conditions)
         {
-          :if_modified_since => 'if-modified-since',
-          :if_unmodified_since => 'if-unmodified-since',
+          if_modified_since: 'if-modified-since',
+          if_unmodified_since: 'if-unmodified-since',
         }.reduce({}) { |h, (k, v)|
           conditions.key?(k)? h.merge(v => conditions[k].httpdate) : h
         }.merge(
           {
-            :if_match_etag => 'if-match',
-            :if_unmatch_etag => 'if-none-match',
+            if_match_etag: 'if-match',
+            if_unmatch_etag: 'if-none-match',
           }.reduce({}) { |h, (k, v)|
             conditions.key?(k)? h.merge(v => conditions[k]) : h
-          }
+          },
         )
       end
 
@@ -155,17 +154,17 @@ module AliCloud
       # @return [Hash] copy conditions for HTTP headers
       def get_copy_conditions(conditions)
         {
-          :if_modified_since => 'x-oss-copy-source-if-modified-since',
-          :if_unmodified_since => 'x-oss-copy-source-if-unmodified-since',
+          if_modified_since: 'x-oss-copy-source-if-modified-since',
+          if_unmodified_since: 'x-oss-copy-source-if-unmodified-since',
         }.reduce({}) { |h, (k, v)|
           conditions.key?(k)? h.merge(v => conditions[k].httpdate) : h
         }.merge(
           {
-            :if_match_etag => 'x-oss-copy-source-if-match',
-            :if_unmatch_etag => 'x-oss-copy-source-if-none-match',
+            if_match_etag: 'x-oss-copy-source-if-match',
+            if_unmatch_etag: 'x-oss-copy-source-if-none-match',
           }.reduce({}) { |h, (k, v)|
             conditions.key?(k)? h.merge(v => conditions[k]) : h
-          }
+          },
         )
       end
 
@@ -174,9 +173,9 @@ module AliCloud
       # @return [String] bytes range for HTTP headers
       def get_bytes_range(range)
         if range &&
-           (!range.is_a?(Array) || range.size != 2 ||
-            !range.at(0).is_a?(Integer) || !range.at(1).is_a?(Integer))
-          fail ClientError, "Range must be an array containing 2 Integers."
+            (!range.is_a?(Array) || range.size != 2 ||
+             !range.at(0).is_a?(Integer) || !range.at(1).is_a?(Integer))
+          raise ClientError, "Range must be an array containing 2 Integers."
         end
 
         "bytes=#{range.at(0)}-#{range.at(1) - 1}"

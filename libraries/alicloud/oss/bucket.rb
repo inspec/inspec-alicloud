@@ -2,7 +2,6 @@
 require 'alicloud/common/struct'
 require 'alicloud/oss/protocol'
 
-
 module AliCloud
   module OSS
 

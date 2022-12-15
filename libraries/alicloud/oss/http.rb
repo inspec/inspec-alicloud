@@ -9,9 +9,9 @@ module AliCloud
 
     class HTTP
 
-      DEFAULT_CONTENT_TYPE = 'application/octet-stream'
-      DEFAULT_ACCEPT_ENCODING = 'identity'
-      STS_HEADER = 'x-oss-security-token'
+      DEFAULT_CONTENT_TYPE = 'application/octet-stream'.freeze
+      DEFAULT_ACCEPT_ENCODING = 'identity'.freeze
+      STS_HEADER = 'x-oss-security-token'.freeze
       OPEN_TIMEOUT = 10
       READ_TIMEOUT = 120
 
@@ -34,7 +34,7 @@ module AliCloud
           ret = ""
           loop do
             if bytes
-              fail if bytes < 0
+              raise if bytes < 0
               piece = @buffer.slice!(0, bytes)
               if piece
                 ret << piece
@@ -99,11 +99,11 @@ module AliCloud
       def get_request_url(bucket, object)
         url = @config.endpoint.dup
         url.query = nil
-        url.fragment = nil 
-        isIP = !!(url.host =~ Resolv::IPv4::Regex)
-        url.host = "#{bucket}." + url.host if bucket && !@config.cname && !isIP
+        url.fragment = nil
+        is_ip = !!(url.host =~ Resolv::IPv4::Regex)
+        url.host = "#{bucket}." + url.host if bucket && !@config.cname && !is_ip
         url.path = '/'
-        url.path << "#{bucket}/" if bucket && isIP
+        url.path << "#{bucket}/" if bucket && is_ip
         url.path << CGI.escape(object) if object
         url.to_s
       end
@@ -122,7 +122,7 @@ module AliCloud
         if r.code.to_i >= 300
           r.read_body
         else
-        # streaming read body on success
+          # streaming read body on success
           encoding = r['content-encoding']
           if encoding == 'gzip'
             stream = StreamWriter.new { |s| r.read_body { |chunk| s << chunk } }
@@ -184,6 +184,7 @@ module AliCloud
       end
 
       private
+
       # Do HTTP reqeust
       # @param verb [String] HTTP Verb: GET/PUT/POST/DELETE/HEAD/OPTIONS
       # @param resources [Hash] OSS related resources
@@ -207,7 +208,7 @@ module AliCloud
         headers['accept-encoding'] ||= DEFAULT_ACCEPT_ENCODING
         headers[STS_HEADER] = @config.sts_token if @config.sts_token
 
-        if body = http_options[:body]
+        if body == http_options[:body]
           if body.respond_to?(:read)
             headers['transfer-encoding'] = 'chunked'
           else
@@ -216,8 +217,8 @@ module AliCloud
         end
 
         res = {
-          :path => get_resource_path(bucket, object),
-          :sub_res => sub_res,
+          path: get_resource_path(bucket, object),
+          sub_res: sub_res,
         }
 
         if @config.access_key_id and @config.access_key_secret
@@ -237,15 +238,14 @@ module AliCloud
         block_response = ->(r) { handle_response(r, &block) } if block
 
         request = RestClient::Request.new(
-          :method => verb,
-          :url => get_request_url(bucket, object),
-          :headers => headers,
-          :payload => http_options[:body],
-          :block_response => block_response,
-          :open_timeout => @config.open_timeout || OPEN_TIMEOUT,
-          :read_timeout => @config.read_timeout || READ_TIMEOUT
+          method: verb,
+          url: get_request_url(bucket, object),
+          headers: headers,
+          payload: http_options[:body],
+          block_response: block_response,
+          open_timeout: @config.open_timeout || OPEN_TIMEOUT,
+          read_timeout: @config.read_timeout || READ_TIMEOUT,
         )
-
 
         response = request.execute do |resp, &blk|
           if resp.code >= 300
@@ -262,7 +262,7 @@ module AliCloud
         unless response.is_a?(RestClient::Response)
           if response.code.to_i >= 300
             body = response.body
-            if RestClient::version < '2.1.0'
+            if RestClient.version < '2.1.0'
               body = RestClient::Request.decode(response['content-encoding'], response.body)
             end
             response = RestClient::Response.create(body, response, request)

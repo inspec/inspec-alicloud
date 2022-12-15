@@ -81,7 +81,7 @@ class AliCloudConnection
       access_key_id: ENV['ALICLOUD_ACCESS_KEY'],
       access_key_secret: ENV['ALICLOUD_SECRET_KEY'],
       sts_token: ENV['ALICLOUD_SECURITY_TOKEN'],
-      )
+    )
   end
 
   def unique_identifier

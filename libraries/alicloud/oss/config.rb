@@ -32,7 +32,7 @@ module AliCloud
         uri = URI.parse("http://#{endpoint}") unless uri.scheme
 
         if uri.scheme != 'http' and uri.scheme != 'https'
-          fail ClientError, "Only HTTP and HTTPS endpoint are accepted."
+          raise ClientError, "Only HTTP and HTTPS endpoint are accepted."
         end
 
         @endpoint = uri
