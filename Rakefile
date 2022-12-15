@@ -1,5 +1,4 @@
 #!/usr/bin/env rake
-# frozen_string_literal: true
 
 require "rake/testtask"
 require "chefstyle"
@@ -9,10 +8,10 @@ require_relative "test/integration/configuration/alicloud_inspec_config"
 INTEGRATION_DIR = File.join("test", "integration")
 CONTROLS_DIR = File.join(INTEGRATION_DIR, "verify")
 TERRAFORM_DIR = File.join(INTEGRATION_DIR, "build")
-TF_VAR_FILE_NAME = "inspec-alicloud.tfvars.json"
+TF_VAR_FILE_NAME = "inspec-alicloud.tfvars.json".freeze
 TF_VAR_FILE = File.join(TERRAFORM_DIR, TF_VAR_FILE_NAME)
-TF_PLAN_FILE = "inspec-alicloud.plan"
-PROFILE_ATTRIBUTES = "alicloud-inspec-attributes.yaml"
+TF_PLAN_FILE = "inspec-alicloud.plan".freeze
+PROFILE_ATTRIBUTES = "alicloud-inspec-attributes.yaml".freeze
 
 # Rubocop
 desc "Run Rubocop lint checks"
@@ -31,8 +30,8 @@ Rake::TestTask.new do |t|
 end
 
 # run tests
-#  Disabling inspec check on profile with path dependency due to https://github.com/inspec/inspec/issues/3571 - 'test:check'
-desc "Run robocop linter + unit tests"
+# Disabling inspec check on profile with path dependency due to https://github.com/inspec/inspec/issues/3571 - 'test:check'
+desc "Run rubocop linter + unit tests"
 task default: [:lint, :test]
 
 namespace :test do
@@ -110,12 +109,12 @@ namespace :tf do
 end
 
 namespace :docs do
-  desc "Prints markdown links for resource doc files to update the README"
+  desc "Prints markdown links for resource doc files to update the README."
   task :resource_links do
     puts "\n"
     # Until we have documentation, just generate list from the resources directly
     # Dir.entries('docs/resources').sort
-    #  .collect { |file| "- [#{file.split('.')[0]}](docs/resources/#{file})" }
+    # .collect { |file| "- [#{file.split('.')[0]}](docs/resources/#{file})" }
 
     Dir.entries("libraries").sort
       .reject { |file| File.directory?(file) }

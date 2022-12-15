@@ -1,9 +1,6 @@
-# frozen_string_literal: true
-
 title 'Test Alicloud RAM Password Policy'
 
 control 'alicloud-ram-1.0' do
-  impact 1.0
   title 'Ensure AliCloud RAM password policy has the correct properties'
 
   describe alicloud_ram_password_policy do
