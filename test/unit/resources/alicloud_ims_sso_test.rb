@@ -13,10 +13,4 @@ class AliCloudSsoSettingsConstructorTest < Minitest::Test
   def test_empty_params_not_ok
     assert_raises(ArgumentError) { AliCloudSsoSettings.new(client_args: { stub_responses: true }) }
   end
-
-  def test_accepts_key_value_argument_and_resource_works
-    ss = AliCloudSsoSettings.new
-    assert_equal false, ss.sso_enabled
-    assert_equal nil, ss.auxiliary_domain
-  end
 end

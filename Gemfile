@@ -7,6 +7,7 @@ gem "aliyun-sdk", "~> 0.8.0"
 gem "aliyunsdkcore"
 gem "inspec-bin"
 gem "train-alicloud"
+gem "rest-client"
 
 group :development do
   gem "bundler"
