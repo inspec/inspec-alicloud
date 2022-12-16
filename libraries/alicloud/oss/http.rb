@@ -100,10 +100,10 @@ module AliCloud
         url = @config.endpoint.dup
         url.query = nil
         url.fragment = nil
-        isIP = !!(url.host =~ Resolv::IPv4::Regex)
-        url.host = "#{bucket}." + url.host if bucket && !@config.cname && !isIP
+        is_ip = !!(url.host =~ Resolv::IPv4::Regex)
+        url.host = "#{bucket}." + url.host if bucket && !@config.cname && !is_ip
         url.path = '/'
-        url.path << "#{bucket}/" if bucket && isIP
+        url.path << "#{bucket}/" if bucket && is_ip
         url.path << CGI.escape(object) if object
         url.to_s
       end
@@ -208,7 +208,8 @@ module AliCloud
         headers['accept-encoding'] ||= DEFAULT_ACCEPT_ENCODING
         headers[STS_HEADER] = @config.sts_token if @config.sts_token
 
-        if body = http_options[:body]
+        if !http_options[:body].nil?
+          body = http_options[:body]
           if body.respond_to?(:read)
             headers['transfer-encoding'] = 'chunked'
           else
