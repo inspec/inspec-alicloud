@@ -76,6 +76,7 @@ class AliCloudConnection
     region ||= ENV['ALICLOUD_REGION']
 
     endpoint = "https://oss-#{region}.aliyuncs.com"
+
     AliCloud::OSS::Client.new(
       endpoint: endpoint,
       access_key_id: ENV['ALICLOUD_ACCESS_KEY'],

@@ -1,6 +1,4 @@
 # -*- encoding: utf-8 -*-
-require 'alicloud/common/struct'
-require 'alicloud/oss/protocol'
 
 module AliCloud
   module OSS

@@ -28,7 +28,6 @@ module AliCloud
 
       def get_bucket_tagging(name)
         logger.info("Begin get bucket tagging, name: #{name}")
-
         sub_res = { 'tagging' => nil }
         r = @http.get({ bucket: name, sub_res: sub_res })
         doc = parse_xml(r.body)

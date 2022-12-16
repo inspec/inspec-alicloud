@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 require 'alicloud/oss/protocol'
 require 'alicloud/oss/util'
+require 'alicloud/oss/bucket'
 
 module AliCloud
   module OSS
