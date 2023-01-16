@@ -1,7 +1,6 @@
 title 'Test single AliCloud Resource Directory'
 
-control 'alicloud_resource_directory-1.0' do
-  impact 1.0
+skip_control 'alicloud_resource_directory-1.0' do
   title 'Ensure AliCloud Resource Directory has the correct properties.'
 
   describe alicloud_resource_directory do

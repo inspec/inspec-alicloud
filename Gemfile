@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 source "https://rubygems.org"
 
 gem "bundle"
@@ -9,6 +7,7 @@ gem "aliyun-sdk", "~> 0.8.0"
 gem "aliyunsdkcore"
 gem "inspec-bin"
 gem "train-alicloud"
+gem "rest-client"
 
 group :development do
   gem "bundler"
