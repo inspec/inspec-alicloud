@@ -31,13 +31,21 @@ module AliCloud
         sub_res = { 'tagging' => nil }
         r = @http.get({ bucket: name, sub_res: sub_res })
         doc = parse_xml(r.body)
-        opts = {
-          key: get_node_text(doc.at_css("Tagging TagSet Tag"), "Key"),
-          value: get_node_text(doc.at_css("Tagging TagSet Tag"), "Value"),
-        }
+
+        tags = doc.css("Tagging TagSet Tag")
+        opts = []
+        tagging_objects = []
+        tags.each do |tag|
+          opt = {
+            key: get_node_text(tag, "Key"),
+            value: get_node_text(tag, "Value"),
+          }
+          BucketTagging.new(opt)
+          tagging_objects << BucketTagging.new(opt)
+        end
 
         logger.info("Done get bucket tags")
-        BucketTagging.new(opts)
+        tagging_objects
       end
 
       # Get bucket/object url
