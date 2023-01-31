@@ -9,13 +9,11 @@ require 'alicloud/oss/struct'
 
 module AliCloud
   module OSS
-
     ##
     # Protocol implement the OSS Open API which is low-level. User
     # should refer to {OSS::Client} for normal use.
     #
     class Protocol
-
       STREAM_CHUNK_SIZE = 16 * 1024
       CALLBACK_HEADER = 'x-oss-callback'.freeze
 
@@ -33,19 +31,20 @@ module AliCloud
         doc = parse_xml(r.body)
 
         tags = doc.css("Tagging TagSet Tag")
-        opts = []
+        opts = {}
         tagging_objects = []
         tags.each do |tag|
-          opt = {
-            key: get_node_text(tag, "Key"),
-            value: get_node_text(tag, "Value"),
-          }
-          BucketTagging.new(opt)
-          tagging_objects << BucketTagging.new(opt)
+          key = get_node_text(tag, "Key")
+          value = get_node_text(tag, "Value")
+          opts[key.to_s] = value.to_s
+          # opt = {
+          #   key: get_node_text(tag, "Key"),
+          #   value: get_node_text(tag, "Value"),
+          # }
         end
 
         logger.info("Done get bucket tags")
-        tagging_objects
+        opts
       end
 
       # Get bucket/object url
@@ -180,8 +179,8 @@ module AliCloud
       # @return [String] bytes range for HTTP headers
       def get_bytes_range(range)
         if range &&
-            (!range.is_a?(Array) || range.size != 2 ||
-             !range.at(0).is_a?(Integer) || !range.at(1).is_a?(Integer))
+           (!range.is_a?(Array) || range.size != 2 ||
+            !range.at(0).is_a?(Integer) || !range.at(1).is_a?(Integer))
           raise ClientError, "Range must be an array containing 2 Integers."
         end
 
