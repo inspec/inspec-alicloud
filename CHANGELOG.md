@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.10.17 -->
+<!-- latest_release 0.10.18 -->
+## [v0.10.18](https://github.com/inspec/inspec-alicloud/tree/v0.10.18) (2023-02-03)
+
+#### Merged Pull Requests
+- RESOURCE-568 alicloud tags issue [#98](https://github.com/inspec/inspec-alicloud/pull/98) ([sa-progress](https://github.com/sa-progress))
+<!-- latest_release -->
+
 ## [v0.10.17](https://github.com/inspec/inspec-alicloud/tree/v0.10.17) (2023-01-18)
 
 #### Merged Pull Requests
 - RESOURCE-525 Update the Readme.md file in inspec-alicloud [#88](https://github.com/inspec/inspec-alicloud/pull/88) ([soumyo13](https://github.com/soumyo13))
-<!-- latest_release -->
 
 ## [v0.10.16](https://github.com/inspec/inspec-alicloud/tree/v0.10.16) (2022-12-16)
 
