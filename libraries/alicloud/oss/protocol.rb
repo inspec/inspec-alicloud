@@ -32,7 +32,7 @@ module AliCloud
 
         tags = doc.css("Tagging TagSet Tag")
         opts = {}
-        tagging_objects = []
+        # tagging_objects = []
         tags.each do |tag|
           key = get_node_text(tag, "Key")
           value = get_node_text(tag, "Value")
@@ -179,8 +179,8 @@ module AliCloud
       # @return [String] bytes range for HTTP headers
       def get_bytes_range(range)
         if range &&
-           (!range.is_a?(Array) || range.size != 2 ||
-            !range.at(0).is_a?(Integer) || !range.at(1).is_a?(Integer))
+            (!range.is_a?(Array) || range.size != 2 ||
+             !range.at(0).is_a?(Integer) || !range.at(1).is_a?(Integer))
           raise ClientError, "Range must be an array containing 2 Integers."
         end
 
