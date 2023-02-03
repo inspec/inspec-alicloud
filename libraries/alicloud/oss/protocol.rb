@@ -9,13 +9,11 @@ require 'alicloud/oss/struct'
 
 module AliCloud
   module OSS
-
     ##
     # Protocol implement the OSS Open API which is low-level. User
     # should refer to {OSS::Client} for normal use.
     #
     class Protocol
-
       STREAM_CHUNK_SIZE = 16 * 1024
       CALLBACK_HEADER = 'x-oss-callback'.freeze
 
@@ -31,13 +29,22 @@ module AliCloud
         sub_res = { 'tagging' => nil }
         r = @http.get({ bucket: name, sub_res: sub_res })
         doc = parse_xml(r.body)
-        opts = {
-          key: get_node_text(doc.at_css("Tagging TagSet Tag"), "Key"),
-          value: get_node_text(doc.at_css("Tagging TagSet Tag"), "Value"),
-        }
+
+        tags = doc.css("Tagging TagSet Tag")
+        opts = {}
+        # tagging_objects = []
+        tags.each do |tag|
+          key = get_node_text(tag, "Key")
+          value = get_node_text(tag, "Value")
+          opts[key.to_s] = value.to_s
+          # opt = {
+          #   key: get_node_text(tag, "Key"),
+          #   value: get_node_text(tag, "Value"),
+          # }
+        end
 
         logger.info("Done get bucket tags")
-        BucketTagging.new(opts)
+        opts
       end
 
       # Get bucket/object url
