@@ -2,7 +2,7 @@ require 'alicloud_backend'
 
 class AliCloudIMSSettings < AliCloudResourceBase
   name 'alicloud_ims_user'
-  desc 'Verifies settings for AliCloud IMO User setting.'
+  desc 'Verifies settings for AliCloud IMO User.'
   example <<-EXAMPLE
     describe alicloud_ims_user do
       it { should exist}
