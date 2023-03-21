@@ -5,17 +5,14 @@ require 'digest/md5'
 
 module AliCloud
   module OSS
-
     ##
     # Multipart upload/download structures
     #
     module Multipart
-
       ##
       # A multipart transaction. Provide the basic checkpoint methods.
       #
       class Transaction < Common::Struct::Base
-
         attrs :id, :object, :bucket, :creation_time, :options
 
         def initialize(opts = {})
@@ -42,7 +39,7 @@ module AliCloud
           states = {}
 
           @mutex.synchronize {
-            states = JSON.load(File.read(file))
+            states = JSON.parse(File.read(file))
           }
           states = Util.symbolize(states)
           md5 = states.delete(:md5)
@@ -58,18 +55,14 @@ module AliCloud
         def get_file_md5(file)
           Digest::MD5.file(file).to_s
         end
-
-      end # Transaction
+      end
 
       ##
       # A part in a multipart uploading transaction
       #
       class Part < Common::Struct::Base
-
         attrs :number, :etag, :size, :last_modified
-
-      end # Part
-
+      end
     end
   end
 end

@@ -10,7 +10,7 @@ module AliCloud
       attrs :key, :value
 
       def to_s
-        { "#{@key}": "#{@value}" }
+        { "#{@key}": @value.to_s }
       end
     end
   end

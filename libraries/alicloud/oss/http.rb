@@ -6,9 +6,7 @@ require 'fiber'
 
 module AliCloud
   module OSS
-
     class HTTP
-
       DEFAULT_CONTENT_TYPE = 'application/octet-stream'.freeze
       DEFAULT_ACCEPT_ENCODING = 'identity'.freeze
       STS_HEADER = 'x-oss-security-token'.freeze
@@ -86,7 +84,7 @@ module AliCloud
         end
 
         def inspect
-          "@buffer: " + @buffer[0, 32].inspect + "...#{@buffer.size} bytes"
+          "@buffer: #{@buffer[0, 32].inspect}...#{@buffer.size} bytes"
         end
       end
 
@@ -111,7 +109,7 @@ module AliCloud
       def get_resource_path(bucket, object)
         res = '/'
         res << "#{bucket}/" if bucket
-        res << "#{object}" if object
+        res << object.to_s if object
 
         res
       end
@@ -124,11 +122,12 @@ module AliCloud
         else
           # streaming read body on success
           encoding = r['content-encoding']
-          if encoding == 'gzip'
+          case encoding
+          when 'gzip'
             stream = StreamWriter.new { |s| r.read_body { |chunk| s << chunk } }
             reader = Zlib::GzipReader.new(stream)
             yield reader.read(16 * 1024) until reader.eof?
-          elsif encoding == 'deflate'
+          when 'deflate'
             begin
               stream = Zlib::Inflate.new
               # 1.9.x doesn't support streaming inflate
@@ -136,7 +135,7 @@ module AliCloud
                 yield stream.inflate(r.read_body)
               else
                 r.read_body { |chunk| stream << chunk }
-                stream.finish { |chunk| yield chunk }
+                stream.finish(&block)
               end
             rescue Zlib::DataError
               # No luck with Zlib decompression. Let's try with raw deflate,
@@ -147,11 +146,11 @@ module AliCloud
                 yield stream.inflate(r.read_body)
               else
                 r.read_body { |chunk| stream << chunk }
-                stream.finish { |chunk| yield chunk }
+                stream.finish(&block)
               end
             end
           else
-            r.read_body { |chunk| yield chunk }
+            r.read_body(&block)
           end
         end
       end
@@ -283,7 +282,6 @@ module AliCloud
       def get_user_agent
         "aliyun-sdk-ruby/#{VERSION} ruby-#{RUBY_VERSION}/#{RUBY_PLATFORM}"
       end
-
     end
   end
 end

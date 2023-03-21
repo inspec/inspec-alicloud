@@ -5,9 +5,7 @@ require 'alicloud/oss/bucket'
 
 module AliCloud
   module OSS
-
     class Client
-
       def initialize(opts)
         raise ClientError, "Endpoint must be provided" unless opts[:endpoint]
         @config = Config.new(opts)
@@ -18,7 +16,6 @@ module AliCloud
         Util.ensure_bucket_name_valid(name)
         Bucket.new({ name: name }, @protocol)
       end
-
     end
   end
 end

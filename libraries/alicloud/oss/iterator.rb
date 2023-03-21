@@ -7,14 +7,14 @@ module AliCloud
     # server to provide an iterable result.
     #
     module Iterator
-
       ##
       # Iterator base that stores fetched results and fetch more if needed.
       #
       class Base
         def initialize(protocol, opts = {})
           @protocol = protocol
-          @results, @more = [], opts
+          @results = []
+          @more = opts
         end
 
         def next
@@ -40,7 +40,7 @@ module AliCloud
           return if @more[:truncated] == false
           fetch(@more)
         end
-      end # Base
+      end
 
       ##
       # Buckets iterator
@@ -51,7 +51,7 @@ module AliCloud
           @more[:marker] = cont[:next_marker]
           @more[:truncated] = cont[:truncated] || false
         end
-      end # Buckets
+      end
 
       ##
       # Objects iterator
@@ -68,7 +68,7 @@ module AliCloud
           @more[:marker] = cont[:next_marker]
           @more[:truncated] = cont[:truncated] || false
         end
-      end # Objects
+      end
 
       ##
       # Uploads iterator
@@ -86,8 +86,7 @@ module AliCloud
           @more[:key_marker] = cont[:next_key_marker]
           @more[:truncated] = cont[:truncated] || false
         end
-      end # Objects
-
-    end # Iterator
-  end # OSS
-end # Aliyun
+      end
+    end
+  end
+end

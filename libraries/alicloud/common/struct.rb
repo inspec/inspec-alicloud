@@ -2,7 +2,6 @@
 
 module AliCloud
   module Common
-
     # Common structs used. It provides a 'attrs' helper method for
     # subclass to define its attributes. 'attrs' is based on
     # attr_reader and provide additional functionalities for classes
@@ -35,7 +34,7 @@ module AliCloud
           extra_keys = opts.keys - attrs
           unless extra_keys.empty?
             raise Common::Exception,
-                 "Unexpected extra keys: #{extra_keys.join(', ')}"
+                  "Unexpected extra keys: #{extra_keys.join(', ')}"
           end
 
           attrs.each do |attr|
@@ -49,8 +48,7 @@ module AliCloud
             "#{attr}: #{v}"
           end.join(", ")
         end
-      end # Base
-    end # Struct
-
-  end # Common
-end # Aliyun
+      end
+    end
+  end
+end

@@ -7,18 +7,15 @@ require 'digest/md5'
 
 module AliCloud
   module OSS
-
     ##
     # Util functions to help generate formatted Date, signatures,
     # etc.
     #
     module Util
-
       # Prefix for OSS specific HTTP headers
       HEADER_PREFIX = "x-oss-".freeze
 
       class << self
-
         include Aliyun::Common::Logging
 
         # Calculate request signatures
@@ -29,9 +26,9 @@ module AliCloud
           content_type = headers['content-type'] || ""
           date = headers['date']
 
-          cano_headers = headers.select { |k, v| k.start_with?(HEADER_PREFIX) }
+          cano_headers = headers.select { |k, _v| k.start_with?(HEADER_PREFIX) }
                          .map { |k, v| [k.downcase.strip, v.strip] }
-                         .sort.map { |k, v| [k, v].join(":") + "\n" }.join
+                         .sort.map { |k, v| "#{[k, v].join(":")}\n" }.join
 
           cano_res = resources[:path] || "/"
           sub_res = (resources[:sub_res] || {})
@@ -39,7 +36,7 @@ module AliCloud
           cano_res += "?#{sub_res}" unless sub_res.empty?
 
           string_to_sign =
-            "#{verb}\n#{content_md5}\n#{content_type}\n#{date}\n" +
+            "#{verb}\n#{content_md5}\n#{content_type}\n#{date}\n" \
             "#{cano_headers}#{cano_res}"
 
           Util.sign(key, string_to_sign)
@@ -64,11 +61,12 @@ module AliCloud
 
         # Symbolize keys in Hash, recursively
         def symbolize(v)
-          if v.is_a?(Hash)
+          case v
+          when Hash
             result = {}
             v.each_key { |k| result[k.to_sym] = symbolize(v[k]) }
             result
-          elsif v.is_a?(Array)
+          when Array
             result = []
             v.each { |x| result << symbolize(x) }
             result
@@ -90,7 +88,7 @@ module AliCloud
         def crc_check(crc_a, crc_b, operation)
           if crc_a.nil? || crc_b.nil? || crc_a.to_i != crc_b.to_i
             logger.error("The crc of #{operation} between client and oss is not inconsistent. crc_a=#{crc_a} crc_b=#{crc_b}")
-            raise CrcInconsistentError.new("The crc of #{operation} between client and oss is not inconsistent.")
+            raise CrcInconsistentError, "The crc of #{operation} between client and oss is not inconsistent."
           end
         end
 
@@ -99,7 +97,6 @@ module AliCloud
             raise ClientError, "The bucket name is invalid."
           end
         end
-
       end
     end
   end

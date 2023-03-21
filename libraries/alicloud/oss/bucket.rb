@@ -2,9 +2,7 @@
 
 module AliCloud
   module OSS
-
     class Bucket < Common::Struct::Base
-
       attrs :name, :location, :creation_time
 
       def initialize(opts = {}, protocol = nil)
