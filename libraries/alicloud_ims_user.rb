@@ -37,6 +37,6 @@ class AliCloudIMSSettings < AliCloudResourceBase
   end
 
   def to_s
-    'AliCloud IMO User'
+    "AliCloud IMO User  #{@user_principal_name}"
   end
 end
