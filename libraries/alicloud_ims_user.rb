@@ -4,7 +4,7 @@ class AliCloudIMSSettings < AliCloudResourceBase
   name 'alicloud_ims_user'
   desc 'Verifies settings for AliCloud IMO User.'
   example <<-EXAMPLE
-    describe alicloud_ims_user do
+    describe alicloud_ims_user(user_principal_name: 'USER_PRINCIPAL_NAME') do
       it { should exist}
     end
   EXAMPLE
