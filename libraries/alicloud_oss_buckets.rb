@@ -22,13 +22,9 @@ class AliCloudOssBuckets < AliCloudResourceBase
   end
 
   def fetch_data
-    bucket_rows = []
     catch_alicloud_errors do
       @api_response = @alicloud.oss_client.list_buckets
-    end
-    @api_response.each do |bucket|
-      bucket_rows += [{ bucket_name: bucket.name }]
-    end
-    @table = bucket_rows
+      @api_response.map { |bucket| { bucket_name: bucket.name } }
+    end || []
   end
 end
