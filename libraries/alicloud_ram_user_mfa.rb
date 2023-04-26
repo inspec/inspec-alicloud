@@ -31,17 +31,10 @@ class AliCloudRamUserMFA < AliCloudResourceBase
 
   def fetch_mfa_info(opts)
     catch_alicloud_errors(ignore: 'EntityNotExist.User.MFADevice') do
-      resp = @alicloud.ram_client.request(
-        action: 'GetUserMFAInfo',
-        params: {
-          'RegionId': opts[:region],
-          'UserName': opts[:user_name],
-        },
-        opts: {
-          method: 'POST',
-        },
-      )['MFADevice']
-      return resp
+      resp = @alicloud.ram_client.request(action: 'GetUserMFAInfo',
+                                          params: { RegionId: opts[:region], UserName: opts[:user_name] },
+                                          opts: { method: 'POST' })
+      resp['MFADevice']
     end
   end
 
