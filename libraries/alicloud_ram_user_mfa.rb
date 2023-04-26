@@ -10,7 +10,7 @@ class AliCloudRamUserMFA < AliCloudResourceBase
     end
   EXAMPLE
 
-  attr_reader :user_name, :serial_number, :type
+  attr_reader :user_name, :mfa, :serial_number, :type
 
   def initialize(opts = {})
     opts = { user_name: opts } if opts.is_a?(String)
@@ -39,14 +39,14 @@ class AliCloudRamUserMFA < AliCloudResourceBase
   end
 
   def exists?
-    !@mfa.nil?
+    !mfa.nil?
   end
 
   def resource_id
-    "#{@user_id || @user_name}_#{@serial_number}"
+    "#{user_name}_#{serial_number}"
   end
 
   def to_s
-    "AliCloud MFA #{@serial_number} for #{@user_name}"
+    "AliCloud MFA #{serial_number} for #{user_name}"
   end
 end
