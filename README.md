@@ -166,25 +166,26 @@ Test Summary: 1 successful, 0 failures, 0 skipped
 
 This resource pack allows the testing of the following AliCloud resources. If a resource you wish to test is not listed, please feel free to open an [Issue](https://github.com/chef-customers/inspec-alicloud/issues). As an open source project, we also welcome public contributions via [Pull Request](https://github.com/chef-customers/inspec-alicloud/pulls).
 
-|        Module Name        | Singular Resource                                                               | Plural Resource                                                                 |
-|:-------------------------:|:--------------------------------------------------------------------------------|:--------------------------------------------------------------------------------|
-|         Security          | [alicloud_actiontrail_trail](libraries/alicloud_actiontrail_trail.rb)           | [alicloud_actiontrail_trails](libraries/alicloud_actiontrail_trails.rb)         |
-|         Database          | [alicloud_apsaradb_rds_instance](libraries/alicloud_apsaradb_rds_instance.rb)   | [alicloud_apsaradb_rds_instances](libraries/alicloud_apsaradb_rds_instances.rb) |
-|     Elastic Computing     | [alicloud_disk](libraries/alicloud_disk.rb)                                     | [alicloud_disks](libraries/alicloud_disks.rb)                                   |
-|                           | [alicloud_ecs_instance](libraries/alicloud_ecs_instance.rb)                     | [alicloud_ecs_instances](libraries/alicloud_ecs_instances.rb)                   |
-|                           | [alicloud_security_group](libraries/alicloud_security_group.rb)                 | [alicloud_security_groups](libraries/alicloud_security_groups.rb)               |
-|                           | [alicloud_vpc](libraries/alicloud_vpc.rb)                                       | [alicloud_vpcs](libraries/alicloud_vpcs.rb)                                     |
-| Management and Governance | [alicloud_ims_sso](libraries/alicloud_ims_sso.rb)                               | No Plural Resource                                                              |
-|                           | [alicloud_rd](libraries/alicloud_rd.rb)                                         | No Plural Resource                                                              |
-|          Storage          | [alicloud_oss_bucket](libraries/alicloud_oss_bucket.rb)                         | [alicloud_oss_buckets](libraries/alicloud_oss_buckets.rb)                       |
-|            RAM            | [alicloud_ram_access_key](libraries/alicloud_ram_access_key.rb)                 | [alicloud_ram_access_keys](libraries/alicloud_ram_access_keys.rb)               |
-|                           | [alicloud_ram_password_policy](libraries/alicloud_ram_password_policy.rb)       | No Plural Resource                                                              |
-|                           | [alicloud_ram_policy](libraries/alicloud_ram_policy.rb)                         | [alicloud_ram_policies](libraries/alicloud_ram_policies.rb)                     |
-|                           | [alicloud_ram_user](libraries/alicloud_ram_user.rb)                             | [alicloud_ram_users](libraries/alicloud_ram_users.rb)                           |
-|                           | [alicloud_sts_caller_identity](libraries/alicloud_sts_caller_identity.rb)       | No Plural Resource                                                              |
-|     Networking & CDN      | [alicloud_slb](libraries/alicloud_slb.rb)                                       | [alicloud_slbs](libraries/alicloud_slbs.rb)                                     |
-|                           | [alicloud_slb_https_listener](libraries/alicloud_slb_https_listener.rb)         | No Plural Resource                                                              |
-|          Others           | [alicloud_region](libraries/alicloud_region.rb)                                 | [alicloud_regions](libraries/alicloud_regions.rb)                               |
+|        Module Name        | Singular Resource                                                             | Plural Resource                                                                 |
+|:-------------------------:|:------------------------------------------------------------------------------|:--------------------------------------------------------------------------------|
+|         Security          | [alicloud_actiontrail_trail](libraries/alicloud_actiontrail_trail.rb)         | [alicloud_actiontrail_trails](libraries/alicloud_actiontrail_trails.rb)         |
+|         Database          | [alicloud_apsaradb_rds_instance](libraries/alicloud_apsaradb_rds_instance.rb) | [alicloud_apsaradb_rds_instances](libraries/alicloud_apsaradb_rds_instances.rb) |
+|     Elastic Computing     | [alicloud_disk](libraries/alicloud_disk.rb)                                   | [alicloud_disks](libraries/alicloud_disks.rb)                                   |
+|                           | [alicloud_ecs_instance](libraries/alicloud_ecs_instance.rb)                   | [alicloud_ecs_instances](libraries/alicloud_ecs_instances.rb)                   |
+|                           | [alicloud_security_group](libraries/alicloud_security_group.rb)               | [alicloud_security_groups](libraries/alicloud_security_groups.rb)               |
+|                           | [alicloud_vpc](libraries/alicloud_vpc.rb)                                     | [alicloud_vpcs](libraries/alicloud_vpcs.rb)                                     |
+| Management and Governance | [alicloud_ims_sso](libraries/alicloud_ims_sso.rb)                             | No Plural Resource                                                              |
+|                           | [alicloud_ims_user](libraries/alicloud_ims_user.rb)                           | No Plural Resource                                                              |
+|                           | [alicloud_rd](libraries/alicloud_rd.rb)                                       | No Plural Resource                                                              |
+|          Storage          | [alicloud_oss_bucket](libraries/alicloud_oss_bucket.rb)                       | [alicloud_oss_buckets](libraries/alicloud_oss_buckets.rb)                       |
+|            RAM            | [alicloud_ram_access_key](libraries/alicloud_ram_access_key.rb)               | [alicloud_ram_access_keys](libraries/alicloud_ram_access_keys.rb)               |
+|                           | [alicloud_ram_password_policy](libraries/alicloud_ram_password_policy.rb)     | No Plural Resource                                                              |
+|                           | [alicloud_ram_policy](libraries/alicloud_ram_policy.rb)                       | [alicloud_ram_policies](libraries/alicloud_ram_policies.rb)                     |
+|                           | [alicloud_ram_user](libraries/alicloud_ram_user.rb)                           | [alicloud_ram_users](libraries/alicloud_ram_users.rb)                           |
+|                           | [alicloud_sts_caller_identity](libraries/alicloud_sts_caller_identity.rb)     | No Plural Resource                                                              |
+|     Networking & CDN      | [alicloud_slb](libraries/alicloud_slb.rb)                                     | [alicloud_slbs](libraries/alicloud_slbs.rb)                                     |
+|                           | [alicloud_slb_https_listener](libraries/alicloud_slb_https_listener.rb)       | No Plural Resource                                                              |
+|          Others           | [alicloud_region](libraries/alicloud_region.rb)                               | [alicloud_regions](libraries/alicloud_regions.rb)                               |
 
 ## Examples
 
