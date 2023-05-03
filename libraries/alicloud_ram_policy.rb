@@ -45,7 +45,7 @@ class AliCloudRamPolicy < AliCloudResourceBase
 
     @attached_users = @attached_groups = @attached_roles = @attachment_count = 0
 
-    entities = get_attached_entities(opts)
+    entities = get_attached_entities(opts, opts[:type])
     return if entities.nil?
 
     @attached_users = entities['Users']['User'].map { |x| x['UserName'] }
