@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.10.20 -->
+<!-- latest_release 0.10.21 -->
+## [v0.10.21](https://github.com/inspec/inspec-alicloud/tree/v0.10.21) (2023-05-08)
+
+#### Merged Pull Requests
+- CHEF-1690 refactor mfa user [#102](https://github.com/inspec/inspec-alicloud/pull/102) ([sathish-progress](https://github.com/sathish-progress))
+<!-- latest_release -->
+
 ## [v0.10.20](https://github.com/inspec/inspec-alicloud/tree/v0.10.20) (2023-05-08)
 
 #### Merged Pull Requests
 - :bug: allow to catch AliCloud connection errors [#101](https://github.com/inspec/inspec-alicloud/pull/101) ([sathish-progress](https://github.com/sathish-progress))
-<!-- latest_release -->
 
 ## [v0.10.19](https://github.com/inspec/inspec-alicloud/tree/v0.10.19) (2023-04-26)
 
