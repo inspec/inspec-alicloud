@@ -2,15 +2,15 @@ require 'alicloud_backend'
 
 class AliCloudRamUserMFA < AliCloudResourceBase
   name 'alicloud_ram_user_mfa'
-  desc "Verifies settings for users' MFA."
+  desc "Verifies settings for MFA users."
   example <<-EXAMPLE
-    # Ensure that MFA exists
+    # Identifies if the user with MFA enabled
     describe alicloud_ram_user_mfa(<user name>) do
       it { should exist }
     end
   EXAMPLE
 
-  attr_reader :user_name, :serial_number, :type
+  attr_reader :user_name, :mfa, :serial_number, :type
 
   def initialize(opts = {})
     opts = { user_name: opts } if opts.is_a?(String)
@@ -30,30 +30,24 @@ class AliCloudRamUserMFA < AliCloudResourceBase
   end
 
   def fetch_mfa_info(opts)
+    # we ignore EntityNotExist so that the output need not print warning messages with Alicloud exceptions.
     catch_alicloud_errors(ignore: 'EntityNotExist.User.MFADevice') do
-      resp = @alicloud.ram_client.request(
-        action: 'GetUserMFAInfo',
-        params: {
-          'RegionId': opts[:region],
-          'UserName': opts[:user_name],
-        },
-        opts: {
-          method: 'POST',
-        },
-      )['MFADevice']
-      return resp
+      resp = @alicloud.ram_client.request(action: 'GetUserMFAInfo',
+                                          params: { RegionId: opts[:region], UserName: opts[:user_name] },
+                                          opts: { method: 'POST' })
+      resp['MFADevice']
     end
   end
 
   def exists?
-    !@mfa.nil?
+    !mfa.nil?
   end
 
   def resource_id
-    "#{@user_id || @user_name}_#{@serial_number}"
+    "#{user_name}_#{serial_number}"
   end
 
   def to_s
-    "AliCloud MFA #{@serial_number} for #{@user_name}"
+    "AliCloud MFA #{serial_number} for #{user_name}"
   end
 end
