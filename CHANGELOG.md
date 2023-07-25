@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.10.22 -->
+<!-- latest_release 0.10.23 -->
+## [v0.10.23](https://github.com/inspec/inspec-alicloud/tree/v0.10.23) (2023-07-25)
+
+#### Merged Pull Requests
+- Feature/CHEF-2076 create alicloud api client [#104](https://github.com/inspec/inspec-alicloud/pull/104) ([sathish-progress](https://github.com/sathish-progress))
+<!-- latest_release -->
+
 ## [v0.10.22](https://github.com/inspec/inspec-alicloud/tree/v0.10.22) (2023-05-10)
 
 #### Merged Pull Requests
 - allow to fetch attached entities for given policy type [#103](https://github.com/inspec/inspec-alicloud/pull/103) ([sathish-progress](https://github.com/sathish-progress))
-<!-- latest_release -->
 
 ## [v0.10.21](https://github.com/inspec/inspec-alicloud/tree/v0.10.21) (2023-05-08)
 
