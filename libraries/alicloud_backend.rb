@@ -2,6 +2,7 @@ require 'aliyunsdkcore'
 require 'aliyun/oss'
 require 'rspec/expectations'
 require 'alicloud/oss/client'
+require 'alicloud/api_client'
 
 # AliCloud Inspec Backend Classes
 #
@@ -44,12 +45,12 @@ class AliCloudConnection
                  else
                    "https://#{api}.#{region}.aliyuncs.com"
                  end
-    client = RPCClient.new(
-      access_key_id: ENV['ALICLOUD_ACCESS_KEY'],
+    client = AliCloud::APIClient.new(
+      { access_key_id: ENV['ALICLOUD_ACCESS_KEY'],
       access_key_secret: ENV['ALICLOUD_SECRET_KEY'],
       security_token: ENV['ALICLOUD_SECURITY_TOKEN'],
       endpoint: endpoint,
-      api_version: api_version,
+      api_version: api_version },
     )
     AliCloudCommonClient.new(client)
   end
