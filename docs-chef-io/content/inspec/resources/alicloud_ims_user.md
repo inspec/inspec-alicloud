@@ -85,7 +85,7 @@ end
 
 ## Matchers
 
-{{% inspec_matchers_link %}}
+{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
 
 ### exist
 
@@ -109,4 +109,4 @@ end
 
 ### Alicloud Permissions
 
-{{% alicloud_principal_action action="ims:GetLoginProfile" %}}
+{{% inspec-alicloud/alicloud_principal_action action="ims:GetLoginProfile" %}}
