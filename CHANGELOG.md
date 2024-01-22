@@ -1,11 +1,16 @@
 # CHANGELOG
 
-<!-- latest_release 0.10.23 -->
+<!-- latest_release 0.10.24 -->
+## [v0.10.24](https://github.com/inspec/inspec-alicloud/tree/v0.10.24) (2024-01-22)
+
+#### Merged Pull Requests
+- CHEF-4267 reorganize reusable text files [#105](https://github.com/inspec/inspec-alicloud/pull/105) ([IanMadd](https://github.com/IanMadd))
+<!-- latest_release -->
+
 ## [v0.10.23](https://github.com/inspec/inspec-alicloud/tree/v0.10.23) (2023-07-25)
 
 #### Merged Pull Requests
 - Feature/CHEF-2076 create alicloud api client [#104](https://github.com/inspec/inspec-alicloud/pull/104) ([sathish-progress](https://github.com/sathish-progress))
-<!-- latest_release -->
 
 ## [v0.10.22](https://github.com/inspec/inspec-alicloud/tree/v0.10.22) (2023-05-10)
 
