@@ -158,7 +158,7 @@ its('attachment_count') { should be eq 7 }
 
 This InSpec audit resource has the following special matchers.
 
-{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+{{< readfile file="content/reusable/md/inspec_matchers_link.md" >}}
 
 ### exist
 
