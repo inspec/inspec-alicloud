@@ -4,7 +4,7 @@ platform = "alicloud"
 draft = false
 gh_repo = "inspec-alicloud"
 
-[menu.inspec]
+[menu.alicloud]
 title = "alicloud_ram_policies"
 identifier = "inspec/resources/alicloud/alicloud_ram_policies Resource"
 parent = "inspec/resources/alicloud"
@@ -109,5 +109,5 @@ end
 
 Your Principal will need the `ram:ListPolicies` and `ram:ListEntitiesForPolicy` actions with Effect set to Allow.
 
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_access_management_doc.md" >}}
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_authentication_ram_api_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_access_management_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_authentication_ram_api_doc.md" >}}

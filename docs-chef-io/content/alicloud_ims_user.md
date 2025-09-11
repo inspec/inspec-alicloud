@@ -4,7 +4,7 @@ platform = "alicloud"
 draft = false
 gh_repo = "inspec-alicloud"
 
-[menu.inspec]
+[menu.alicloud]
 title = "alicloud_disk"
 identifier = "inspec/resources/alicloud/alicloud_ims_user Resource"
 parent = "inspec/resources/alicloud"

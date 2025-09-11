@@ -4,7 +4,7 @@ platform = "alicloud"
 draft = false
 gh_repo = "inspec-alicloud"
 
-[menu.inspec]
+[menu.alicloud]
 title = "alicloud_disk"
 identifier = "inspec/resources/alicloud/alicloud_disk Resource"
 parent = "inspec/resources/alicloud"
@@ -140,5 +140,5 @@ it { should be_encrypted }
 
 {{% inspec-alicloud/alicloud_principal_action action="ecs:DescribeDisks" %}}
 
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_access_management_doc.md" >}}
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_authentication_ecs_api_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_access_management_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_authentication_ecs_api_doc.md" >}}

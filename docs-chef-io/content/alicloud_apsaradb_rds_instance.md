@@ -4,7 +4,7 @@ platform = "alicloud"
 draft = false
 gh_repo = "inspec-alicloud"
 
-[menu.inspec]
+[menu.alicloud]
 title = "alicloud_apsaradb_rds_instance"
 identifier = "inspec/resources/alicloud/alicloud_apsaradb_rds_instance Resource"
 parent = "inspec/resources/alicloud"

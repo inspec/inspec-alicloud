@@ -4,7 +4,7 @@ platform = "alicloud"
 draft = false
 gh_repo = "inspec-alicloud"
 
-[menu.inspec]
+[menu.alicloud]
 title = "alicloud_ecs_instances"
 identifier = "inspec/resources/alicloud/alicloud_ecs_instances Resource"
 parent = "inspec/resources/alicloud"
@@ -215,5 +215,5 @@ end
 
 Your Principal will need the `ecs:DescribeInstances` and `ecs:DescribeInstanceRamRole` actions with Effect set to Allow.
 
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_access_management_doc.md" >}}
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_authentication_ecs_api_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_access_management_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_authentication_ecs_api_doc.md" >}}

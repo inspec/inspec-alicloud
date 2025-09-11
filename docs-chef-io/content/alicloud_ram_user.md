@@ -4,7 +4,7 @@ platform = "alicloud"
 draft = false
 gh_repo = "inspec-alicloud"
 
-[menu.inspec]
+[menu.alicloud]
 title = "alicloud_ram_user"
 identifier = "inspec/resources/alicloud/alicloud_ram_user Resource"
 parent = "inspec/resources/alicloud"
@@ -142,5 +142,5 @@ This will check whether the requested user has a login profile for console acces
 
 Your Principal will need the following permissions action with Effect set to Allow: `ram:Getuser`, `ram:GetLoginProfile`, `ram:ListAccessKeys`.
 
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_access_management_doc.md" >}}
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_authentication_ram_api_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_access_management_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_authentication_ram_api_doc.md" >}}
