@@ -1,16 +1,16 @@
 +++
-title = "alicloud_ims_user Resource"
+title = "alicloud_ims_user resource"
 platform = "alicloud"
 draft = false
 gh_repo = "inspec-alicloud"
 
 [menu.alicloud]
 title = "alicloud_disk"
-identifier = "inspec/resources/alicloud/alicloud_ims_user Resource"
+identifier = "inspec/resources/alicloud/alicloud_ims_user resource"
 parent = "inspec/resources/alicloud"
 +++
 
-Use the `alicloud_ims_user` InSpec audit resource to test properties of a single AliCloud IAM User information.
+Use the `alicloud_ims_user` InSpec audit resource to test properties of a single Alibaba Cloud IAM User information.
 
 ## Syntax
 
@@ -38,7 +38,7 @@ This resource accepts a single parameter, `user_principal_name`.
 
 : The user name of the IMS user.  
 
-See also the [Alicloud documentation on cloud disks](https://www.alibabacloud.com/help/doc-detail/25383.htm).
+See also the [Alibaba Cloud documentation on cloud disks](https://www.alibabacloud.com/help/doc-detail/25383.htm).
 
 ## Properties
 
@@ -107,6 +107,6 @@ describe alicloud_ims_user("USER_PRINCIPAL_NAME") do
 end
 ```
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 {{% inspec-alicloud/alicloud_principal_action action="ims:GetLoginProfile" %}}

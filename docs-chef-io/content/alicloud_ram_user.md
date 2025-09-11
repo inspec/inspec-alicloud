@@ -1,20 +1,20 @@
 +++
-title = "alicloud_ram_user Resource"
+title = "alicloud_ram_user resource"
 platform = "alicloud"
 draft = false
 gh_repo = "inspec-alicloud"
 
 [menu.alicloud]
 title = "alicloud_ram_user"
-identifier = "inspec/resources/alicloud/alicloud_ram_user Resource"
+identifier = "inspec/resources/alicloud/alicloud_ram_user resource"
 parent = "inspec/resources/alicloud"
 +++
 
-Use the `alicloud_ram_user` InSpec audit resource to test properties of a single Alicloud RAM user.
+Use the `alicloud_ram_user` InSpec audit resource to test properties of a single Alibaba Cloud RAM user.
 
 ## Syntax
 
-An `alicloud_ram_user` resource block declares the tests for a single Alicloud RAM user by user name.
+An `alicloud_ram_user` resource block declares the tests for a single Alibaba Cloud RAM user by user name.
 
 ```ruby
 describe alicloud_ram_user(user_name: 'psmith') do
@@ -29,7 +29,7 @@ end
 : This resource accepts a single parameter, the RAM user's user name which uniquely identifies the user.  
   This can be passed either as a string or as a `user_name: 'value'` key-value entry in a hash.
 
-See also the [Alicloud documentation on RAM users](https://www.alibabacloud.com/help/doc-detail/122148.htm?spm=a2c63.p38356.b99.20.12456fb6z4r7Hz).
+See also the [Alibaba Cloud documentation on RAM users](https://www.alibabacloud.com/help/doc-detail/122148.htm?spm=a2c63.p38356.b99.20.12456fb6z4r7Hz).
 
 ## Properties
 
@@ -138,7 +138,7 @@ it { should have_active_access_key }
 
 This will check whether the requested user has a login profile for console access, as well as at least one active access key/secret key pair.
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 Your Principal will need the following permissions action with Effect set to Allow: `ram:Getuser`, `ram:GetLoginProfile`, `ram:ListAccessKeys`.
 

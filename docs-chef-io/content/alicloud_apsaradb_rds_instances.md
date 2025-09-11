@@ -1,12 +1,12 @@
 +++
-title = "alicloud_apsaradb_rds_instances Resource"
+title = "alicloud_apsaradb_rds_instances resource"
 platform = "alicloud"
 draft = false
 gh_repo = "inspec-alicloud"
 
 [menu.alicloud]
 title = "alicloud_apsaradb_rds_instances"
-identifier = "inspec/resources/alicloud/alicloud_apsaradb_rds_instances Resource"
+identifier = "inspec/resources/alicloud/alicloud_apsaradb_rds_instances resource"
 parent = "inspec/resources/alicloud"
 +++
 
@@ -146,7 +146,7 @@ describe alicloud_apsaradb_rds_instances do
 end
 ```
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 {{% inspec-alicloud/alicloud_principal_action action="rds:DescribeDBInstances" %}}
 

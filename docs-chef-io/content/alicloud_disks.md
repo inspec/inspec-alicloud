@@ -1,18 +1,18 @@
 +++
-title = "alicloud_disks Resource"
+title = "alicloud_disks resource"
 platform = "alicloud"
 draft = false
 gh_repo = "inspec-alicloud"
 
 [menu.alicloud]
 title = "alicloud_disks"
-identifier = "inspec/resources/alicloud/alicloud_disks Resource"
+identifier = "inspec/resources/alicloud/alicloud_disks resource"
 parent = "inspec/resources/alicloud"
 +++
 
-Use the `alicloud_disks` InSpec audit resource to test properties of a collection of Alicloud EBS cloud disks.
+Use the `alicloud_disks` InSpec audit resource to test properties of a collection of Alibaba Cloud EBS cloud disks.
 
-Cloud disks are persistent block storage volumes for use with Alicloud ECS instances in the Alibaba Cloud.
+Cloud disks are persistent block storage volumes for use with Alibaba Cloud ECS instances in the Alibaba Cloud.
 
 ## Syntax
 
@@ -116,7 +116,7 @@ describe alicloud_ebs_volumes do
 end
 ```
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 {{% inspec-alicloud/alicloud_principal_action action="ecs:DescribeDisks" %}}
 

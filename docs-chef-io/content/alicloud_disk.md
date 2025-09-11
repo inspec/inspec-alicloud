@@ -1,16 +1,16 @@
 +++
-title = "alicloud_disk Resource"
+title = "alicloud_disk resource"
 platform = "alicloud"
 draft = false
 gh_repo = "inspec-alicloud"
 
 [menu.alicloud]
 title = "alicloud_disk"
-identifier = "inspec/resources/alicloud/alicloud_disk Resource"
+identifier = "inspec/resources/alicloud/alicloud_disk resource"
 parent = "inspec/resources/alicloud"
 +++
 
-Use the `alicloud_disk` InSpec audit resource to test properties of a single Alicloud Elastic Block Storage (EBS) cloud disk.
+Use the `alicloud_disk` InSpec audit resource to test properties of a single Alibaba Cloud Elastic Block Storage (EBS) cloud disk.
 
 ## Syntax
 
@@ -46,7 +46,7 @@ This resource accepts a single parameter, either the cloud disk ID or name. Only
   This must be passed as a `disk_name: 'value'` key-value entry in a hash, or a `name: 'value'` key-value entry in a hash.  
   (`name` is an alias for `disk_name`).
 
-See also the [Alicloud documentation on cloud disks](https://www.alibabacloud.com/help/doc-detail/25383.htm).
+See also the [Alibaba Cloud documentation on cloud disks](https://www.alibabacloud.com/help/doc-detail/25383.htm).
 
 ## Properties
 
@@ -136,7 +136,7 @@ The `be_encrypted` matcher tests if the described cloud disk is encrypted.
 it { should be_encrypted }
 ```
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 {{% inspec-alicloud/alicloud_principal_action action="ecs:DescribeDisks" %}}
 

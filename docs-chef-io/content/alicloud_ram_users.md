@@ -1,16 +1,16 @@
 +++
-title = "alicloud_ram_users Resource"
+title = "alicloud_ram_users resource"
 platform = "alicloud"
 draft = false
 gh_repo = "inspec-alicloud"
 
 [menu.alicloud]
 title = "alicloud_ram_users"
-identifier = "inspec/resources/alicloud/alicloud_ram_users Resource"
+identifier = "inspec/resources/alicloud/alicloud_ram_users resource"
 parent = "inspec/resources/alicloud"
 +++
 
-Use the `alicloud_ram_users` InSpec audit resource to test properties of some or all Alicloud RAM users.
+Use the `alicloud_ram_users` InSpec audit resource to test properties of some or all Alibaba Cloud RAM users.
 
 ## Syntax
 
@@ -134,7 +134,7 @@ describe alicloud_ram_users.where( <property>: <value>) do
 end
 ```
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 Your Principal will need the following permissions action with Effect set to Allow: `ram:Listusers`, `ram:GetLoginProfile`, `ram:ListAccessKeys`, `ram:GetUserMFAInfo`
 

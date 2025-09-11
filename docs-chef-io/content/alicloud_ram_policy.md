@@ -1,16 +1,16 @@
 +++
-title = "alicloud_ram_policy Resource"
+title = "alicloud_ram_policy resource"
 platform = "alicloud"
 draft = false
 gh_repo = "inspec-alicloud"
 
 [menu.alicloud]
 title = "alicloud_ram_policy"
-identifier = "inspec/resources/alicloud/alicloud_ram_policy Resource"
+identifier = "inspec/resources/alicloud/alicloud_ram_policy resource"
 parent = "inspec/resources/alicloud"
 +++
 
-Use the `alicloud_ram_policy` InSpec audit resource to test properties of a single managed Alicloud RAM Policy.
+Use the `alicloud_ram_policy` InSpec audit resource to test properties of a single managed Alibaba Cloud RAM Policy.
 
 ## Syntax
 
@@ -40,11 +40,11 @@ This resource requires the `policy_name` to be provided.
 
 `region` _(optional)_
 
-: The Alicloud Region ID - see the [Alicloud documentation on Regions and Zones](https://www.alibabacloud.com/help/doc-detail/40654.htm).  
+: The Alibaba Cloud Region ID - see the [Alibaba Cloud documentation on Regions and Zones](https://www.alibabacloud.com/help/doc-detail/40654.htm).  
   If provided, it must be passed as `region: 'value'`.  
   If not provided, the `ALICLOUD_REGION` environment variable will be used.
 
-See also the [Alicloud documentation on RAM Policy](https://partners-intl.aliyun.com/help/doc-detail/93732.htm).
+See also the [Alibaba Cloud documentation on RAM Policy](https://partners-intl.aliyun.com/help/doc-detail/93732.htm).
 
 ## Properties
 
@@ -216,11 +216,11 @@ end
 
 #### have_statement
 
-Examines the list of statements contained in the policy and passes if at least one of the statements matches. This matcher does _not_ interpret the policy in a request authorization context, as Alicloud does when a request processed. Rather, `have_statement` examines the literal contents of the RAM policy, and reports on what is present (or absent, when used with `should_not`).
+Examines the list of statements contained in the policy and passes if at least one of the statements matches. This matcher does _not_ interpret the policy in a request authorization context, as Alibaba Cloud does when a request processed. Rather, `have_statement` examines the literal contents of the RAM policy, and reports on what is present (or absent, when used with `should_not`).
 
 `have_statement` accepts the following criteria to search for matching statements. If any statement matches all the criteria, the test is successful.  All keys in criteria may be used as Titlecase or lowercase, string or symbol. Values must be in the expected case.
 
-* `Action` - Expresses the requested operation. Acceptable literal values are any Alicloud operation name, including the '*' wildcard character. `Action` may also use a list of Alicloud operation names.
+* `Action` - Expresses the requested operation. Acceptable literal values are any Alibaba Cloud operation name, including the '*' wildcard character. `Action` may also use a list of Alibaba Cloud operation names.
 * `Effect` - Expresses if the operation is permitted. Acceptable values are 'Deny' and 'Allow'.
 * `Sid` - A user-provided string identifier for the statement.
 * `Resource` - Expresses the operation's target. Acceptable values are ARNs, including the '*' wildcard. `Resource` may also use a list of ARN values.
@@ -256,7 +256,7 @@ end
 ```ruby
 describe alicloud_ram_policy(policy_name: 'bob-is-a-packrat') do
   it { should have_statement(Effect: 'Allow',
-                             # Using the Alicloud wildcard - this must match exactly
+                             # Using the Alibaba Cloud wildcard - this must match exactly
                              Resource: 'acs:oss:::bobs-stuff*',
                              # Specify a list of actions - all must match, no others, order isn't important
                              Action: ['oss:PutObject', 'oss:GetObject', 'oss:DeleteObject'])}
@@ -293,7 +293,7 @@ it { should have_statement(Resource: /acs:oss.+:(sally|kim)/) }
     end
 ```
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 Your Principal will need the `ram:GetPolicy` and `ram:ListEntitiesForPolicy` actions with Effect set to Allow.
 

@@ -1,12 +1,12 @@
 +++
-title = "alicloud_apsaradb_rds_instance Resource"
+title = "alicloud_apsaradb_rds_instance resource"
 platform = "alicloud"
 draft = false
 gh_repo = "inspec-alicloud"
 
 [menu.alicloud]
 title = "alicloud_apsaradb_rds_instance"
-identifier = "inspec/resources/alicloud/alicloud_apsaradb_rds_instance Resource"
+identifier = "inspec/resources/alicloud/alicloud_apsaradb_rds_instance resource"
 parent = "inspec/resources/alicloud"
 +++
 
@@ -42,11 +42,11 @@ end
 
 `region` _(optional)_
 
-: The Alicloud Region ID - see the [Alicloud documentation on Regions and Zones](https://www.alibabacloud.com/help/doc-detail/40654.htm).
+: The Alibaba Cloud Region ID - see the [Alibaba Cloud documentation on Regions and Zones](https://www.alibabacloud.com/help/doc-detail/40654.htm).
   If provided, it must be passed as `region: 'value'`.
   If not provided, the `ALICLOUD_REGION` environment variable will be used.
 
-See also the [Alicloud documentation on ApsaraDB RDS](https://www.alibabacloud.com/help/doc-detail/26092.htm).
+See also the [Alibaba Cloud documentation on ApsaraDB RDS](https://www.alibabacloud.com/help/doc-detail/26092.htm).
 
 ## Properties
 
@@ -163,7 +163,7 @@ describe alicloud_apsaradb_rds_instance(db_instance_id: 'ANonExistentRDS') do
 end
 ```
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 Your Principal will need the `rds:DescribeDBInstanceAttribute` and `vpc:DescribeVpcs` actions with Effect set to Allow.
 

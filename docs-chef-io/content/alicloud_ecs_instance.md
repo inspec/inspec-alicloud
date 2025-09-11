@@ -1,20 +1,20 @@
 +++
-title = "alicloud_ecs_instance Resource"
+title = "alicloud_ecs_instance resource"
 platform = "alicloud"
 draft = false
 gh_repo = "inspec-alicloud"
 
 [menu.alicloud]
 title = "alicloud_ecs_instance"
-identifier = "inspec/resources/alicloud/alicloud_ecs_instance Resource"
+identifier = "inspec/resources/alicloud/alicloud_ecs_instance resource"
 parent = "inspec/resources/alicloud"
 +++
 
-Use the `alicloud_ecs_instance` InSpec audit resource to test properties of a single Alicloud ECS instance.
+Use the `alicloud_ecs_instance` InSpec audit resource to test properties of a single Alibaba Cloud ECS instance.
 
 ## Syntax
 
-An `alicloud_ecs_instance` resource block declares the tests for a single Alicloud ECS instance by instance id.
+An `alicloud_ecs_instance` resource block declares the tests for a single Alibaba Cloud ECS instance by instance id.
 
 ```ruby
 describe alicloud_ecs_instance('i-01a2349e94458a507') do
@@ -34,7 +34,7 @@ end
   end
   ```
 
-See also the [documentation on Alicloud ECS instances](https://www.alibabacloud.com/help/doc-detail/25374.htm?spm=a2c63.l28256.b99.60.36277453JrAX8s).
+See also the [documentation on Alibaba Cloud ECS instances](https://www.alibabacloud.com/help/doc-detail/25374.htm?spm=a2c63.l28256.b99.60.36277453JrAX8s).
 
 ## Properties
 
@@ -175,7 +175,7 @@ it { should exist }
 it { should_not exist }
 ```
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 Your Principal will need the `ecs:DescribeInstances`, `ecs:DescribeInstanceAttribute` and `ecs:DescribeInstanceRamRole` actions with Effect set to Allow.
 
