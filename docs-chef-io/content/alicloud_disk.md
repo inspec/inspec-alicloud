@@ -82,7 +82,7 @@ See also the [Alibaba Cloud documentation on cloud disks](https://www.alibabaclo
 
 ## Examples
 
-**Test that a cloud disk does not exist.**
+Test that a cloud disk does not exist:
 
 ```ruby
 describe alicloud_disk(disk_name: 'data_vol') do
@@ -90,7 +90,7 @@ describe alicloud_disk(disk_name: 'data_vol') do
 end
 ```
 
-**Test that a cloud disk is encrypted.**
+Test that a cloud disk is encrypted:
 
 ```ruby
 describe alicloud_disk(disk_name: 'secure_data_vol') do
@@ -98,7 +98,7 @@ describe alicloud_disk(disk_name: 'secure_data_vol') do
 end
 ```
 
-**Test that a cloud disk has the correct size.**
+Test that a cloud disk has the correct size:
 
 ```ruby
 describe alicloud_disk(name: 'data_vol') do

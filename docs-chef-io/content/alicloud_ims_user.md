@@ -14,7 +14,7 @@ Use the `alicloud_ims_user` InSpec audit resource to test properties of a single
 
 ## Syntax
 
-**Ensure an user exists**
+Ensure an user exists**
 
 ```ruby
 describe alicloud_ims_user("USER_PRINCIPAL_NAME") do
@@ -22,7 +22,7 @@ describe alicloud_ims_user("USER_PRINCIPAL_NAME") do
 end
 ```
 
-**You may also use hash syntax to pass the user principal name**
+You may also use hash syntax to pass the user principal name**
 
 ```ruby
 describe alicloud_ims_user(user_principal_name: "USER_PRINCIPAL_NAME") do
@@ -59,7 +59,7 @@ See also the [Alibaba Cloud documentation on cloud disks](https://www.alibabaclo
 
 ## Examples
 
-**Test that an user does not exist.**
+Test that an user does not exist:
 
 ```ruby
 describe alicloud_ims_user("USER_PRINCIPAL_NAME") do
@@ -67,7 +67,7 @@ describe alicloud_ims_user("USER_PRINCIPAL_NAME") do
 end
 ```
 
-**Test that an user is MFA bind.**
+Test that an user is MFA bind:
 
 ```ruby
 describe alicloud_ims_user("USER_PRINCIPAL_NAME") do
@@ -75,7 +75,7 @@ describe alicloud_ims_user("USER_PRINCIPAL_NAME") do
 end
 ```
 
-**Test that an user has an `ACTIVE` status.**
+Test that an user has an `ACTIVE` status:
 
 ```ruby
 describe alicloud_ims_user("USER_PRINCIPAL_NAME") do

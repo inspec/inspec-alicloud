@@ -67,7 +67,7 @@ See also the [Alibaba Cloud documentation on RAM Policy](https://partners-intl.a
 
 ## Examples
 
-**Ensure a policy exists.**
+Ensure a policy exists:
 
 ```ruby
 describe alicloud_ram_policies do
@@ -75,7 +75,7 @@ describe alicloud_ram_policies do
 end
 ```
 
-**Allow at most 100 RAM Policies on the account.**
+Allow at most 100 RAM Policies on the account:
 
 ```ruby
 describe alicloud_ram_policies do

@@ -83,7 +83,7 @@ See also the [Alibaba Cloud documentation on RAM Policy](https://partners-intl.a
 
 ## Examples
 
-**Test that a policy does exist.**
+Test that a policy does exist:
 
 ```ruby
 describe alicloud_ram_policy(policy_name: 'AliyunSupportFullAccess', type: 'System') do
@@ -91,7 +91,7 @@ describe alicloud_ram_policy(policy_name: 'AliyunSupportFullAccess', type: 'Syst
 end
 ```
 
-**Test that a policy is attached to at least one entity.**
+Test that a policy is attached to at least one entity:
 
 ```ruby
 describe alicloud_ram_policy(policy_name: 'AliyunSupportFullAccess') do
@@ -99,36 +99,36 @@ describe alicloud_ram_policy(policy_name: 'AliyunSupportFullAccess') do
 end
 ```
 
-**Examine the policy statements.**
+Examine the policy statements:
 
 ```ruby
 describe alicloud_ram_policy(policy_name: 'my-policy', type: 'Custom') do
-**Verify that there is at least one statement allowing access to OSS.**
+Verify that there is at least one statement allowing access to OSS:
 
   it { should have_statement(Action: 'oss:PutObject', Effect: 'allow') }
 ```
 
 ```ruby
-**have_statement does not expand wildcards. If you want to verify.**
-**they are absent, an explicit check is required.**
+have_statement does not expand wildcards. If you want to verify:
+they are absent, an explicit check is required:
 
 it { should_not have_statement(Action: 'oss:*') }
 ```
 
 ```ruby
-**You can also check NotAction.**
+You can also check NotAction:
 
 it { should_not have_statement(NotAction: 'ram:*') }
 ```
 
 ```ruby
-**Check number of statements in policy.**
+Check number of statements in policy:
 
 its('statement_count') { should be > 1 }
     end
 ```
 
-**Examine attached users, groups and roles.**
+Examine attached users, groups and roles:
 
 ```ruby
 describe alicloud_ram_policy(policy_name: 'my-policy') do

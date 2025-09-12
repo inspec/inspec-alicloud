@@ -56,7 +56,7 @@ This resource does not require any parameters.
 : The IDs of the images that the instances are running.
 
 `instance_types`
-: The instance types of the instances, e.g. 'ecs.g5.large'.
+: The instance types of the instances, for example 'ecs.g5.large'.
 
 `instance_type_families`
 : The instance families of the instances.
@@ -110,10 +110,10 @@ This resource does not require any parameters.
 : The bidding policies for the preemptible instances: 'NoSpot'/'SpotWithPriceLimit'/'SpotAsPriceGo'.
 
 `sale_cycles`
-: The billing cycles of the instances, e.g. 'month'.
+: The billing cycles of the instances, for example 'month'.
 
 `creation_times`
-: The time when the instance was created, e.g. '2020-12-10T04:04Z'.
+: The time when the instance was created, for example '2020-12-10T04:04Z'.
 
 `start_times`
 : The times when the instances were started.
@@ -165,7 +165,7 @@ This resource does not require any parameters.
 
 ## Examples
 
-**Ensure that you have less than 100 ECS instances.**
+Ensure that you have less than 100 ECS instances:
 
 ```ruby
 describe alicloud_ecs_instances do
@@ -173,7 +173,7 @@ describe alicloud_ecs_instances do
 end
 ```
 
-**Ensure that no instances have deletion protection turned off.**
+Ensure that no instances have deletion protection turned off:
 
 ```ruby
 describe alicloud_ecs_instances.where(deletion_protection: false) do
@@ -181,7 +181,7 @@ describe alicloud_ecs_instances.where(deletion_protection: false) do
 end
 ```
 
-**Ensure that instances have exactly one RAM role attached.**
+Ensure that instances have exactly one RAM role attached:
 
 ```ruby
 describe(alicloud_ecs_instances.where { ram_role.count != 1 }) do

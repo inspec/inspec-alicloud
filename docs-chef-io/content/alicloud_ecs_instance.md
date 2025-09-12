@@ -69,13 +69,13 @@ See also the [documentation on Alibaba Cloud ECS instances](https://www.alibabac
 : The internal IP address of the classic network-type instance.
 
 `expired_time`
-: The expiration time of the instance, e.g. '2020-12-10T04:04Z'.
+: The expiration time of the instance, for example '2020-12-10T04:04Z'.
 
 `image_id`
 : The ID of the image that the instance is running.
 
 `instance_type`
-: The instance type of the instance, e.g. 'ecs.g5.large'.
+: The instance type of the instance, for example 'ecs.g5.large'.
 
 `vlan_id`
 : The virtual local area network (VLAN) of the instance.
@@ -123,7 +123,7 @@ See also the [documentation on Alibaba Cloud ECS instances](https://www.alibabac
 : The serial number of the instance.
 
 `creation_time`
-: The time when the instance was created, e.g. '2020-12-10T04:04Z'.
+: The time when the instance was created, for example '2020-12-10T04:04Z'.
 
 `region_id`
 : The region ID of the instance.
@@ -139,7 +139,7 @@ See also the [documentation on Alibaba Cloud ECS instances](https://www.alibabac
 
 ## Examples
 
-**Test that an ECS instance is running, it is using the correct image ID, and its deletion protection is turned on.**
+Test that an ECS instance is running, it is using the correct image ID, and its deletion protection is turned on:
 
 ```ruby
 describe alicloud_ecs_instance('i-090c29e4f4c165b74') do
@@ -149,7 +149,7 @@ describe alicloud_ecs_instance('i-090c29e4f4c165b74') do
 end
 ```
 
-**Test that an ECS instance has exactly one RAM role attached.**
+Test that an ECS instance has exactly one RAM role attached:
 
 ```ruby
 describe alicloud_ecs_instance('i-090c29e4f4c165b74') do

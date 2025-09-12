@@ -72,17 +72,17 @@ This resource does not require any parameters.
 
 ## Examples
 
-**Ensure there are no RAM users who do not have MFA enabled.**
+Ensure there are no RAM users who do not have MFA enabled:
 
 ```ruby
 describe alicloud_ram_users.where(has_mfa_enabled: false) do
   it { should_not exist }
-**less readable test, but it gives better output.**
+less readable test, but it gives better output:
 
 end
 ```
 
-**Ensure there are no RAM users who have console access and do not have MFA enabled.**
+Ensure there are no RAM users who have console access and do not have MFA enabled:
 
 ```ruby
 alicloud_ram_users.where(has_console_access: true).user_names.each do |u|
@@ -92,7 +92,7 @@ alicloud_ram_users.where(has_console_access: true).user_names.each do |u|
 end
 ```
 
-**Ensure there are no RAM users with console access and one or more active access keys.**
+Ensure there are no RAM users with console access and one or more active access keys:
 
 ```ruby
 describe alicloud_ram_users.where(has_console_and_key_access: true) do

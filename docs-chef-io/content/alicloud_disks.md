@@ -65,7 +65,7 @@ This resource does not require any parameters.
 
 ## Examples
 
-**Ensure a specific cloud disk exists.**
+Ensure a specific cloud disk exists:
 
 ```ruby
 describe alicloud_disks do
@@ -73,7 +73,7 @@ describe alicloud_disks do
 end
 ```
 
-**Use the InSpec resource to request the IDs of all cloud disks, then test in-depth using `alicloud_disk` to ensure all volumes are encrypted, have a sensible size, and have snapshots enabled.**
+Use the InSpec resource to request the IDs of all cloud disks, then test in-depth using `alicloud_disk` to ensure all volumes are encrypted, have a sensible size, and have snapshots enabled:
 
 ```ruby
 alicloud_disks.ids.each do |disk_id|
@@ -85,7 +85,7 @@ alicloud_disks.ids.each do |disk_id|
 end
 ```
 
-**Another way to check that enable auto snapshot is turned on for all disks.**
+Another way to check that enable auto snapshot is turned on for all disks:
 
 ```ruby
 describe alicloud_disks.where(enable_auto_snapshot: false) do

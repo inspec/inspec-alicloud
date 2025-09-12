@@ -70,7 +70,7 @@ See also the [Alibaba Cloud documentation on RAM users](https://www.alibabacloud
 
 The following examples show how to use this InSpec audit resource.
 
-**Test that a RAM user does not exist.**
+Test that a RAM user does not exist:
 
 ```ruby
 describe alicloud_ram_user(user_name: 'invalid-user') do
@@ -78,7 +78,7 @@ describe alicloud_ram_user(user_name: 'invalid-user') do
 end
 ```
 
-**Ensure a RAM user has no active access keys.**
+Ensure a RAM user has no active access keys:
 
 ```ruby
 describe alicloud_ram_user('psmith') do
@@ -88,7 +88,7 @@ describe alicloud_ram_user('psmith') do
 end
 ```
 
-**Ensure a RAM user has 0 or 1 active access keys.**
+Ensure a RAM user has 0 or 1 active access keys:
 
 ```ruby
 describe alicloud_ram_user('psmith') do
@@ -96,7 +96,7 @@ describe alicloud_ram_user('psmith') do
 end
 ```
 
-**Ensure that a RAM user does not have both console access and active access key(s).**
+Ensure that a RAM user does not have both console access and active access key(s):
 
 ```ruby
 describe alicloud_ram_user('psmith') do
