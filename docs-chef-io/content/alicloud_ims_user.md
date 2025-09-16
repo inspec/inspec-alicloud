@@ -1,8 +1,8 @@
 +++
 title = "alicloud_ims_user resource"
-platform = "alicloud"
+
 draft = false
-gh_repo = "inspec-alicloud"
+
 
 [menu.alicloud]
 title = "alicloud_disk"

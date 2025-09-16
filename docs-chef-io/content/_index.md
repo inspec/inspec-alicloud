@@ -1,15 +1,20 @@
 +++
-title = "About Chef InSpec Alibaba Cloud resources"
-platform = "alicloud"
+title = "About the Chef InSpec Alibaba Cloud resource pack"
+
 draft = false
-gh_repo = "inspec-alicloud"
-linkTitle = "Alibaba Cloud resources"
-summary = "Chef InSpec resources for auditing Alibaba Cloud"
+
+linkTitle = "Alibaba Cloud resource pack"
+summary = "Chef InSpec resources for auditing Alibaba Cloud."
+
+[cascade]
+  [cascade.params]
+    platform = "alicloud"
 
 [menu.alicloud]
-title = "About resources"
-identifier = "inspec/resources/alicloud/about"
-parent = "inspec/resources/alicloud"
+  title = "About Alibaba Cloud resources"
+  identifier = "inspec/resources/alicloud/about"
+  parent = "inspec/resources/alicloud"
+  weight = 10
 +++
 
 Chef InSpec has resources for auditing Alibaba.

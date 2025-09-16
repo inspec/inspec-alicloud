@@ -1,8 +1,8 @@
 +++
 title = "alicloud_ecs_instance resource"
-platform = "alicloud"
+
 draft = false
-gh_repo = "inspec-alicloud"
+
 
 [menu.alicloud]
 title = "alicloud_ecs_instance"
@@ -28,11 +28,11 @@ end
 
 : The ID of the ECS instance. This can be passed either as a string or as an `instance_id: 'value'` key-value entry in a hash.
 
-: ```ruby
-  describe alicloud_ecs_instance(instance_id: 'i-01a2349e94458a507') do
-    it { should exist }
-  end
-  ```
+```ruby
+describe alicloud_ecs_instance(instance_id: 'i-01a2349e94458a507') do
+  it { should exist }
+end
+```
 
 See also the [documentation on Alibaba Cloud ECS instances](https://www.alibabacloud.com/help/doc-detail/25374.htm?spm=a2c63.l28256.b99.60.36277453JrAX8s).
 

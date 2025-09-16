@@ -1,8 +1,8 @@
 +++
 title = "alicloud_ecs_instances resource"
-platform = "alicloud"
+
 draft = false
-gh_repo = "inspec-alicloud"
+
 
 [menu.alicloud]
 title = "alicloud_ecs_instances"

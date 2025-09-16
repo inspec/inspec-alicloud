@@ -1,8 +1,8 @@
 +++
 title = "alicloud_ram_user resource"
-platform = "alicloud"
+
 draft = false
-gh_repo = "inspec-alicloud"
+
 
 [menu.alicloud]
 title = "alicloud_ram_user"

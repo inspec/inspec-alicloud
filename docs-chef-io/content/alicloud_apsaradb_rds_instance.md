@@ -1,8 +1,8 @@
 +++
 title = "alicloud_apsaradb_rds_instance resource"
-platform = "alicloud"
+
 draft = false
-gh_repo = "inspec-alicloud"
+
 
 [menu.alicloud]
 title = "alicloud_apsaradb_rds_instance"
