@@ -477,3 +477,6 @@ terraform destroy -force -var-file=inspec-alicloud.tfvars.json
 ...
 Destroy complete! Resources: 24 destroyed.
 ```
+
+# Copyright
+See [COPYRIGHT.md](./COPYRIGHT.md).
