@@ -1,18 +1,18 @@
 +++
-title = "alicloud_disks Resource"
-platform = "alicloud"
-draft = false
-gh_repo = "inspec-alicloud"
+title = "alicloud_disks resource"
 
-[menu.inspec]
+draft = false
+
+
+[menu.alicloud]
 title = "alicloud_disks"
-identifier = "inspec/resources/alicloud/alicloud_disks Resource"
+identifier = "inspec/resources/alicloud/alicloud_disks resource"
 parent = "inspec/resources/alicloud"
 +++
 
-Use the `alicloud_disks` InSpec audit resource to test properties of a collection of Alicloud EBS cloud disks.
+Use the `alicloud_disks` InSpec audit resource to test properties of a collection of Alibaba Cloud EBS cloud disks.
 
-Cloud disks are persistent block storage volumes for use with Alicloud ECS instances in the Alibaba Cloud.
+Cloud disks are persistent block storage volumes for use with Alibaba Cloud ECS instances in the Alibaba Cloud.
 
 ## Syntax
 
@@ -65,7 +65,7 @@ This resource does not require any parameters.
 
 ## Examples
 
-**Ensure a specific cloud disk exists.**
+Ensure a specific cloud disk exists:
 
 ```ruby
 describe alicloud_disks do
@@ -73,7 +73,7 @@ describe alicloud_disks do
 end
 ```
 
-**Use the InSpec resource to request the IDs of all cloud disks, then test in-depth using `alicloud_disk` to ensure all volumes are encrypted, have a sensible size, and have snapshots enabled.**
+Use the InSpec resource to request the IDs of all cloud disks, then test in-depth using `alicloud_disk` to ensure all volumes are encrypted, have a sensible size, and have snapshots enabled:
 
 ```ruby
 alicloud_disks.ids.each do |disk_id|
@@ -85,7 +85,7 @@ alicloud_disks.ids.each do |disk_id|
 end
 ```
 
-**Another way to check that enable auto snapshot is turned on for all disks.**
+Another way to check that enable auto snapshot is turned on for all disks:
 
 ```ruby
 describe alicloud_disks.where(enable_auto_snapshot: false) do
@@ -96,7 +96,7 @@ end
 
 ## Matchers
 
-{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+{{< readfile file="content/reusable/md/inspec_matchers_link.md" >}}
 
 ### exist
 
@@ -116,9 +116,9 @@ describe alicloud_ebs_volumes do
 end
 ```
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 {{% inspec-alicloud/alicloud_principal_action action="ecs:DescribeDisks" %}}
 
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_access_management_doc.md" >}}
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_authentication_ecs_api_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_access_management_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_authentication_ecs_api_doc.md" >}}

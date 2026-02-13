@@ -1,16 +1,16 @@
 +++
-title = "alicloud_ram_policies Resource"
-platform = "alicloud"
-draft = false
-gh_repo = "inspec-alicloud"
+title = "alicloud_ram_policies resource"
 
-[menu.inspec]
+draft = false
+
+
+[menu.alicloud]
 title = "alicloud_ram_policies"
-identifier = "inspec/resources/alicloud/alicloud_ram_policies Resource"
+identifier = "inspec/resources/alicloud/alicloud_ram_policies resource"
 parent = "inspec/resources/alicloud"
 +++
 
-Use the `alicloud_ram_policies` InSpec audit resource to test properties of a collection of Alicloud RAM Policies.
+Use the `alicloud_ram_policies` InSpec audit resource to test properties of a collection of Alibaba Cloud RAM Policies.
 
 ## Syntax
 
@@ -27,7 +27,7 @@ end
 `type` _(optional)_
 
 : This resource allows filtering by PolicyType.
-  To list only Alicloud managed policies, set `type` to `System`. To list only the customer managed policies in your Alicloud account, set `type` to `Custom`. If type is not supplied, both types of policies are returned.
+  To list only Alibaba Cloud managed policies, set `type` to `System`. To list only the customer managed policies in your Alibaba Cloud account, set `type` to `Custom`. If type is not supplied, both types of policies are returned.
 
 `only_attached` _(optional)_
 
@@ -36,11 +36,11 @@ end
 
 `region` _(optional)_
 
-: The Alicloud Region ID - see the [Alicloud documentation on Regions and Zones](https://www.alibabacloud.com/help/doc-detail/40654.htm).  
+: The Alibaba Cloud Region ID - see the [Alibaba Cloud documentation on Regions and Zones](https://www.alibabacloud.com/help/doc-detail/40654.htm).  
   If provided, it must be passed as `region: 'value'`.  
   If not provided, the `ALICLOUD_REGION` environment variable will be used.
 
-See also the [Alicloud documentation on RAM Policy](https://partners-intl.aliyun.com/help/doc-detail/93732.htm).
+See also the [Alibaba Cloud documentation on RAM Policy](https://partners-intl.aliyun.com/help/doc-detail/93732.htm).
 
 ## Properties
 
@@ -67,7 +67,7 @@ See also the [Alicloud documentation on RAM Policy](https://partners-intl.aliyun
 
 ## Examples
 
-**Ensure a policy exists.**
+Ensure a policy exists:
 
 ```ruby
 describe alicloud_ram_policies do
@@ -75,7 +75,7 @@ describe alicloud_ram_policies do
 end
 ```
 
-**Allow at most 100 RAM Policies on the account.**
+Allow at most 100 RAM Policies on the account:
 
 ```ruby
 describe alicloud_ram_policies do
@@ -105,9 +105,9 @@ describe alicloud_ram_policies.where( <property>: <value>) do
 end
 ```
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 Your Principal will need the `ram:ListPolicies` and `ram:ListEntitiesForPolicy` actions with Effect set to Allow.
 
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_access_management_doc.md" >}}
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_authentication_ram_api_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_access_management_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_authentication_ram_api_doc.md" >}}

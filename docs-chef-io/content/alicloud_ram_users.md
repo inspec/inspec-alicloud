@@ -1,17 +1,16 @@
 +++
-title = "alicloud_ram_users Resource"
-platform = "alicloud"
-draft = false
-gh_repo = "inspec-alicloud"
+title = "alicloud_ram_users resource"
 
-[menu.inspec]
+draft = false
+
+
+[menu.alicloud]
 title = "alicloud_ram_users"
-identifier = "inspec/resources/alicloud/alicloud_ram_users Resource"
+identifier = "inspec/resources/alicloud/alicloud_ram_users resource"
 parent = "inspec/resources/alicloud"
 +++
 
-Use the `alicloud_ram_users` InSpec audit resource to test properties of some or all Alicloud RAM users.
-
+Use the `alicloud_ram_users` InSpec audit resource to test properties of some or all Alibaba Cloud RAM users.
 
 ## Syntax
 
@@ -73,17 +72,17 @@ This resource does not require any parameters.
 
 ## Examples
 
-**Ensure there are no RAM users who do not have MFA enabled.**
+Ensure there are no RAM users who do not have MFA enabled:
 
 ```ruby
 describe alicloud_ram_users.where(has_mfa_enabled: false) do
   it { should_not exist }
-**less readable test, but it gives better output.**
+less readable test, but it gives better output:
 
 end
 ```
 
-**Ensure there are no RAM users who have console access and do not have MFA enabled.**
+Ensure there are no RAM users who have console access and do not have MFA enabled:
 
 ```ruby
 alicloud_ram_users.where(has_console_access: true).user_names.each do |u|
@@ -93,7 +92,7 @@ alicloud_ram_users.where(has_console_access: true).user_names.each do |u|
 end
 ```
 
-**Ensure there are no RAM users with console access and one or more active access keys.**
+Ensure there are no RAM users with console access and one or more active access keys:
 
 ```ruby
 describe alicloud_ram_users.where(has_console_and_key_access: true) do
@@ -135,9 +134,9 @@ describe alicloud_ram_users.where( <property>: <value>) do
 end
 ```
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 Your Principal will need the following permissions action with Effect set to Allow: `ram:Listusers`, `ram:GetLoginProfile`, `ram:ListAccessKeys`, `ram:GetUserMFAInfo`
 
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_access_management_doc.md" >}}
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_authentication_ram_api_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_access_management_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_authentication_ram_api_doc.md" >}}

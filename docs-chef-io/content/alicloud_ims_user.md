@@ -1,20 +1,20 @@
 +++
-title = "alicloud_ims_user Resource"
-platform = "alicloud"
-draft = false
-gh_repo = "inspec-alicloud"
+title = "alicloud_ims_user resource"
 
-[menu.inspec]
+draft = false
+
+
+[menu.alicloud]
 title = "alicloud_disk"
-identifier = "inspec/resources/alicloud/alicloud_ims_user Resource"
+identifier = "inspec/resources/alicloud/alicloud_ims_user resource"
 parent = "inspec/resources/alicloud"
 +++
 
-Use the `alicloud_ims_user` InSpec audit resource to test properties of a single AliCloud IAM User information.
+Use the `alicloud_ims_user` InSpec audit resource to test properties of a single Alibaba Cloud IAM User information.
 
 ## Syntax
 
-**Ensure an user exists**
+Ensure an user exists**
 
 ```ruby
 describe alicloud_ims_user("USER_PRINCIPAL_NAME") do
@@ -22,7 +22,7 @@ describe alicloud_ims_user("USER_PRINCIPAL_NAME") do
 end
 ```
 
-**You may also use hash syntax to pass the user principal name**
+You may also use hash syntax to pass the user principal name**
 
 ```ruby
 describe alicloud_ims_user(user_principal_name: "USER_PRINCIPAL_NAME") do
@@ -38,7 +38,7 @@ This resource accepts a single parameter, `user_principal_name`.
 
 : The user name of the IMS user.  
 
-See also the [Alicloud documentation on cloud disks](https://www.alibabacloud.com/help/doc-detail/25383.htm).
+See also the [Alibaba Cloud documentation on cloud disks](https://www.alibabacloud.com/help/doc-detail/25383.htm).
 
 ## Properties
 
@@ -59,7 +59,7 @@ See also the [Alicloud documentation on cloud disks](https://www.alibabacloud.co
 
 ## Examples
 
-**Test that an user does not exist.**
+Test that an user does not exist:
 
 ```ruby
 describe alicloud_ims_user("USER_PRINCIPAL_NAME") do
@@ -67,7 +67,7 @@ describe alicloud_ims_user("USER_PRINCIPAL_NAME") do
 end
 ```
 
-**Test that an user is MFA bind.**
+Test that an user is MFA bind:
 
 ```ruby
 describe alicloud_ims_user("USER_PRINCIPAL_NAME") do
@@ -75,7 +75,7 @@ describe alicloud_ims_user("USER_PRINCIPAL_NAME") do
 end
 ```
 
-**Test that an user has an `ACTIVE` status.**
+Test that an user has an `ACTIVE` status:
 
 ```ruby
 describe alicloud_ims_user("USER_PRINCIPAL_NAME") do
@@ -85,7 +85,7 @@ end
 
 ## Matchers
 
-{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+{{< readfile file="content/reusable/md/inspec_matchers_link.md" >}}
 
 ### exist
 
@@ -107,6 +107,6 @@ describe alicloud_ims_user("USER_PRINCIPAL_NAME") do
 end
 ```
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 {{% inspec-alicloud/alicloud_principal_action action="ims:GetLoginProfile" %}}

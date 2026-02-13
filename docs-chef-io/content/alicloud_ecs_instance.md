@@ -1,20 +1,20 @@
 +++
-title = "alicloud_ecs_instance Resource"
-platform = "alicloud"
-draft = false
-gh_repo = "inspec-alicloud"
+title = "alicloud_ecs_instance resource"
 
-[menu.inspec]
+draft = false
+
+
+[menu.alicloud]
 title = "alicloud_ecs_instance"
-identifier = "inspec/resources/alicloud/alicloud_ecs_instance Resource"
+identifier = "inspec/resources/alicloud/alicloud_ecs_instance resource"
 parent = "inspec/resources/alicloud"
 +++
 
-Use the `alicloud_ecs_instance` InSpec audit resource to test properties of a single Alicloud ECS instance.
+Use the `alicloud_ecs_instance` InSpec audit resource to test properties of a single Alibaba Cloud ECS instance.
 
 ## Syntax
 
-An `alicloud_ecs_instance` resource block declares the tests for a single Alicloud ECS instance by instance id.
+An `alicloud_ecs_instance` resource block declares the tests for a single Alibaba Cloud ECS instance by instance id.
 
 ```ruby
 describe alicloud_ecs_instance('i-01a2349e94458a507') do
@@ -28,13 +28,13 @@ end
 
 : The ID of the ECS instance. This can be passed either as a string or as an `instance_id: 'value'` key-value entry in a hash.
 
-: ```ruby
-  describe alicloud_ecs_instance(instance_id: 'i-01a2349e94458a507') do
-    it { should exist }
-  end
-  ```
+```ruby
+describe alicloud_ecs_instance(instance_id: 'i-01a2349e94458a507') do
+  it { should exist }
+end
+```
 
-See also the [documentation on Alicloud ECS instances](https://www.alibabacloud.com/help/doc-detail/25374.htm?spm=a2c63.l28256.b99.60.36277453JrAX8s).
+See also the [documentation on Alibaba Cloud ECS instances](https://www.alibabacloud.com/help/doc-detail/25374.htm?spm=a2c63.l28256.b99.60.36277453JrAX8s).
 
 ## Properties
 
@@ -69,13 +69,13 @@ See also the [documentation on Alicloud ECS instances](https://www.alibabacloud.
 : The internal IP address of the classic network-type instance.
 
 `expired_time`
-: The expiration time of the instance, e.g. '2020-12-10T04:04Z'.
+: The expiration time of the instance, for example '2020-12-10T04:04Z'.
 
 `image_id`
 : The ID of the image that the instance is running.
 
 `instance_type`
-: The instance type of the instance, e.g. 'ecs.g5.large'.
+: The instance type of the instance, for example 'ecs.g5.large'.
 
 `vlan_id`
 : The virtual local area network (VLAN) of the instance.
@@ -123,7 +123,7 @@ See also the [documentation on Alicloud ECS instances](https://www.alibabacloud.
 : The serial number of the instance.
 
 `creation_time`
-: The time when the instance was created, e.g. '2020-12-10T04:04Z'.
+: The time when the instance was created, for example '2020-12-10T04:04Z'.
 
 `region_id`
 : The region ID of the instance.
@@ -139,7 +139,7 @@ See also the [documentation on Alicloud ECS instances](https://www.alibabacloud.
 
 ## Examples
 
-**Test that an ECS instance is running, it is using the correct image ID, and its deletion protection is turned on.**
+Test that an ECS instance is running, it is using the correct image ID, and its deletion protection is turned on:
 
 ```ruby
 describe alicloud_ecs_instance('i-090c29e4f4c165b74') do
@@ -149,7 +149,7 @@ describe alicloud_ecs_instance('i-090c29e4f4c165b74') do
 end
 ```
 
-**Test that an ECS instance has exactly one RAM role attached.**
+Test that an ECS instance has exactly one RAM role attached:
 
 ```ruby
 describe alicloud_ecs_instance('i-090c29e4f4c165b74') do
@@ -159,7 +159,7 @@ end
 
 ## Matchers
 
-{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+{{< readfile file="content/reusable/md/inspec_matchers_link.md" >}}
 
 ### exist
 
@@ -175,9 +175,9 @@ it { should exist }
 it { should_not exist }
 ```
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 Your Principal will need the `ecs:DescribeInstances`, `ecs:DescribeInstanceAttribute` and `ecs:DescribeInstanceRamRole` actions with Effect set to Allow.
 
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_access_management_doc.md" >}}
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_authentication_ecs_api_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_access_management_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_authentication_ecs_api_doc.md" >}}

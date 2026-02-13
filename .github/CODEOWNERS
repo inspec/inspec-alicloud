@@ -1,3 +1,4 @@
 # Order is important. The last matching pattern has the most precedence.
 
-*             @chef-customers/emea-techcft
+*               @chef-customers/emea-techcft
+docs-chef-io/   @docs-team
