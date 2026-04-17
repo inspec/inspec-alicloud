@@ -1,7 +1,5 @@
 # InSpec for AliCloud
 
-* **[Project State](https://github.com/chef/chef-oss-practices/blob/master/repo-management/repo-states.md): Prototyping**
-
 This InSpec resource pack uses the AliCloud SDK v0.8.0 and provides the required resources to write tests for resources in AliCloud.
 
 ## Prerequisites
