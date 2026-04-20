@@ -1,20 +1,20 @@
 +++
-title = "alicloud_ecs_instances Resource"
-platform = "alicloud"
-draft = false
-gh_repo = "inspec-alicloud"
+title = "alicloud_ecs_instances resource"
 
-[menu.inspec]
+draft = false
+
+
+[menu.alicloud]
 title = "alicloud_ecs_instances"
-identifier = "inspec/resources/alicloud/alicloud_ecs_instances Resource"
+identifier = "inspec/resources/alicloud/alicloud_ecs_instances resource"
 parent = "inspec/resources/alicloud"
 +++
 
-Use the `alicloud_ecs_instances` InSpec audit resource to test properties of a collection of Alicloud ECS instances.
+Use the `alicloud_ecs_instances` InSpec audit resource to test properties of a collection of Alibaba Cloud ECS instances.
 
 ## Syntax
 
-An `alicloud_ecs_instances` resource block declares the tests a collection of Alicloud ECS instances.
+An `alicloud_ecs_instances` resource block declares the tests a collection of Alibaba Cloud ECS instances.
 
 ```ruby
 describe alicloud_ecs_instances
@@ -56,7 +56,7 @@ This resource does not require any parameters.
 : The IDs of the images that the instances are running.
 
 `instance_types`
-: The instance types of the instances, e.g. 'ecs.g5.large'.
+: The instance types of the instances, for example 'ecs.g5.large'.
 
 `instance_type_families`
 : The instance families of the instances.
@@ -110,10 +110,10 @@ This resource does not require any parameters.
 : The bidding policies for the preemptible instances: 'NoSpot'/'SpotWithPriceLimit'/'SpotAsPriceGo'.
 
 `sale_cycles`
-: The billing cycles of the instances, e.g. 'month'.
+: The billing cycles of the instances, for example 'month'.
 
 `creation_times`
-: The time when the instance was created, e.g. '2020-12-10T04:04Z'.
+: The time when the instance was created, for example '2020-12-10T04:04Z'.
 
 `start_times`
 : The times when the instances were started.
@@ -165,7 +165,7 @@ This resource does not require any parameters.
 
 ## Examples
 
-**Ensure that you have less than 100 ECS instances.**
+Ensure that you have less than 100 ECS instances:
 
 ```ruby
 describe alicloud_ecs_instances do
@@ -173,7 +173,7 @@ describe alicloud_ecs_instances do
 end
 ```
 
-**Ensure that no instances have deletion protection turned off.**
+Ensure that no instances have deletion protection turned off:
 
 ```ruby
 describe alicloud_ecs_instances.where(deletion_protection: false) do
@@ -181,7 +181,7 @@ describe alicloud_ecs_instances.where(deletion_protection: false) do
 end
 ```
 
-**Ensure that instances have exactly one RAM role attached.**
+Ensure that instances have exactly one RAM role attached:
 
 ```ruby
 describe(alicloud_ecs_instances.where { ram_role.count != 1 }) do
@@ -191,7 +191,7 @@ end
 
 ## Matchers
 
-{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+{{< readfile file="content/reusable/md/inspec_matchers_link.md" >}}
 
 ### exist
 
@@ -211,9 +211,9 @@ describe alicloud_ecs_instances do
 end
 ```
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 Your Principal will need the `ecs:DescribeInstances` and `ecs:DescribeInstanceRamRole` actions with Effect set to Allow.
 
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_access_management_doc.md" >}}
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_authentication_ecs_api_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_access_management_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_authentication_ecs_api_doc.md" >}}

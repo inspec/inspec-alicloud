@@ -1,20 +1,20 @@
 +++
-title = "alicloud_ram_user_mfa Resource"
-platform = "alicloud"
-draft = false
-gh_repo = "inspec-alicloud"
+title = "alicloud_ram_user_mfa resource"
 
-[menu.inspec]
+draft = false
+
+
+[menu.alicloud]
 title = "alicloud_ram_user_mfa"
-identifier = "inspec/resources/alicloud/alicloud_ram_user_mfa Resource"
+identifier = "inspec/resources/alicloud/alicloud_ram_user_mfa resource"
 parent = "inspec/resources/alicloud"
 +++
 
-Use the `alicloud_ram_user_mfa` InSpec audit resource to test properties of a single Alicloud RAM user's MFA settings.
+Use the `alicloud_ram_user_mfa` InSpec audit resource to test properties of a single Alibaba Cloud RAM user's MFA settings.
 
 ## Syntax
 
-An `alicloud_ram_user_mfa` resource block declares the tests for a single Alicloud RAM user's MFA settings by user name.
+An `alicloud_ram_user_mfa` resource block declares the tests for a single Alibaba Cloud RAM user's MFA settings by user name.
 
 ```ruby
 describe alicloud_ram_user_mfa(user_name: 'rpatel') do
@@ -29,7 +29,7 @@ end
 : This resource accepts a single parameter, the RAM user's username which uniquely identifies the user.  
   This can be passed either as a string or as a `user_name: 'value'` key-value entry in a hash.
 
-See also the [Alicloud documentation on RAM users](https://www.alibabacloud.com/help/doc-detail/122148.htm?spm=a2c63.p38356.b99.20.12456fb6z4r7Hz).
+See also the [Alibaba Cloud documentation on RAM users](https://www.alibabacloud.com/help/doc-detail/122148.htm?spm=a2c63.p38356.b99.20.12456fb6z4r7Hz).
 
 ## Properties
 
@@ -46,7 +46,7 @@ See also the [Alicloud documentation on RAM users](https://www.alibabacloud.com/
 
 The following example shows how to use this InSpec audit resource.
 
-**Test that a user has MFA configured.**
+Test that a user has MFA configured:
 
 ```ruby
 describe alicloud_ram_user_mfa(user_name: 'jakobp') do
@@ -58,7 +58,7 @@ end
 
 ## Matchers
 
-{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+{{< readfile file="content/reusable/md/inspec_matchers_link.md" >}}
 
 ### exist
 
@@ -74,9 +74,9 @@ Use `should_not` to test the entity should not exist.
 it { should_not exist }
 ```
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 {{% inspec-alicloud/alicloud_principal_action action="ram:GetUserMFAInfo" %}}
 
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_access_management_doc.md" >}}
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_authentication_ram_api_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_access_management_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_authentication_ram_api_doc.md" >}}

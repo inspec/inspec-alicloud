@@ -1,20 +1,20 @@
 +++
-title = "alicloud_ram_user Resource"
-platform = "alicloud"
-draft = false
-gh_repo = "inspec-alicloud"
+title = "alicloud_ram_user resource"
 
-[menu.inspec]
+draft = false
+
+
+[menu.alicloud]
 title = "alicloud_ram_user"
-identifier = "inspec/resources/alicloud/alicloud_ram_user Resource"
+identifier = "inspec/resources/alicloud/alicloud_ram_user resource"
 parent = "inspec/resources/alicloud"
 +++
 
-Use the `alicloud_ram_user` InSpec audit resource to test properties of a single Alicloud RAM user.
+Use the `alicloud_ram_user` InSpec audit resource to test properties of a single Alibaba Cloud RAM user.
 
 ## Syntax
 
-An `alicloud_ram_user` resource block declares the tests for a single Alicloud RAM user by user name.
+An `alicloud_ram_user` resource block declares the tests for a single Alibaba Cloud RAM user by user name.
 
 ```ruby
 describe alicloud_ram_user(user_name: 'psmith') do
@@ -29,7 +29,7 @@ end
 : This resource accepts a single parameter, the RAM user's user name which uniquely identifies the user.  
   This can be passed either as a string or as a `user_name: 'value'` key-value entry in a hash.
 
-See also the [Alicloud documentation on RAM users](https://www.alibabacloud.com/help/doc-detail/122148.htm?spm=a2c63.p38356.b99.20.12456fb6z4r7Hz).
+See also the [Alibaba Cloud documentation on RAM users](https://www.alibabacloud.com/help/doc-detail/122148.htm?spm=a2c63.p38356.b99.20.12456fb6z4r7Hz).
 
 ## Properties
 
@@ -70,7 +70,7 @@ See also the [Alicloud documentation on RAM users](https://www.alibabacloud.com/
 
 The following examples show how to use this InSpec audit resource.
 
-**Test that a RAM user does not exist.**
+Test that a RAM user does not exist:
 
 ```ruby
 describe alicloud_ram_user(user_name: 'invalid-user') do
@@ -78,7 +78,7 @@ describe alicloud_ram_user(user_name: 'invalid-user') do
 end
 ```
 
-**Ensure a RAM user has no active access keys.**
+Ensure a RAM user has no active access keys:
 
 ```ruby
 describe alicloud_ram_user('psmith') do
@@ -88,7 +88,7 @@ describe alicloud_ram_user('psmith') do
 end
 ```
 
-**Ensure a RAM user has 0 or 1 active access keys.**
+Ensure a RAM user has 0 or 1 active access keys:
 
 ```ruby
 describe alicloud_ram_user('psmith') do
@@ -96,7 +96,7 @@ describe alicloud_ram_user('psmith') do
 end
 ```
 
-**Ensure that a RAM user does not have both console access and active access key(s).**
+Ensure that a RAM user does not have both console access and active access key(s):
 
 ```ruby
 describe alicloud_ram_user('psmith') do
@@ -106,7 +106,7 @@ end
 
 ## Matchers
 
-{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+{{< readfile file="content/reusable/md/inspec_matchers_link.md" >}}
 
 ### exist
 
@@ -138,9 +138,9 @@ it { should have_active_access_key }
 
 This will check whether the requested user has a login profile for console access, as well as at least one active access key/secret key pair.
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 Your Principal will need the following permissions action with Effect set to Allow: `ram:Getuser`, `ram:GetLoginProfile`, `ram:ListAccessKeys`.
 
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_access_management_doc.md" >}}
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_authentication_ram_api_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_access_management_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_authentication_ram_api_doc.md" >}}

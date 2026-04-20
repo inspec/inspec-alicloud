@@ -1,16 +1,16 @@
 +++
-title = "alicloud_disk Resource"
-platform = "alicloud"
-draft = false
-gh_repo = "inspec-alicloud"
+title = "alicloud_disk resource"
 
-[menu.inspec]
+draft = false
+
+
+[menu.alicloud]
 title = "alicloud_disk"
-identifier = "inspec/resources/alicloud/alicloud_disk Resource"
+identifier = "inspec/resources/alicloud/alicloud_disk resource"
 parent = "inspec/resources/alicloud"
 +++
 
-Use the `alicloud_disk` InSpec audit resource to test properties of a single Alicloud Elastic Block Storage (EBS) cloud disk.
+Use the `alicloud_disk` InSpec audit resource to test properties of a single Alibaba Cloud Elastic Block Storage (EBS) cloud disk.
 
 ## Syntax
 
@@ -46,7 +46,7 @@ This resource accepts a single parameter, either the cloud disk ID or name. Only
   This must be passed as a `disk_name: 'value'` key-value entry in a hash, or a `name: 'value'` key-value entry in a hash.  
   (`name` is an alias for `disk_name`).
 
-See also the [Alicloud documentation on cloud disks](https://www.alibabacloud.com/help/doc-detail/25383.htm).
+See also the [Alibaba Cloud documentation on cloud disks](https://www.alibabacloud.com/help/doc-detail/25383.htm).
 
 ## Properties
 
@@ -82,7 +82,7 @@ See also the [Alicloud documentation on cloud disks](https://www.alibabacloud.co
 
 ## Examples
 
-**Test that a cloud disk does not exist.**
+Test that a cloud disk does not exist:
 
 ```ruby
 describe alicloud_disk(disk_name: 'data_vol') do
@@ -90,7 +90,7 @@ describe alicloud_disk(disk_name: 'data_vol') do
 end
 ```
 
-**Test that a cloud disk is encrypted.**
+Test that a cloud disk is encrypted:
 
 ```ruby
 describe alicloud_disk(disk_name: 'secure_data_vol') do
@@ -98,7 +98,7 @@ describe alicloud_disk(disk_name: 'secure_data_vol') do
 end
 ```
 
-**Test that a cloud disk has the correct size.**
+Test that a cloud disk has the correct size:
 
 ```ruby
 describe alicloud_disk(name: 'data_vol') do
@@ -108,7 +108,7 @@ end
 
 ## Matchers
 
-{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+{{< readfile file="content/reusable/md/inspec_matchers_link.md" >}}
 
 ### exist
 
@@ -136,9 +136,9 @@ The `be_encrypted` matcher tests if the described cloud disk is encrypted.
 it { should be_encrypted }
 ```
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 {{% inspec-alicloud/alicloud_principal_action action="ecs:DescribeDisks" %}}
 
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_access_management_doc.md" >}}
-{{< readfile file="content/inspec/resources/reusable/md/alibaba_authentication_ecs_api_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_access_management_doc.md" >}}
+{{< readfile file="content/reusable/md/alibaba_authentication_ecs_api_doc.md" >}}

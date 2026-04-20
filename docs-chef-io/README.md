@@ -1,7 +1,7 @@
 # Chef InSpec AliCloud Resource Documentation
 
 This is the home of the InSpec AliCloud resource documentation found on
-<https://docs.chef.io/inspec/resources/#alicloud>.
+<https://docs.chef.io/>.
 
 We use [Hugo](https://gohugo.io/) to incorporate documentation from this repository into `chef/chef-web-docs` and deploy it on <https://docs.chef.io>.
 

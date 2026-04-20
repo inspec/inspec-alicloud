@@ -1,12 +1,12 @@
 +++
-title = "alicloud_apsaradb_rds_instances Resource"
-platform = "alicloud"
-draft = false
-gh_repo = "inspec-alicloud"
+title = "alicloud_apsaradb_rds_instances resource"
 
-[menu.inspec]
+draft = false
+
+
+[menu.alicloud]
 title = "alicloud_apsaradb_rds_instances"
-identifier = "inspec/resources/alicloud/alicloud_apsaradb_rds_instances Resource"
+identifier = "inspec/resources/alicloud/alicloud_apsaradb_rds_instances resource"
 parent = "inspec/resources/alicloud"
 +++
 
@@ -55,19 +55,19 @@ This resource does not require any parameters.
 : Lists of read-only instances attached to instances returned that are primary instances.
 
 `engines`
-: The database engines the instances run, e.g. 'MySQL'.
+: The database engines the instances run, for example 'MySQL'.
 
 `engine_versions`
 : The versions of the database engine that the instances run.
 
 `statuses`
-: The status of the instances, e.g. 'Running'/'Rebooting' etc.
+: The status of the instances, for example 'Running'/'Rebooting' etc.
 
 `zone_ids`
 : The IDs of the zones to which the instances belong.
 
 `instance_classes`
-: The instance classes of the returned instances, e.g. 'mysql.n2.medium.1'.
+: The instance classes of the returned instances, for example 'mysql.n2.medium.1'.
 
 `create_times`
 : The times when the returned instances were created.
@@ -104,7 +104,7 @@ This resource does not require any parameters.
 
 ## Examples
 
-**Ensure a specific instance exists.**
+Ensure a specific instance exists:
 
 ```ruby
 describe alicloud_apsaradb_rds_instances do
@@ -112,7 +112,7 @@ describe alicloud_apsaradb_rds_instances do
 end
 ```
 
-**Use the InSpec resource to request the IDs of all ApsaraDB RDS instances, then test in-depth using `alicloud_apsaradb_rds_instance` to ensure all instances have the expected network security settings.**
+Use the InSpec resource to request the IDs of all ApsaraDB RDS instances, then test in-depth using `alicloud_apsaradb_rds_instance` to ensure all instances have the expected network security settings:
 
 ```ruby
 alicloud_apsaradb_rds_instances.db_instance_ids.each do |db_instance_id|
@@ -126,7 +126,7 @@ end
 
 ## Matchers
 
-{{< readfile file="content/inspec/reusable/md/inspec_matchers_link.md" >}}
+{{< readfile file="content/reusable/md/inspec_matchers_link.md" >}}
 
 ### exist
 
@@ -146,7 +146,7 @@ describe alicloud_apsaradb_rds_instances do
 end
 ```
 
-### Alicloud Permissions
+### Alibaba Cloud Permissions
 
 {{% inspec-alicloud/alicloud_principal_action action="rds:DescribeDBInstances" %}}
 
